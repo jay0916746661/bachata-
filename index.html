@@ -1,0 +1,1398 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bachata Studio | 完整教學平台</title>
+  <style>
+    :root {
+      --ink: #1f2228;
+      --muted: #65707d;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --line: #ded8ce;
+      --wine: #9e2f45;
+      --teal: #18736b;
+      --gold: #c98524;
+      --blue: #315c9f;
+      --shadow: 0 12px 36px rgba(31, 34, 40, .12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .shell {
+      min-height: 100vh;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      padding: 24px;
+      background:
+        linear-gradient(180deg, rgba(12, 13, 17, .18), rgba(12, 13, 17, .72)),
+        url("https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=1800&q=82") center 42% / cover;
+      color: #fff;
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 26px;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 10;
+      inset: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 24px;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(10, 11, 14, .68), rgba(10, 11, 14, 0));
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(255,255,255,.14);
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.12);
+    }
+
+    .hero h1 {
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(48px, 8vw, 116px);
+      line-height: .92;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      font-size: clamp(18px, 2.2vw, 25px);
+      margin: 0;
+      color: rgba(255,255,255,.88);
+    }
+
+    .hero-actions,
+    .filter-row,
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--ink);
+      background: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 750;
+    }
+
+    .btn.dark {
+      color: #fff;
+      background: var(--wine);
+    }
+
+    .btn.ghost {
+      color: #fff;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+
+    .band {
+      padding: 64px 24px;
+    }
+
+    .band.alt {
+      background: #f1eee8;
+    }
+
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 16px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 8px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 28px;
+    }
+
+    .stat span {
+      color: rgba(255,255,255,.8);
+      font-size: 14px;
+    }
+
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .move-layout {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .mind-map {
+      display: grid;
+      gap: 12px;
+    }
+
+    .map-node {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .map-node.main {
+      color: #fff;
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .map-node h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .map-node p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .map-node.main p {
+      color: rgba(255,255,255,.78);
+    }
+
+    .map-branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .priority-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .priority-list li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .rank {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--wine);
+      font-weight: 850;
+    }
+
+    .priority-list strong {
+      display: block;
+    }
+
+    .priority-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .move-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .move-table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+    }
+
+    .move-table th,
+    .move-table td {
+      padding: 13px 12px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .move-table th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8f5ef;
+      color: #3c4148;
+      font-size: 13px;
+    }
+
+    .move-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .move-table td:first-child {
+      font-weight: 820;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill.gold { background: var(--gold); }
+    .pill.blue { background: var(--blue); }
+    .pill.wine { background: var(--wine); }
+    .pill.dark { background: var(--ink); }
+
+    .path-card,
+    .video-card,
+    .practice-panel,
+    .source-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 1px 0 rgba(31,34,40,.03);
+    }
+
+    .path-card {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .path-card h3,
+    .source-card h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .path-card p,
+    .source-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .badge {
+      width: fit-content;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: var(--teal);
+    }
+
+    .badge.gold { background: var(--gold); }
+    .badge.blue { background: var(--blue); }
+    .badge.wine { background: var(--wine); }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 7;
+      padding: 14px 0;
+      margin-bottom: 20px;
+      background: rgba(251,250,247,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(222,216,206,.75);
+    }
+
+    .search {
+      flex: 1 1 260px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 44px;
+      padding: 0 12px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .select {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      min-height: 44px;
+      padding: 0 10px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #292d32;
+      overflow: hidden;
+    }
+
+    .thumb img,
+    .thumb iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: 0;
+      display: block;
+    }
+
+    .play {
+      position: absolute;
+      inset: auto 12px 12px auto;
+      width: 46px;
+      height: 46px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.94);
+      color: var(--wine);
+      font-size: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .video-body {
+      padding: 15px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .video-body h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.18;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      padding: 4px 7px;
+      border-radius: 6px;
+      background: #f1eee8;
+      color: #4d5661;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .video-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .small-btn {
+      min-height: 38px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 750;
+    }
+
+    .small-btn.saved {
+      color: #fff;
+      border-color: var(--wine);
+      background: var(--wine);
+    }
+
+    .practice-layout {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .practice-panel {
+      padding: 18px;
+    }
+
+    .week-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .week-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+    }
+
+    .week-item input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--teal);
+    }
+
+    .week-item strong {
+      display: block;
+    }
+
+    .week-item span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .progress {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e4ded5;
+      margin: 10px 0 18px;
+    }
+
+    .progress > div {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      transition: width .2s ease;
+    }
+
+    .drill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .drill {
+      border-left: 4px solid var(--wine);
+      padding: 10px 10px 10px 12px;
+      background: #f8f5ef;
+      border-radius: 6px;
+    }
+
+    .drill strong {
+      display: block;
+    }
+
+    .drill span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .source-card {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .empty {
+      padding: 26px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      text-align: center;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    footer {
+      padding: 30px 24px;
+      color: #fff;
+      background: #1f2228;
+    }
+
+    footer .section-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: #fff;
+    }
+
+    @media (max-width: 920px) {
+      .path-grid,
+      .video-grid,
+      .sources-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .practice-layout,
+      .move-layout,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        position: absolute;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        max-width: 210px;
+      }
+
+      .hero {
+        min-height: 94vh;
+        padding: 88px 18px 22px;
+      }
+
+      .band {
+        padding: 48px 18px;
+      }
+
+      .path-grid,
+      .video-grid,
+      .sources-grid,
+      .map-branches,
+      .drill-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="nav" aria-label="主要導覽">
+      <div class="brand"><span class="brand-mark">B</span> Bachata Studio</div>
+      <div class="nav-links">
+        <a href="#path">課綱</a>
+        <a href="#moves">招數表</a>
+        <a href="#library">影片庫</a>
+        <a href="#practice">練習</a>
+        <a href="#sources">來源</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>Bachata Studio</h1>
+          <p class="hero-copy">一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。</p>
+        </div>
+        <div class="hero-actions">
+          <a class="btn dark" href="#library">開始看影片</a>
+          <a class="btn ghost" href="#practice">今天練什麼</a>
+        </div>
+        <div class="stats" aria-label="平台摘要">
+          <div class="stat"><strong>8</strong><span>週完整路線</span></div>
+          <div class="stat"><strong>18</strong><span>精選影片與搜尋入口</span></div>
+          <div class="stat"><strong>16</strong><span>招數使用情境</span></div>
+          <div class="stat"><strong>0</strong><span>需要安裝的套件</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="band alt" id="path">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>完整學習路線</h2>
+            <p>先把基本步與節拍練到穩，再加轉圈、partnerwork、Dominican 腳步、Sensual 身體控制與 musicality。這個順序比較像真的能跳出去，而不是只背動作。</p>
+          </div>
+          <div class="path-grid">
+            <article class="path-card">
+              <span class="badge">Level 1</span>
+              <h3>節拍與基本步</h3>
+              <p>1-8 拍、側向 basic、forward/back、box step、right turn。目標是不用想也能踩準。</p>
+            </article>
+            <article class="path-card">
+              <span class="badge gold">Level 2</span>
+              <h3>連接與帶跟</h3>
+              <p>open hold、closed hold、inside/outside turns、簡單手位變化，練「舒服」比練花更重要。</p>
+            </article>
+            <article class="path-card">
+              <span class="badge blue">Level 3</span>
+              <h3>腳步與風格</h3>
+              <p>Dominican footwork、syncopation、cha-cha timing、solo shines，讓腳下有音樂感。</p>
+            </article>
+            <article class="path-card">
+              <span class="badge wine">Level 4</span>
+              <h3>Sensual 與表達</h3>
+              <p>body roll、wave、isolation、musicality、styling，全部建立在清楚安全的 lead/follow 上。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="moves">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>招數表與心智圖</h2>
+            <p>先用「能穩定跳完整首歌」當目標，不要先追很花的招。下面把 Bachata 招數分成技能樹與舞池實用表：知道什麼時候用、什麼時候不要用，會比單純背招更快進步。</p>
+          </div>
+          <div class="move-layout">
+            <section class="mind-map" aria-label="Bachata 學習心智圖">
+              <article class="map-node main">
+                <h3>核心：Basic + Timing + Connection</h3>
+                <p>任何招數都回到三件事：踩準、重心清楚、對方覺得舒服。</p>
+              </article>
+              <div class="map-branches">
+                <article class="map-node">
+                  <h3>入門枝幹</h3>
+                  <p>Side basic → forward/back → right turn → open/closed hold。</p>
+                </article>
+                <article class="map-node">
+                  <h3>社交枝幹</h3>
+                  <p>Cross body lead → inside/outside turn → hand change → simple combo。</p>
+                </article>
+                <article class="map-node">
+                  <h3>音樂枝幹</h3>
+                  <p>停拍、慢歌 basic、intro、break、cha-cha syncopation。</p>
+                </article>
+                <article class="map-node">
+                  <h3>Sensual 枝幹</h3>
+                  <p>Isolation → body wave → body roll → head roll，只在連接安全後練。</p>
+                </article>
+              </div>
+              <ol class="priority-list">
+                <li><span class="rank">1</span><div><strong>先練 Basic 到不飄</strong><span>一首歌 80% 都能跳 basic，不搶拍、不踩太大。</span></div></li>
+                <li><span class="rank">2</span><div><strong>再練轉圈與手位</strong><span>Right turn、inside turn、outside turn 是最多組合的地基。</span></div></li>
+                <li><span class="rank">3</span><div><strong>接 partnerwork 組合</strong><span>只練 3-5 個高成功率組合，先能在社交舞池乾淨完成。</span></div></li>
+                <li><span class="rank">4</span><div><strong>加入腳步與音樂性</strong><span>用 Dominican footwork 和停拍讓舞變有層次，但不要蓋掉連接。</span></div></li>
+                <li><span class="rank">5</span><div><strong>最後加 Sensual 與 styling</strong><span>身體波浪、head roll、dip 都要在雙方同意與控制足夠時才用。</span></div></li>
+              </ol>
+            </section>
+
+            <section class="move-table-wrap" aria-label="Bachata 招數使用情境表">
+              <table class="move-table">
+                <thead>
+                  <tr>
+                    <th>招數 / 技能</th>
+                    <th>優先</th>
+                    <th>最實用時機</th>
+                    <th>先備能力</th>
+                    <th>不要用在</th>
+                    <th>對應影片分類</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Side Basic / 原地 Basic</td>
+                    <td><span class="pill">必學 1</span></td>
+                    <td>任何歌曲開頭、找回節拍、舞池很擠、跟新舞伴暖身。</td>
+                    <td>1-8 拍、重心左右轉移、步伐小。</td>
+                    <td>想炫招但節拍不穩時。</td>
+                    <td>基本步、音樂性</td>
+                  </tr>
+                  <tr>
+                    <td>Forward / Back Basic</td>
+                    <td><span class="pill">必學 2</span></td>
+                    <td>換方向、拉開距離、從側向 basic 變化出流動感。</td>
+                    <td>不後仰、不拉手，用身體方向暗示。</td>
+                    <td>後方有人或舞池太擠。</td>
+                    <td>基本步</td>
+                  </tr>
+                  <tr>
+                    <td>Right Turn / 左右單人轉</td>
+                    <td><span class="pill">必學 3</span></td>
+                    <td>歌曲換句、8 拍結尾、需要簡單變化但不破壞連接。</td>
+                    <td>軸心、spotting、手不壓頭。</td>
+                    <td>對方重心不穩或鞋底太黏。</td>
+                    <td>基本步、雙人</td>
+                  </tr>
+                  <tr>
+                    <td>Open Hold / Closed Hold</td>
+                    <td><span class="pill">必學 4</span></td>
+                    <td>剛邀舞、確認距離、切換 modern 與 sensual 前。</td>
+                    <td>手臂有彈性、肩膀放鬆、尊重距離。</td>
+                    <td>對方明顯不想 close position。</td>
+                    <td>雙人</td>
+                  </tr>
+                  <tr>
+                    <td>Inside / Outside Turn</td>
+                    <td><span class="pill gold">高頻</span></td>
+                    <td>社交舞池最常見轉圈，適合銜接 hand change、cross body。</td>
+                    <td>leader 提早準備手位，follower 完成自己軸心。</td>
+                    <td>音樂很慢但你硬轉很快。</td>
+                    <td>雙人、基本步</td>
+                  </tr>
+                  <tr>
+                    <td>Cross Body Lead</td>
+                    <td><span class="pill gold">高頻</span></td>
+                    <td>換位、清出路線、接雙手組合或 cuddle/shadow 前。</td>
+                    <td>leader 讓出路線，不用手把人拖過去。</td>
+                    <td>旁邊空間不足或跟舞伴還沒建立信任。</td>
+                    <td>雙人</td>
+                  </tr>
+                  <tr>
+                    <td>Hand Change / Hammerlock</td>
+                    <td><span class="pill gold">高頻</span></td>
+                    <td>讓簡單 turn 變成組合，適合副歌前後做變化。</td>
+                    <td>知道左右手路徑，手腕不扭、不卡肩。</td>
+                    <td>對方手臂緊繃或肩膀活動度不足。</td>
+                    <td>雙人</td>
+                  </tr>
+                  <tr>
+                    <td>Dominican Footwork</td>
+                    <td><span class="pill blue">中階</span></td>
+                    <td>節奏清楚、吉他或打擊明顯、solo break 或分開跳時。</td>
+                    <td>basic 很穩、腳步小、能聽到 1 和 5。</td>
+                    <td>跟舞伴連接不穩時硬塞快腳。</td>
+                    <td>腳步、音樂性</td>
+                  </tr>
+                  <tr>
+                    <td>Cha-cha / Syncopation</td>
+                    <td><span class="pill blue">中階</span></td>
+                    <td>音樂有明顯切分、想把 basic 做得更活。</td>
+                    <td>能在加速腳步後回到 1 拍。</td>
+                    <td>初學者舞伴還在找拍子時。</td>
+                    <td>腳步、音樂性</td>
+                  </tr>
+                  <tr>
+                    <td>Body Isolation</td>
+                    <td><span class="pill blue">中階</span></td>
+                    <td>慢歌、close position、準備進 body wave / roll 前。</td>
+                    <td>肩、胸、髖可分開控制，核心穩。</td>
+                    <td>用腰硬折或讓對方承重。</td>
+                    <td>Sensual、Styling</td>
+                  </tr>
+                  <tr>
+                    <td>Body Wave / Body Roll</td>
+                    <td><span class="pill wine">進階</span></td>
+                    <td>慢速旋律、明顯延展音、雙方 close connection 已清楚。</td>
+                    <td>isolation、呼吸、上下身分離。</td>
+                    <td>快歌、擁擠舞池、對方不熟 sensual。</td>
+                    <td>Sensual</td>
+                  </tr>
+                  <tr>
+                    <td>Head Roll</td>
+                    <td><span class="pill wine">謹慎</span></td>
+                    <td>只在 workshop 或熟悉舞伴中，且 follower 主動控制頸部。</td>
+                    <td>身體波浪、頸部安全、清楚 cue。</td>
+                    <td>陌生舞伴、酒後、頸部不舒服、舞池擁擠。</td>
+                    <td>Sensual</td>
+                  </tr>
+                  <tr>
+                    <td>Dip / Lean</td>
+                    <td><span class="pill wine">謹慎</span></td>
+                    <td>歌曲結尾、表演感段落、雙方有練過且空間足夠。</td>
+                    <td>leader 支撐不是拉扯，follower 自己站穩。</td>
+                    <td>社交舞池亂用、對方沒準備、背後有人。</td>
+                    <td>雙人、Sensual</td>
+                  </tr>
+                  <tr>
+                    <td>Musical Pause / Break</td>
+                    <td><span class="pill dark">加分</span></td>
+                    <td>歌曲停頓、歌手拉長音、鼓點斷開時。</td>
+                    <td>聽歌結構，能停住但不失去 frame。</td>
+                    <td>為了停而停，導致下一拍回不來。</td>
+                    <td>音樂性</td>
+                  </tr>
+                  <tr>
+                    <td>Arm / Ladies / Men Styling</td>
+                    <td><span class="pill dark">加分</span></td>
+                    <td>solo、轉圈後、basic 裡填空，讓線條更完整。</td>
+                    <td>不影響 frame、不打到旁人、動作跟音樂。</td>
+                    <td>手臂太大、舞池太擠、為裝飾犧牲連接。</td>
+                    <td>Styling、腳步</td>
+                  </tr>
+                  <tr>
+                    <td>Shadow / Cuddle Position</td>
+                    <td><span class="pill blue">中階</span></td>
+                    <td>想做流動組合、body movement、或換方向時。</td>
+                    <td>手位路徑清楚，距離舒服，exit 方式已熟。</td>
+                    <td>不知道怎麼出來時先不要進去。</td>
+                    <td>雙人、Sensual</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="library">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>影片資料庫</h2>
+            <p>包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。</p>
+          </div>
+          <div class="toolbar">
+            <div class="filter-row">
+              <input class="search" id="search" type="search" placeholder="搜尋：basic、turn、sensual、Dominican、styling...">
+              <select class="select" id="level">
+                <option value="all">全部程度</option>
+                <option value="beginner">入門</option>
+                <option value="intermediate">中階</option>
+                <option value="advanced">進階</option>
+              </select>
+              <select class="select" id="topic">
+                <option value="all">全部主題</option>
+                <option value="basic">基本步</option>
+                <option value="footwork">腳步</option>
+                <option value="partnerwork">雙人</option>
+                <option value="sensual">Sensual</option>
+                <option value="musicality">音樂性</option>
+                <option value="styling">Styling</option>
+              </select>
+              <button class="small-btn" id="savedOnly" type="button">只看收藏</button>
+            </div>
+          </div>
+          <div class="video-grid" id="videoGrid"></div>
+          <div class="empty" id="emptyState" hidden>找不到符合條件的影片。換個關鍵字或清掉篩選試試。</div>
+        </div>
+      </section>
+
+      <section class="band alt" id="practice">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>8 週練習計畫</h2>
+            <p>每週 3 次，每次 25-45 分鐘。每次練習都要有一段「無影片跟跳」時間，確認身體真的記住了。</p>
+          </div>
+          <div class="practice-layout">
+            <section class="practice-panel">
+              <h3>進度</h3>
+              <div class="progress" aria-label="完成進度"><div id="progressBar"></div></div>
+              <div class="week-list" id="weekList"></div>
+            </section>
+            <section class="practice-panel">
+              <h3>今天的 30 分鐘</h3>
+              <div class="drill-grid">
+                <div class="drill"><strong>5 分鐘</strong><span>只踩 basic，開節拍器或慢歌，嘴巴數 1-8。</span></div>
+                <div class="drill"><strong>8 分鐘</strong><span>練一個 footwork 或 turn，不追速度，追重量轉移。</span></div>
+                <div class="drill"><strong>10 分鐘</strong><span>跟影片練 partnerwork 或 body movement，拍自己看一次。</span></div>
+                <div class="drill"><strong>7 分鐘</strong><span>放一首完整歌，把今天素材只用 2-3 次，其他時間跳基本。</span></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="sources">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>來源與延伸</h2>
+            <p>這裡放的是查到的主要來源。免費 YouTube 影片適合入門與複習；如果要系統性細節，可以再考慮付費課或現場課。</p>
+          </div>
+          <div class="sources-grid" id="sourcesGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="section-inner">
+        <span>Bachata Studio local platform</span>
+        <span>影片版權屬原作者，平台僅整理嵌入與連結。</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const videos = [
+      {
+        id: "xhrdh-uFkog",
+        title: "Bachata Beginner Basic Steps Tutorial",
+        creator: "Demetrio & Nicole / Bachata Dance Academy",
+        level: "beginner",
+        topics: ["basic", "partnerwork"],
+        style: "modern",
+        note: "最適合第一支影片：basic steps、turns、無舞伴也能練。",
+        source: "https://www.bachatadanceacademyonline.com/blog/bachatabasics"
+      },
+      {
+        id: "TJGfUGUoZe0",
+        title: "6 Bachata Basic Steps",
+        creator: "iASO Records / Adam Taub",
+        level: "beginner",
+        topics: ["basic", "footwork"],
+        style: "traditional",
+        note: "比較不同基本步：forward/back、box、diagonal box、triple step。",
+        source: "https://www.iasorecords.com/dance/bachata-basic-steps"
+      },
+      {
+        id: "RtbQt2ct-Nw",
+        title: "Beginner Bachata Footwork Tutorial",
+        creator: "Roberto & Magdalena Bachata",
+        level: "beginner",
+        topics: ["footwork", "basic"],
+        style: "modern",
+        note: "入門腳步變化，適合練 solo shines 與節奏穩定。",
+        source: "https://glasp.co/youtube/RtbQt2ct-Nw"
+      },
+      {
+        id: "h2Mi_BeQvWM",
+        title: "Bachata Sensual Medium Level 01",
+        creator: "CaptainSalsa & Liana",
+        level: "intermediate",
+        topics: ["sensual", "partnerwork"],
+        style: "sensual",
+        note: "中階 sensual 組合，適合在基本連接穩定後使用。",
+        source: "https://glasp.co/youtube/h2Mi_BeQvWM"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+Dance+Academy+Dominican+Bachata+Footwork+Partnerwork",
+        title: "Dominican Bachata Footwork & Partnerwork",
+        creator: "Bachata Dance Academy",
+        level: "intermediate",
+        topics: ["footwork", "partnerwork"],
+        style: "dominican",
+        note: "用來接 Dominican/traditional 腳步與雙人變化。",
+        source: "https://www.danceus.org/video/dominican-bachata-footwork-partnerwork-demetrio-nicole-bachata-dance-academy/"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=The+3+Different+Types+Of+Bachata+Styles+Dominican+Urban+Sensual+Bachata+Dance+Academy",
+        title: "3 Types of Bachata: Dominican, Urban, Sensual",
+        creator: "Bachata Dance Academy",
+        level: "beginner",
+        topics: ["basic", "musicality"],
+        style: "overview",
+        note: "建立風格地圖，知道自己正在練哪一種 Bachata。",
+        source: "https://www.danceus.org/video/the-different-types-of-bachata-styles-dominican-urban-sensual-bachata-examples/"
+      },
+      {
+        search: "https://www.youtube.com/@BachataDanceAcademy/playlists",
+        title: "Bachata Dance Academy Playlists",
+        creator: "Bachata Dance Academy",
+        level: "beginner",
+        topics: ["basic", "partnerwork", "musicality"],
+        style: "course",
+        note: "適合當主教材頻道，從基本步、partnerwork 到 musicality 都有。",
+        source: "https://www.youtube.com/@BachataDanceAcademy/playlists"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=La+Suerte+Dance+School+Beginners+Bachata+Steps+Course",
+        title: "Beginners Bachata Steps Course",
+        creator: "La Suerte Dance School",
+        level: "beginner",
+        topics: ["basic", "footwork"],
+        style: "solo",
+        note: "Reddit 社群常推薦的 solo 基本步課程搜尋入口。",
+        source: "https://www.reddit.com/r/Bachata/comments/1o64k0w/can_anyone_link_me_to_advanced_breakdown_of_basic_step/"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Marius+Elena+Bachata+tutorial+beginner+partnerwork",
+        title: "Beginner Partnerwork Tutorials",
+        creator: "Marius & Elena",
+        level: "intermediate",
+        topics: ["partnerwork", "sensual"],
+        style: "sensual",
+        note: "找初中階雙人組合、手位與流動感。",
+        source: "https://www.youtube.com/results?search_query=Marius+Elena+Bachata+tutorial+beginner+partnerwork"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Daniel+y+Desiree+Bachata+tutorial+sensual",
+        title: "Sensual Bachata Technique",
+        creator: "Daniel y Desiree",
+        level: "advanced",
+        topics: ["sensual", "musicality"],
+        style: "sensual",
+        note: "進階觀摩與技巧參考，先看身體質感，不急著照抄難招。",
+        source: "https://www.rm-latindance.com/post/bachata-dance-artists-daniel-y-desiree"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Korke+Judith+Bachata+Sensual+tutorial+fundamentals",
+        title: "Bachata Sensual Fundamentals",
+        creator: "Korke & Judith",
+        level: "advanced",
+        topics: ["sensual", "partnerwork"],
+        style: "sensual",
+        note: "Sensual 系統源流與高階技術參考，注意安全與清楚帶跟。",
+        source: "https://linktr.ee/korkeyjudith"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+body+movement+isolation+tutorial",
+        title: "Body Movement & Isolation",
+        creator: "Multiple instructors",
+        level: "intermediate",
+        topics: ["sensual", "styling"],
+        style: "movement",
+        note: "肩、胸、髖的 isolation 與 body roll 基礎。",
+        source: "https://www.bachatadanceacademyonline.com/body-movement"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+musicality+timing+tutorial",
+        title: "Musicality & Timing",
+        creator: "Multiple instructors",
+        level: "intermediate",
+        topics: ["musicality", "footwork"],
+        style: "musicality",
+        note: "練 intro、break、syncopation，讓舞步跟音樂說同一種話。",
+        source: "https://www.bachatadanceacademyonline.com/"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+ladies+styling+tutorial+beginner",
+        title: "Ladies Styling Beginner",
+        creator: "Multiple instructors",
+        level: "beginner",
+        topics: ["styling", "basic"],
+        style: "styling",
+        note: "手、頭、身體線條與轉圈修飾，適合 follower solo 練習。",
+        source: "https://www.bachatadanceacademyonline.com/ladies-styling"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+men+styling+footwork+tutorial",
+        title: "Men Styling & Footwork",
+        creator: "Multiple instructors",
+        level: "intermediate",
+        topics: ["styling", "footwork"],
+        style: "styling",
+        note: "Leader 的腳步、手勢與節奏裝飾，避免只靠帶招。",
+        source: "https://www.youtube.com/results?search_query=Bachata+men+styling+footwork+tutorial"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+social+dancing+beginner+patterns",
+        title: "Social Dance Patterns",
+        creator: "Multiple instructors",
+        level: "beginner",
+        topics: ["partnerwork", "basic"],
+        style: "social",
+        note: "社交舞池常用安全組合，練少量但練熟。",
+        source: "https://www.youtube.com/results?search_query=Bachata+social+dancing+beginner+patterns"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Traditional+Dominican+Bachata+footwork+tutorial",
+        title: "Traditional Dominican Footwork",
+        creator: "Multiple instructors",
+        level: "intermediate",
+        topics: ["footwork", "musicality"],
+        style: "dominican",
+        note: "多看腳下節奏與重心，Dominican 不只是快腳。",
+        source: "https://www.iasorecords.com/dance/bachata-basic-steps"
+      },
+      {
+        search: "https://www.youtube.com/results?search_query=Bachata+headroll+bodyroll+tutorial+safety",
+        title: "Head Roll & Body Roll Safety",
+        creator: "Multiple instructors",
+        level: "advanced",
+        topics: ["sensual", "partnerwork"],
+        style: "sensual",
+        note: "只在雙方都知道技術與同意時練；頸部與下背不要硬拗。",
+        source: "https://www.bachatadanceacademyonline.com/body-movement"
+      }
+    ];
+
+    const sources = [
+      {
+        title: "Bachata Dance Academy",
+        text: "有完整 online 課程、免費入門影片與 YouTube 播放清單，網站說明涵蓋 partnerwork、footwork、body movement、musicality、ladies styling。",
+        url: "https://www.bachatadanceacademyonline.com/"
+      },
+      {
+        title: "iASO Records Bachata Basic Steps",
+        text: "整理 box step、triple/cha-cha step、diagonal box 與 6 basic steps，適合補 traditional/Dominican 基礎觀念。",
+        url: "https://www.iasorecords.com/dance/bachata-basic-steps"
+      },
+      {
+        title: "Roberto & Magdalena",
+        text: "Glasp 收錄的 beginner footwork 影片，有逐字稿與影片 ID，適合入門 solo 腳步練習。",
+        url: "https://glasp.co/youtube/RtbQt2ct-Nw"
+      },
+      {
+        title: "Korke & Judith",
+        text: "Bachata Sensual 的代表來源之一，適合做風格源流與進階技術參考。",
+        url: "https://linktr.ee/korkeyjudith"
+      },
+      {
+        title: "DanceUs.org Bachata",
+        text: "彙整 Bachata Dance Academy 的 Dominican footwork、風格介紹與其他教學影片入口。",
+        url: "https://www.danceus.org/video/dominican-bachata-footwork-partnerwork-demetrio-nicole-bachata-dance-academy/"
+      },
+      {
+        title: "r/Bachata 社群推薦",
+        text: "用來補充社群常提到的頻道、練習觀念與學習順序；內容需自行判斷品質。",
+        url: "https://www.reddit.com/r/Bachata/"
+      }
+    ];
+
+    const weeks = [
+      ["Week 1", "Basic side step、節拍、重量轉移"],
+      ["Week 2", "Forward/back、box step、right turn"],
+      ["Week 3", "Open hold、closed hold、簡單 partnerwork"],
+      ["Week 4", "Inside/outside turns、手位變化"],
+      ["Week 5", "Dominican footwork、cha-cha timing"],
+      ["Week 6", "Body isolation、hip/rib cage/shoulder"],
+      ["Week 7", "Musicality、break、intro、慢歌控制"],
+      ["Week 8", "社交舞池組合、複習、拍片自檢"]
+    ];
+
+    const state = {
+      savedOnly: false,
+      saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
+      weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]"))
+    };
+
+    const grid = document.querySelector("#videoGrid");
+    const emptyState = document.querySelector("#emptyState");
+    const search = document.querySelector("#search");
+    const level = document.querySelector("#level");
+    const topic = document.querySelector("#topic");
+    const savedOnly = document.querySelector("#savedOnly");
+
+    function videoKey(video) {
+      return video.id || video.search;
+    }
+
+    function thumb(video) {
+      if (video.id) {
+        return `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
+      }
+      return "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80";
+    }
+
+    function videoUrl(video) {
+      return video.id ? `https://www.youtube.com/watch?v=${video.id}` : video.search;
+    }
+
+    function renderVideos() {
+      const query = search.value.trim().toLowerCase();
+      const selectedLevel = level.value;
+      const selectedTopic = topic.value;
+      const filtered = videos.filter(video => {
+        const haystack = [video.title, video.creator, video.level, video.style, video.note, video.topics.join(" ")].join(" ").toLowerCase();
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesLevel = selectedLevel === "all" || video.level === selectedLevel;
+        const matchesTopic = selectedTopic === "all" || video.topics.includes(selectedTopic);
+        const matchesSaved = !state.savedOnly || state.saved.has(videoKey(video));
+        return matchesQuery && matchesLevel && matchesTopic && matchesSaved;
+      });
+
+      grid.innerHTML = filtered.map(video => {
+        const key = videoKey(video);
+        const saved = state.saved.has(key);
+        return `
+          <article class="video-card">
+            <a class="thumb" href="${videoUrl(video)}" target="_blank" rel="noreferrer">
+              <img src="${thumb(video)}" alt="${video.title}">
+              <span class="play" aria-hidden="true">▶</span>
+            </a>
+            <div class="video-body">
+              <div>
+                <h3>${video.title}</h3>
+                <div class="meta">${video.creator} · ${label(video.level)} · ${video.style}</div>
+              </div>
+              <p>${video.note}</p>
+              <div class="tag-row">${video.topics.map(tag => `<span class="tag">${label(tag)}</span>`).join("")}</div>
+              <div class="video-actions">
+                <a class="small-btn" href="${videoUrl(video)}" target="_blank" rel="noreferrer">${video.id ? "看 YouTube" : "搜尋影片"}</a>
+                <button class="small-btn ${saved ? "saved" : ""}" type="button" data-save="${key}">${saved ? "已收藏" : "收藏"}</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      emptyState.hidden = filtered.length !== 0;
+    }
+
+    function label(value) {
+      return {
+        beginner: "入門",
+        intermediate: "中階",
+        advanced: "進階",
+        basic: "基本步",
+        footwork: "腳步",
+        partnerwork: "雙人",
+        sensual: "Sensual",
+        musicality: "音樂性",
+        styling: "Styling"
+      }[value] || value;
+    }
+
+    function renderSources() {
+      document.querySelector("#sourcesGrid").innerHTML = sources.map(item => `
+        <article class="source-card">
+          <h3>${item.title}</h3>
+          <p>${item.text}</p>
+          <div class="resource-actions">
+            <a class="small-btn" href="${item.url}" target="_blank" rel="noreferrer">開啟來源</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderWeeks() {
+      const list = document.querySelector("#weekList");
+      list.innerHTML = weeks.map((week, index) => `
+        <label class="week-item">
+          <input type="checkbox" data-week="${index}" ${state.weeks.has(index) ? "checked" : ""}>
+          <span><strong>${week[0]}</strong><span>${week[1]}</span></span>
+          <span>${state.weeks.has(index) ? "完成" : "待練"}</span>
+        </label>
+      `).join("");
+      const percent = Math.round((state.weeks.size / weeks.length) * 100);
+      document.querySelector("#progressBar").style.width = `${percent}%`;
+    }
+
+    grid.addEventListener("click", event => {
+      const button = event.target.closest("[data-save]");
+      if (!button) return;
+      const key = button.dataset.save;
+      if (state.saved.has(key)) state.saved.delete(key);
+      else state.saved.add(key);
+      localStorage.setItem("bachata-saved", JSON.stringify([...state.saved]));
+      renderVideos();
+    });
+
+    document.querySelector("#weekList").addEventListener("change", event => {
+      const checkbox = event.target.closest("[data-week]");
+      if (!checkbox) return;
+      const index = Number(checkbox.dataset.week);
+      if (checkbox.checked) state.weeks.add(index);
+      else state.weeks.delete(index);
+      localStorage.setItem("bachata-weeks", JSON.stringify([...state.weeks]));
+      renderWeeks();
+    });
+
+    [search, level, topic].forEach(control => control.addEventListener("input", renderVideos));
+    savedOnly.addEventListener("click", () => {
+      state.savedOnly = !state.savedOnly;
+      savedOnly.classList.toggle("saved", state.savedOnly);
+      savedOnly.textContent = state.savedOnly ? "顯示全部" : "只看收藏";
+      renderVideos();
+    });
+
+    renderVideos();
+    renderSources();
+    renderWeeks();
+  </script>
+</body>
+</html>
