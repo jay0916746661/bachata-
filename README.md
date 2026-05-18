@@ -1,4 +1,4 @@
-# Bachata Studio
+# Bachata Training
 
 一個可直接用手機觀看的 Bachata 教學平台。
 
@@ -21,4 +21,3 @@
 - Source: `Deploy from a branch`
 - Branch: `main`
 - Folder: `/root`
-
