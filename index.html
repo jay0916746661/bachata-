@@ -343,6 +343,20 @@
       font-weight: 820;
     }
 
+    .move-table th:last-child,
+    .move-table td:last-child {
+      position: sticky;
+      right: 0;
+      z-index: 2;
+      background: #fff;
+      box-shadow: -10px 0 18px rgba(31, 34, 40, .08);
+    }
+
+    .move-table th:last-child {
+      z-index: 3;
+      background: #f8f5ef;
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -360,6 +374,25 @@
     .pill.blue { background: var(--blue); }
     .pill.wine { background: var(--wine); }
     .pill.dark { background: var(--ink); }
+
+    .lesson-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      color: #fff;
+      background: var(--wine);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 820;
+      white-space: nowrap;
+    }
+
+    .lesson-link.alt {
+      background: var(--teal);
+    }
 
     .path-card,
     .video-card,
@@ -811,7 +844,7 @@
                     <th>最實用時機</th>
                     <th>先備能力</th>
                     <th>不要用在</th>
-                    <th>對應影片分類</th>
+                    <th>對應影片</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -821,7 +854,7 @@
                     <td>任何歌曲開頭、找回節拍、舞池很擠、跟新舞伴暖身。</td>
                     <td>1-8 拍、重心左右轉移、步伐小。</td>
                     <td>想炫招但節拍不穩時。</td>
-                    <td>基本步、音樂性</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/watch?v=xhrdh-uFkog" target="_blank" rel="noreferrer">Basic 教學</a></td>
                   </tr>
                   <tr>
                     <td>Forward / Back Basic</td>
@@ -829,7 +862,7 @@
                     <td>換方向、拉開距離、從側向 basic 變化出流動感。</td>
                     <td>不後仰、不拉手，用身體方向暗示。</td>
                     <td>後方有人或舞池太擠。</td>
-                    <td>基本步</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/watch?v=TJGfUGUoZe0" target="_blank" rel="noreferrer">6 Basic Steps</a></td>
                   </tr>
                   <tr>
                     <td>Right Turn / 左右單人轉</td>
@@ -837,7 +870,7 @@
                     <td>歌曲換句、8 拍結尾、需要簡單變化但不破壞連接。</td>
                     <td>軸心、spotting、手不壓頭。</td>
                     <td>對方重心不穩或鞋底太黏。</td>
-                    <td>基本步、雙人</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+right+turn+tutorial+beginner" target="_blank" rel="noreferrer">Right Turn</a></td>
                   </tr>
                   <tr>
                     <td>Open Hold / Closed Hold</td>
@@ -845,7 +878,7 @@
                     <td>剛邀舞、確認距離、切換 modern 與 sensual 前。</td>
                     <td>手臂有彈性、肩膀放鬆、尊重距離。</td>
                     <td>對方明顯不想 close position。</td>
-                    <td>雙人</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+open+hold+closed+hold+frame+connection+tutorial" target="_blank" rel="noreferrer">Frame 連接</a></td>
                   </tr>
                   <tr>
                     <td>Inside / Outside Turn</td>
@@ -853,7 +886,7 @@
                     <td>社交舞池最常見轉圈，適合銜接 hand change、cross body。</td>
                     <td>leader 提早準備手位，follower 完成自己軸心。</td>
                     <td>音樂很慢但你硬轉很快。</td>
-                    <td>雙人、基本步</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+inside+outside+turn+tutorial" target="_blank" rel="noreferrer">Inside / Outside</a></td>
                   </tr>
                   <tr>
                     <td>Cross Body Lead</td>
@@ -861,7 +894,7 @@
                     <td>換位、清出路線、接雙手組合或 cuddle/shadow 前。</td>
                     <td>leader 讓出路線，不用手把人拖過去。</td>
                     <td>旁邊空間不足或跟舞伴還沒建立信任。</td>
-                    <td>雙人</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+cross+body+lead+tutorial" target="_blank" rel="noreferrer">Cross Body</a></td>
                   </tr>
                   <tr>
                     <td>Hand Change / Hammerlock</td>
@@ -869,7 +902,7 @@
                     <td>讓簡單 turn 變成組合，適合副歌前後做變化。</td>
                     <td>知道左右手路徑，手腕不扭、不卡肩。</td>
                     <td>對方手臂緊繃或肩膀活動度不足。</td>
-                    <td>雙人</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+hammerlock+hand+change+tutorial" target="_blank" rel="noreferrer">Hammerlock</a></td>
                   </tr>
                   <tr>
                     <td>Dominican Footwork</td>
@@ -877,7 +910,7 @@
                     <td>節奏清楚、吉他或打擊明顯、solo break 或分開跳時。</td>
                     <td>basic 很穩、腳步小、能聽到 1 和 5。</td>
                     <td>跟舞伴連接不穩時硬塞快腳。</td>
-                    <td>腳步、音樂性</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=dominican+bachata+footwork+tutorial" target="_blank" rel="noreferrer">Dominican 腳步</a></td>
                   </tr>
                   <tr>
                     <td>Cha-cha / Syncopation</td>
@@ -885,7 +918,7 @@
                     <td>音樂有明顯切分、想把 basic 做得更活。</td>
                     <td>能在加速腳步後回到 1 拍。</td>
                     <td>初學者舞伴還在找拍子時。</td>
-                    <td>腳步、音樂性</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+cha+cha+syncopation+footwork+tutorial" target="_blank" rel="noreferrer">Syncopation</a></td>
                   </tr>
                   <tr>
                     <td>Body Isolation</td>
@@ -893,7 +926,7 @@
                     <td>慢歌、close position、準備進 body wave / roll 前。</td>
                     <td>肩、胸、髖可分開控制，核心穩。</td>
                     <td>用腰硬折或讓對方承重。</td>
-                    <td>Sensual、Styling</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+body+isolation+tutorial" target="_blank" rel="noreferrer">Isolation</a></td>
                   </tr>
                   <tr>
                     <td>Body Wave / Body Roll</td>
@@ -901,7 +934,7 @@
                     <td>慢速旋律、明顯延展音、雙方 close connection 已清楚。</td>
                     <td>isolation、呼吸、上下身分離。</td>
                     <td>快歌、擁擠舞池、對方不熟 sensual。</td>
-                    <td>Sensual</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+body+wave+body+roll+tutorial" target="_blank" rel="noreferrer">Body Roll</a></td>
                   </tr>
                   <tr>
                     <td>Head Roll</td>
@@ -909,7 +942,7 @@
                     <td>只在 workshop 或熟悉舞伴中，且 follower 主動控制頸部。</td>
                     <td>身體波浪、頸部安全、清楚 cue。</td>
                     <td>陌生舞伴、酒後、頸部不舒服、舞池擁擠。</td>
-                    <td>Sensual</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+head+roll+tutorial+safety" target="_blank" rel="noreferrer">Head Roll</a></td>
                   </tr>
                   <tr>
                     <td>Dip / Lean</td>
@@ -917,7 +950,7 @@
                     <td>歌曲結尾、表演感段落、雙方有練過且空間足夠。</td>
                     <td>leader 支撐不是拉扯，follower 自己站穩。</td>
                     <td>社交舞池亂用、對方沒準備、背後有人。</td>
-                    <td>雙人、Sensual</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+dip+lean+tutorial+safety" target="_blank" rel="noreferrer">Dip / Lean</a></td>
                   </tr>
                   <tr>
                     <td>Musical Pause / Break</td>
@@ -925,7 +958,7 @@
                     <td>歌曲停頓、歌手拉長音、鼓點斷開時。</td>
                     <td>聽歌結構，能停住但不失去 frame。</td>
                     <td>為了停而停，導致下一拍回不來。</td>
-                    <td>音樂性</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+musicality+breaks+pauses+tutorial" target="_blank" rel="noreferrer">Musicality</a></td>
                   </tr>
                   <tr>
                     <td>Arm / Ladies / Men Styling</td>
@@ -933,7 +966,7 @@
                     <td>solo、轉圈後、basic 裡填空，讓線條更完整。</td>
                     <td>不影響 frame、不打到旁人、動作跟音樂。</td>
                     <td>手臂太大、舞池太擠、為裝飾犧牲連接。</td>
-                    <td>Styling、腳步</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+ladies+men+styling+tutorial+beginner" target="_blank" rel="noreferrer">Styling</a></td>
                   </tr>
                   <tr>
                     <td>Shadow / Cuddle Position</td>
@@ -941,7 +974,7 @@
                     <td>想做流動組合、body movement、或換方向時。</td>
                     <td>手位路徑清楚，距離舒服，exit 方式已熟。</td>
                     <td>不知道怎麼出來時先不要進去。</td>
-                    <td>雙人、Sensual</td>
+                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+shadow+cuddle+position+tutorial" target="_blank" rel="noreferrer">Shadow / Cuddle</a></td>
                   </tr>
                 </tbody>
               </table>
