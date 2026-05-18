@@ -164,6 +164,10 @@
       background: #f1eee8;
     }
 
+    section {
+      scroll-margin-top: 76px;
+    }
+
     .section-inner {
       width: min(1180px, 100%);
       margin: 0 auto;
@@ -312,6 +316,52 @@
       background: #fff;
     }
 
+    .lesson-panel {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .lesson-player {
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #1f2228;
+    }
+
+    .lesson-player iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .lesson-copy {
+      display: grid;
+      gap: 8px;
+    }
+
+    .lesson-copy h3,
+    .lesson-copy p {
+      margin: 0;
+    }
+
+    .lesson-copy p {
+      color: var(--muted);
+    }
+
+    .lesson-points {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding-left: 20px;
+      color: #3c4148;
+    }
+
     .move-table {
       width: 100%;
       min-width: 920px;
@@ -388,6 +438,8 @@
       font-size: 13px;
       font-weight: 820;
       white-space: nowrap;
+      border: 0;
+      cursor: pointer;
     }
 
     .lesson-link.alt {
@@ -835,8 +887,23 @@
               </ol>
             </section>
 
-            <section class="move-table-wrap" aria-label="Bachata 招數使用情境表">
-              <table class="move-table">
+            <section aria-label="Bachata 招數使用情境表與站內影片">
+              <div class="lesson-panel" id="lessonPanel">
+                <div class="lesson-player">
+                  <iframe id="lessonFrame" src="https://www.youtube-nocookie.com/embed/xhrdh-uFkog" title="Bachata lesson video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="lesson-copy">
+                  <h3 id="lessonTitle">Side Basic / 原地 Basic</h3>
+                  <p id="lessonExplain">先用小步幅穩定踩 1-8 拍，注意重心真的從左到右移動，不要只晃上半身。這是所有 partnerwork 和 musicality 的地基。</p>
+                  <ul class="lesson-points" id="lessonPoints">
+                    <li>練 3 首慢歌，只做 side basic。</li>
+                    <li>每個 4 拍用 tap 收乾淨，不搶下一拍。</li>
+                    <li>舞池擠或不確定節拍時，立刻回到這招。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="move-table-wrap">
+                <table class="move-table">
                 <thead>
                   <tr>
                     <th>招數 / 技能</th>
@@ -854,7 +921,7 @@
                     <td>任何歌曲開頭、找回節拍、舞池很擠、跟新舞伴暖身。</td>
                     <td>1-8 拍、重心左右轉移、步伐小。</td>
                     <td>想炫招但節拍不穩時。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/watch?v=xhrdh-uFkog" target="_blank" rel="noreferrer">Basic 教學</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="side-basic">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Forward / Back Basic</td>
@@ -862,7 +929,7 @@
                     <td>換方向、拉開距離、從側向 basic 變化出流動感。</td>
                     <td>不後仰、不拉手，用身體方向暗示。</td>
                     <td>後方有人或舞池太擠。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/watch?v=TJGfUGUoZe0" target="_blank" rel="noreferrer">6 Basic Steps</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="forward-back">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Right Turn / 左右單人轉</td>
@@ -870,7 +937,7 @@
                     <td>歌曲換句、8 拍結尾、需要簡單變化但不破壞連接。</td>
                     <td>軸心、spotting、手不壓頭。</td>
                     <td>對方重心不穩或鞋底太黏。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+right+turn+tutorial+beginner" target="_blank" rel="noreferrer">Right Turn</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="right-turn">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Open Hold / Closed Hold</td>
@@ -878,7 +945,7 @@
                     <td>剛邀舞、確認距離、切換 modern 與 sensual 前。</td>
                     <td>手臂有彈性、肩膀放鬆、尊重距離。</td>
                     <td>對方明顯不想 close position。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+open+hold+closed+hold+frame+connection+tutorial" target="_blank" rel="noreferrer">Frame 連接</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="hold-frame">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Inside / Outside Turn</td>
@@ -886,7 +953,7 @@
                     <td>社交舞池最常見轉圈，適合銜接 hand change、cross body。</td>
                     <td>leader 提早準備手位，follower 完成自己軸心。</td>
                     <td>音樂很慢但你硬轉很快。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+inside+outside+turn+tutorial" target="_blank" rel="noreferrer">Inside / Outside</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="inside-outside">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Cross Body Lead</td>
@@ -894,7 +961,7 @@
                     <td>換位、清出路線、接雙手組合或 cuddle/shadow 前。</td>
                     <td>leader 讓出路線，不用手把人拖過去。</td>
                     <td>旁邊空間不足或跟舞伴還沒建立信任。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+cross+body+lead+tutorial" target="_blank" rel="noreferrer">Cross Body</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="cross-body">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Hand Change / Hammerlock</td>
@@ -902,7 +969,7 @@
                     <td>讓簡單 turn 變成組合，適合副歌前後做變化。</td>
                     <td>知道左右手路徑，手腕不扭、不卡肩。</td>
                     <td>對方手臂緊繃或肩膀活動度不足。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+hammerlock+hand+change+tutorial" target="_blank" rel="noreferrer">Hammerlock</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="hammerlock">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Dominican Footwork</td>
@@ -910,7 +977,7 @@
                     <td>節奏清楚、吉他或打擊明顯、solo break 或分開跳時。</td>
                     <td>basic 很穩、腳步小、能聽到 1 和 5。</td>
                     <td>跟舞伴連接不穩時硬塞快腳。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=dominican+bachata+footwork+tutorial" target="_blank" rel="noreferrer">Dominican 腳步</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="dominican-footwork">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Cha-cha / Syncopation</td>
@@ -918,7 +985,7 @@
                     <td>音樂有明顯切分、想把 basic 做得更活。</td>
                     <td>能在加速腳步後回到 1 拍。</td>
                     <td>初學者舞伴還在找拍子時。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+cha+cha+syncopation+footwork+tutorial" target="_blank" rel="noreferrer">Syncopation</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="syncopation">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Body Isolation</td>
@@ -926,7 +993,7 @@
                     <td>慢歌、close position、準備進 body wave / roll 前。</td>
                     <td>肩、胸、髖可分開控制，核心穩。</td>
                     <td>用腰硬折或讓對方承重。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+body+isolation+tutorial" target="_blank" rel="noreferrer">Isolation</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="isolation">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Body Wave / Body Roll</td>
@@ -934,7 +1001,7 @@
                     <td>慢速旋律、明顯延展音、雙方 close connection 已清楚。</td>
                     <td>isolation、呼吸、上下身分離。</td>
                     <td>快歌、擁擠舞池、對方不熟 sensual。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+body+wave+body+roll+tutorial" target="_blank" rel="noreferrer">Body Roll</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="body-roll">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Head Roll</td>
@@ -942,7 +1009,7 @@
                     <td>只在 workshop 或熟悉舞伴中，且 follower 主動控制頸部。</td>
                     <td>身體波浪、頸部安全、清楚 cue。</td>
                     <td>陌生舞伴、酒後、頸部不舒服、舞池擁擠。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+head+roll+tutorial+safety" target="_blank" rel="noreferrer">Head Roll</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="head-roll">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Dip / Lean</td>
@@ -950,7 +1017,7 @@
                     <td>歌曲結尾、表演感段落、雙方有練過且空間足夠。</td>
                     <td>leader 支撐不是拉扯，follower 自己站穩。</td>
                     <td>社交舞池亂用、對方沒準備、背後有人。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+dip+lean+tutorial+safety" target="_blank" rel="noreferrer">Dip / Lean</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="dip-lean">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Musical Pause / Break</td>
@@ -958,7 +1025,7 @@
                     <td>歌曲停頓、歌手拉長音、鼓點斷開時。</td>
                     <td>聽歌結構，能停住但不失去 frame。</td>
                     <td>為了停而停，導致下一拍回不來。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+musicality+breaks+pauses+tutorial" target="_blank" rel="noreferrer">Musicality</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="musical-pause">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Arm / Ladies / Men Styling</td>
@@ -966,7 +1033,7 @@
                     <td>solo、轉圈後、basic 裡填空，讓線條更完整。</td>
                     <td>不影響 frame、不打到旁人、動作跟音樂。</td>
                     <td>手臂太大、舞池太擠、為裝飾犧牲連接。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+ladies+men+styling+tutorial+beginner" target="_blank" rel="noreferrer">Styling</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="styling">播放講解</button></td>
                   </tr>
                   <tr>
                     <td>Shadow / Cuddle Position</td>
@@ -974,10 +1041,11 @@
                     <td>想做流動組合、body movement、或換方向時。</td>
                     <td>手位路徑清楚，距離舒服，exit 方式已熟。</td>
                     <td>不知道怎麼出來時先不要進去。</td>
-                    <td><a class="lesson-link" href="https://www.youtube.com/results?search_query=bachata+shadow+cuddle+position+tutorial" target="_blank" rel="noreferrer">Shadow / Cuddle</a></td>
+                    <td><button class="lesson-link" type="button" data-lesson="shadow-cuddle">播放講解</button></td>
                   </tr>
                 </tbody>
-              </table>
+                </table>
+              </div>
             </section>
           </div>
         </div>
@@ -1287,6 +1355,105 @@
       ["Week 8", "社交舞池組合、複習、拍片自檢"]
     ];
 
+    const lessons = {
+      "side-basic": {
+        title: "Side Basic / 原地 Basic",
+        videoId: "xhrdh-uFkog",
+        explain: "先用小步幅穩定踩 1-8 拍，注意重心真的從左到右移動，不要只晃上半身。這是所有 partnerwork 和 musicality 的地基。",
+        points: ["練 3 首慢歌，只做 side basic。", "每個 4 拍用 tap 收乾淨，不搶下一拍。", "舞池擠或不確定節拍時，立刻回到這招。"]
+      },
+      "forward-back": {
+        title: "Forward / Back Basic",
+        videoId: "TJGfUGUoZe0",
+        explain: "前後 basic 用來製造方向感，但身體不要後仰，也不要用手把舞伴拉來拉去。腳步仍然小，核心保持在自己腳上。",
+        points: ["先自己練前後 8 拍，再接回 side basic。", "向後走之前先確認後方空間。", "leader 用身體方向提示，不用手臂拖。"]
+      },
+      "right-turn": {
+        title: "Right Turn / 左右單人轉",
+        videoId: "xhrdh-uFkog",
+        explain: "轉圈是最常用的變化。重點不是轉快，而是準備早、手位乾淨、轉完能回到節拍和 basic。",
+        points: ["轉前一個 8 拍先把節奏踩穩。", "手只給方向，不壓頭、不扭腕。", "轉完先回 basic，不急著接下一招。"]
+      },
+      "hold-frame": {
+        title: "Open Hold / Closed Hold",
+        videoId: "xhrdh-uFkog",
+        explain: "Frame 是連接的語言。open hold 適合剛開始和轉圈，closed hold 適合慢歌與 sensual，但距離要尊重舞伴的舒適感。",
+        points: ["肩膀放鬆，手臂有彈性。", "先用 open hold 建立節奏，再慢慢靠近。", "對方退開時就回到 open hold。"]
+      },
+      "inside-outside": {
+        title: "Inside / Outside Turn",
+        videoId: "xhrdh-uFkog",
+        explain: "Inside / outside turn 是社交舞池最穩的組合素材。你要先知道轉完手會在哪裡，才不會卡住下一個動作。",
+        points: ["每次只練一種轉，連續做 10 次。", "leader 提早舉手，follower 自己完成軸心。", "音樂慢時轉也要慢，不要硬加速。"]
+      },
+      "cross-body": {
+        title: "Cross Body Lead",
+        videoId: "xhrdh-uFkog",
+        explain: "Cross body 的核心是讓出路線，不是把人拉過去。它很適合換位、整理舞池方向，或接 shadow / cuddle。",
+        points: ["leader 先移開身體，把路打開。", "follower 走自己的路線，不被手拉倒。", "空間不足時不要做大位移。"]
+      },
+      "hammerlock": {
+        title: "Hand Change / Hammerlock",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Hammerlock 能讓簡單 turn 變成組合，但肩膀和手腕安全第一。手位路徑要圓滑，不要把 follower 的手卡在背後。",
+        points: ["先慢速練手位路徑，不配音樂也可以。", "手腕保持自然角度。", "一覺得卡肩就放掉回 basic。"]
+      },
+      "dominican-footwork": {
+        title: "Dominican Footwork",
+        videoId: "RtbQt2ct-Nw",
+        explain: "Dominican footwork 是用腳回應吉他和打擊。它不是越快越好，而是腳步小、節拍清楚、可以隨時回到 basic。",
+        points: ["先練一個 8 拍腳步，不要一直換。", "腳步小到可以在原地完成。", "partnerwork 不穩時先不要加快腳。"]
+      },
+      "syncopation": {
+        title: "Cha-cha / Syncopation",
+        videoId: "RtbQt2ct-Nw",
+        explain: "Syncopation 是在基本節拍中加切分，讓舞更有音樂感。關鍵是加完裝飾後還能準時回到 1 或 5。",
+        points: ["用慢歌練 cha-cha-cha，再接 basic。", "每 4 個 8 拍只加一次切分。", "回不到拍子時，減少腳步。"]
+      },
+      "isolation": {
+        title: "Body Isolation",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Isolation 是 sensual 的安全基礎。先把胸、肩、髖分開控制，才有 body wave 和 body roll 的質感。",
+        points: ["對鏡子練胸、肩、髖各 1 分鐘。", "核心穩住，不靠下背硬折。", "雙人練習前先確認雙方都知道動作。"]
+      },
+      "body-roll": {
+        title: "Body Wave / Body Roll",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Body roll 適合慢速旋律和延展音。這招不是 leader 把 follower 壓下去，而是雙方用呼吸和核心控制波浪。",
+        points: ["先 solo 練胸到腹到髖的順序。", "速度跟音樂，不搶拍。", "舞池擠或舞伴不熟 sensual 時不要做。"]
+      },
+      "head-roll": {
+        title: "Head Roll",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Head roll 是高風險招式。它應該由 follower 主動控制頸部，leader 只給清楚且很輕的 cue，不應該拉頭或推頭。",
+        points: ["先在課堂或熟舞伴中練。", "頸部不舒服、酒後、陌生舞伴都不要用。", "任何不確定時改成 body wave。"]
+      },
+      "dip-lean": {
+        title: "Dip / Lean",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Dip 和 lean 適合歌曲結尾或表演感段落。安全版本是 follower 自己站穩，leader 提供方向與支撐，不是把人往下拉。",
+        points: ["先練小幅度 lean，不追求很低。", "確認背後和旁邊沒有人。", "不熟的舞伴不要突然做 dip。"]
+      },
+      "musical-pause": {
+        title: "Musical Pause / Break",
+        videoId: "TJGfUGUoZe0",
+        explain: "停拍是最有用的 musicality。當歌手拉長音或鼓點斷開，停住比硬塞步伐更有味道。",
+        points: ["聽歌時標出 break 和停頓。", "停住時 frame 不要垮。", "下一拍要能乾淨回 basic。"]
+      },
+      "styling": {
+        title: "Arm / Ladies / Men Styling",
+        videoId: "RtbQt2ct-Nw",
+        explain: "Styling 是裝飾，不是主菜。它應該放在 solo、轉完、或 basic 的空位裡，不能破壞連接或打到旁人。",
+        points: ["先選 2 個手部線條練熟。", "手臂路線要小，舞池安全優先。", "跟舞伴連接時不要為了 styling 放掉 frame。"]
+      },
+      "shadow-cuddle": {
+        title: "Shadow / Cuddle Position",
+        videoId: "h2Mi_BeQvWM",
+        explain: "Shadow / cuddle 很適合接流動組合和 body movement，但進去之前一定要知道怎麼出來，手位也不能卡肩。",
+        points: ["先練 entry 和 exit，不加其他花招。", "距離保持舒服，不把對方鎖住。", "如果手位亂了，直接放開回 basic。"]
+      }
+    };
+
     const state = {
       savedOnly: false,
       saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
@@ -1299,6 +1466,10 @@
     const level = document.querySelector("#level");
     const topic = document.querySelector("#topic");
     const savedOnly = document.querySelector("#savedOnly");
+    const lessonFrame = document.querySelector("#lessonFrame");
+    const lessonTitle = document.querySelector("#lessonTitle");
+    const lessonExplain = document.querySelector("#lessonExplain");
+    const lessonPoints = document.querySelector("#lessonPoints");
 
     function videoKey(video) {
       return video.id || video.search;
@@ -1331,12 +1502,15 @@
       grid.innerHTML = filtered.map(video => {
         const key = videoKey(video);
         const saved = state.saved.has(key);
-        return `
-          <article class="video-card">
-            <a class="thumb" href="${videoUrl(video)}" target="_blank" rel="noreferrer">
+        const media = video.id
+          ? `<div class="thumb"><iframe src="https://www.youtube-nocookie.com/embed/${video.id}" title="${video.title}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+          : `<a class="thumb" href="${videoUrl(video)}" target="_blank" rel="noreferrer">
               <img src="${thumb(video)}" alt="${video.title}">
               <span class="play" aria-hidden="true">▶</span>
-            </a>
+            </a>`;
+        return `
+          <article class="video-card">
+            ${media}
             <div class="video-body">
               <div>
                 <h3>${video.title}</h3>
@@ -1345,7 +1519,7 @@
               <p>${video.note}</p>
               <div class="tag-row">${video.topics.map(tag => `<span class="tag">${label(tag)}</span>`).join("")}</div>
               <div class="video-actions">
-                <a class="small-btn" href="${videoUrl(video)}" target="_blank" rel="noreferrer">${video.id ? "看 YouTube" : "搜尋影片"}</a>
+                <a class="small-btn" href="${videoUrl(video)}" target="_blank" rel="noreferrer">${video.id ? "開原影片" : "搜尋影片"}</a>
                 <button class="small-btn ${saved ? "saved" : ""}" type="button" data-save="${key}">${saved ? "已收藏" : "收藏"}</button>
               </div>
             </div>
@@ -1380,6 +1554,16 @@
           </div>
         </article>
       `).join("");
+    }
+
+    function selectLesson(key) {
+      const lesson = lessons[key];
+      if (!lesson) return;
+      lessonFrame.src = `https://www.youtube-nocookie.com/embed/${lesson.videoId}`;
+      lessonTitle.textContent = lesson.title;
+      lessonExplain.textContent = lesson.explain;
+      lessonPoints.innerHTML = lesson.points.map(point => `<li>${point}</li>`).join("");
+      document.querySelector("#lessonPanel").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function renderWeeks() {
@@ -1421,6 +1605,12 @@
       savedOnly.classList.toggle("saved", state.savedOnly);
       savedOnly.textContent = state.savedOnly ? "顯示全部" : "只看收藏";
       renderVideos();
+    });
+
+    document.querySelector("#moves").addEventListener("click", event => {
+      const button = event.target.closest("[data-lesson]");
+      if (!button) return;
+      selectLesson(button.dataset.lesson);
     });
 
     renderVideos();
