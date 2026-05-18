@@ -362,6 +362,51 @@
       color: #3c4148;
     }
 
+    .segment-section {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .segment-section h3,
+    .segment-section p {
+      margin: 0;
+    }
+
+    .segment-section p {
+      color: var(--muted);
+    }
+
+    .segment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .segment-card {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8f5ef;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .segment-card strong {
+      display: block;
+    }
+
+    .segment-card span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .move-table {
       width: 100%;
       min-width: 920px;
@@ -774,6 +819,7 @@
       .video-grid,
       .sources-grid,
       .map-branches,
+      .segment-grid,
       .drill-grid {
         grid-template-columns: 1fr;
       }
@@ -1046,6 +1092,13 @@
                 </tbody>
                 </table>
               </div>
+              <div class="segment-section">
+                <div>
+                  <h3>影片切片分類：Hammerlock 社交組合</h3>
+                  <p>來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。</p>
+                </div>
+                <div class="segment-grid" id="segmentGrid"></div>
+              </div>
             </section>
           </div>
         </div>
@@ -1208,6 +1261,16 @@
         style: "solo",
         note: "Reddit 社群常推薦的 solo 基本步課程搜尋入口。",
         source: "https://www.reddit.com/r/Bachata/comments/1o64k0w/can_anyone_link_me_to_advanced_breakdown_of_basic_step/"
+      },
+      {
+        id: "vkIpXY9ORzI",
+        title: "10 Bachata Hammerlock Combos for Social",
+        creator: "Marius & Elena Official",
+        level: "intermediate",
+        topics: ["partnerwork", "sensual"],
+        style: "social",
+        note: "很適合拆成招式庫：10 個 hammerlock social combo，平台已做成章節切片。",
+        source: "https://www.youtube.com/watch?v=vkIpXY9ORzI"
       },
       {
         search: "https://www.youtube.com/results?search_query=Marius+Elena+Bachata+tutorial+beginner+partnerwork",
@@ -1394,9 +1457,10 @@
       },
       "hammerlock": {
         title: "Hand Change / Hammerlock",
-        videoId: "h2Mi_BeQvWM",
+        videoId: "vkIpXY9ORzI",
+        start: 45,
         explain: "Hammerlock 能讓簡單 turn 變成組合，但肩膀和手腕安全第一。手位路徑要圓滑，不要把 follower 的手卡在背後。",
-        points: ["先慢速練手位路徑，不配音樂也可以。", "手腕保持自然角度。", "一覺得卡肩就放掉回 basic。"]
+        points: ["先從第 1 個 combo 練，不要一次背 10 個。", "手腕保持自然角度，肩膀不要被鎖死。", "一覺得卡肩就放掉回 basic。"]
       },
       "dominican-footwork": {
         title: "Dominican Footwork",
@@ -1454,6 +1518,119 @@
       }
     };
 
+    const videoSegments = [
+      {
+        key: "hammerlock-1",
+        category: "Hammerlock 社交組合",
+        title: "Combo 1",
+        videoId: "vkIpXY9ORzI",
+        start: 45,
+        end: 137,
+        explain: "第一組適合當 hammerlock 入門組合，重點是進入手位後不要卡住 follower 肩膀，最後要乾淨回到 basic 或 open hold。",
+        points: ["先慢速練 entry 和 exit。", "手位不要拉到背後太高。", "能穩定完成後再配音樂。"]
+      },
+      {
+        key: "hammerlock-2",
+        category: "Hammerlock 社交組合",
+        title: "Combo 2",
+        videoId: "vkIpXY9ORzI",
+        start: 137,
+        end: 199,
+        explain: "第二組可以練習從 hammerlock 接轉圈變化。實用時機是副歌前後，但不要在舞池很擠時做大位移。",
+        points: ["先記住手的路徑。", "轉圈前先穩住節拍。", "出口回 open hold。"]
+      },
+      {
+        key: "hammerlock-3",
+        category: "Hammerlock 社交組合",
+        title: "Combo 3",
+        videoId: "vkIpXY9ORzI",
+        start: 199,
+        end: 303,
+        explain: "第三組時間較長，適合練連續手位轉換。不要急著照速度，先把每個 8 拍拆開。",
+        points: ["每 8 拍暫停一次檢查手位。", "不要把 follower 推進下一步。", "卡住就放開回 basic。"]
+      },
+      {
+        key: "hammerlock-4",
+        category: "Hammerlock 社交組合",
+        title: "Combo 4",
+        videoId: "vkIpXY9ORzI",
+        start: 303,
+        end: 411,
+        explain: "第四組適合練習換方向和回收距離。社交舞池使用時，腳步要小，避免把舞伴帶到別人的路線。",
+        points: ["leader 先看舞池空間。", "手位低一點會更安全。", "結尾用 basic 整理節奏。"]
+      },
+      {
+        key: "hammerlock-5",
+        category: "Hammerlock 社交組合",
+        title: "Combo 5",
+        videoId: "vkIpXY9ORzI",
+        start: 411,
+        end: 483,
+        explain: "第五組適合把 hammerlock 接成短句。重點是不要為了完成組合而犧牲舒適度。",
+        points: ["先做 50% 速度。", "檢查 follower 肩膀是否自然。", "只在雙方都穩時加速度。"]
+      },
+      {
+        key: "hammerlock-6",
+        category: "Hammerlock 社交組合",
+        title: "Combo 6",
+        videoId: "vkIpXY9ORzI",
+        start: 483,
+        end: 668,
+        explain: "第六組比較長，適合當中階練習素材。學習方式是切成兩段，不要一次整段硬背。",
+        points: ["先練前半段，再練後半段。", "每段都要知道 exit。", "社交時只取其中一小段使用。"]
+      },
+      {
+        key: "hammerlock-7",
+        category: "Hammerlock 社交組合",
+        title: "Combo 7",
+        videoId: "vkIpXY9ORzI",
+        start: 668,
+        end: 739,
+        explain: "第七組適合練轉換速度和手位清楚度。可以用在音樂能量稍微提高時。",
+        points: ["轉換時手不要突然用力。", "保持小步幅。", "結束後給舞伴一個穩定 basic。"]
+      },
+      {
+        key: "hammerlock-8",
+        category: "Hammerlock 社交組合",
+        title: "Combo 8",
+        videoId: "vkIpXY9ORzI",
+        start: 739,
+        end: 822,
+        explain: "第八組可用來練 combo 的流動感。不要讓手位變成拉扯，身體方向要先走。",
+        points: ["身體方向先於手。", "手只是提示路線。", "出口要清楚。"]
+      },
+      {
+        key: "hammerlock-9",
+        category: "Hammerlock 社交組合",
+        title: "Combo 9",
+        videoId: "vkIpXY9ORzI",
+        start: 822,
+        end: 921,
+        explain: "第九組適合練習較複雜的連接控制。建議熟悉前面幾組後再練。",
+        points: ["先不用音樂走手位。", "注意 follower 手肘方向。", "卡住就不要硬轉。"]
+      },
+      {
+        key: "hammerlock-10",
+        category: "Hammerlock 社交組合",
+        title: "Combo 10",
+        videoId: "vkIpXY9ORzI",
+        start: 921,
+        end: 1030,
+        explain: "第十組適合做為完整 social combo 挑戰。上舞池時建議只取其中穩定的 1-2 個元素。",
+        points: ["拆成兩個短句練。", "不要在陌生舞伴身上第一次嘗試。", "保留簡單出口。"]
+      },
+      {
+        key: "hammerlock-bonus",
+        category: "Hammerlock 社交組合",
+        title: "Bonus",
+        videoId: "vkIpXY9ORzI",
+        start: 1030,
+        end: 1149,
+        explain: "Bonus 段落可以當延伸靈感，不一定要優先學。先把前 3 個 combo 練穩更實用。",
+        points: ["當作變化參考。", "只挑一個喜歡的小元素。", "不要一次把所有 bonus 都塞進舞池。"]
+      }
+    ];
+
     const state = {
       savedOnly: false,
       saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
@@ -1470,6 +1647,7 @@
     const lessonTitle = document.querySelector("#lessonTitle");
     const lessonExplain = document.querySelector("#lessonExplain");
     const lessonPoints = document.querySelector("#lessonPoints");
+    const segmentGrid = document.querySelector("#segmentGrid");
 
     function videoKey(video) {
       return video.id || video.search;
@@ -1556,14 +1734,36 @@
       `).join("");
     }
 
+    function embedUrl(videoId, start = 0) {
+      const params = new URLSearchParams();
+      if (start) params.set("start", String(start));
+      params.set("rel", "0");
+      return `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+    }
+
     function selectLesson(key) {
-      const lesson = lessons[key];
+      const lesson = lessons[key] || videoSegments.find(segment => segment.key === key);
       if (!lesson) return;
-      lessonFrame.src = `https://www.youtube-nocookie.com/embed/${lesson.videoId}`;
+      lessonFrame.src = embedUrl(lesson.videoId, lesson.start || 0);
       lessonTitle.textContent = lesson.title;
       lessonExplain.textContent = lesson.explain;
       lessonPoints.innerHTML = lesson.points.map(point => `<li>${point}</li>`).join("");
       document.querySelector("#lessonPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function renderSegments() {
+      segmentGrid.innerHTML = videoSegments.map(segment => `
+        <button class="segment-card" type="button" data-lesson="${segment.key}">
+          <strong>${segment.title}</strong>
+          <span>${formatTime(segment.start)} - ${formatTime(segment.end)} · ${segment.category}</span>
+        </button>
+      `).join("");
+    }
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const rest = String(seconds % 60).padStart(2, "0");
+      return `${minutes}:${rest}`;
     }
 
     function renderWeeks() {
@@ -1616,6 +1816,7 @@
     renderVideos();
     renderSources();
     renderWeeks();
+    renderSegments();
   </script>
 </body>
 </html>
