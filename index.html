@@ -572,6 +572,47 @@
       border-bottom: 1px solid rgba(222,216,206,.75);
     }
 
+    .category-presets {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .category-preset {
+      min-height: 64px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .category-preset strong,
+    .category-preset span {
+      display: block;
+    }
+
+    .category-preset strong {
+      font-size: 14px;
+    }
+
+    .category-preset span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .category-preset.active {
+      color: #fff;
+      background: var(--wine);
+      border-color: var(--wine);
+    }
+
+    .category-preset.active span {
+      color: rgba(255,255,255,.78);
+    }
+
     .search {
       flex: 1 1 260px;
       min-width: 0;
@@ -847,6 +888,7 @@
       .video-grid,
       .sources-grid,
       .map-branches,
+      .category-presets,
       .segment-grid,
       .drill-grid {
         grid-template-columns: 1fr;
@@ -882,9 +924,9 @@
           <a class="btn dark" href="#library">開始看影片</a>
           <a class="btn ghost" href="#practice">今天練什麼</a>
         </div>
-        <div class="stats" aria-label="平台摘要">
+          <div class="stats" aria-label="平台摘要">
           <div class="stat"><strong>8</strong><span>週完整路線</span></div>
-          <div class="stat"><strong>18</strong><span>精選影片與搜尋入口</span></div>
+          <div class="stat"><strong>29</strong><span>精選影片與搜尋入口</span></div>
           <div class="stat"><strong>16</strong><span>招數使用情境</span></div>
           <div class="stat"><strong>0</strong><span>需要安裝的套件</span></div>
         </div>
@@ -1146,6 +1188,14 @@
             <h2>影片資料庫</h2>
             <p>包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。</p>
           </div>
+          <div class="category-presets" aria-label="影片分類快捷鍵">
+            <button class="category-preset" type="button" data-video-preset="basic"><strong>Basic 基礎</strong><span>節拍、基本步、入門動作</span></button>
+            <button class="category-preset" type="button" data-video-preset="partnerwork"><strong>Partnerwork</strong><span>雙人、轉圈、組合</span></button>
+            <button class="category-preset" type="button" data-video-preset="footwork"><strong>Footwork</strong><span>Dominican、solo shines</span></button>
+            <button class="category-preset" type="button" data-video-preset="sensual"><strong>Sensual</strong><span>isolation、body roll</span></button>
+            <button class="category-preset" type="button" data-video-preset="musicality"><strong>Musicality</strong><span>break、timing、歌曲結構</span></button>
+            <button class="category-preset" type="button" data-video-preset="safety"><strong>Safety</strong><span>head roll、dip、舒適連接</span></button>
+          </div>
           <div class="toolbar">
             <div class="filter-row">
               <input class="search" id="search" type="search" placeholder="搜尋：basic、turn、sensual、Dominican、styling...">
@@ -1163,6 +1213,7 @@
                 <option value="sensual">Sensual</option>
                 <option value="musicality">音樂性</option>
                 <option value="styling">Styling</option>
+                <option value="safety">安全技巧</option>
               </select>
               <button class="small-btn" id="savedOnly" type="button">只看收藏</button>
             </div>
@@ -1229,6 +1280,36 @@
         source: "https://www.bachatadanceacademyonline.com/blog/bachatabasics"
       },
       {
+        id: "oj-S6T4oZeU",
+        title: "25 Beginner Bachata Moves You Must Know",
+        creator: "Roberto & Magdalena Bachata",
+        level: "beginner",
+        topics: ["basic", "partnerwork"],
+        style: "social",
+        note: "入門社交舞池常用動作合集，適合當 Level 1 到 Level 2 的橋梁。",
+        source: "https://www.youtube.com/watch?v=oj-S6T4oZeU"
+      },
+      {
+        id: "npA-foACPJ0",
+        title: "15 Bachata Basic Moves Tutorial",
+        creator: "Bachata Mastery",
+        level: "beginner",
+        topics: ["basic", "partnerwork"],
+        style: "social",
+        note: "用一支影片快速建立 basic move 字彙，適合複習招式名稱與方向。",
+        source: "https://www.youtube.com/watch?v=npA-foACPJ0"
+      },
+      {
+        id: "RTnNpSSxpRE",
+        title: "Bachata Basic Step Practice Follow Along",
+        creator: "Dance Dojo",
+        level: "beginner",
+        topics: ["basic", "musicality"],
+        style: "practice",
+        note: "跟練型影片，適合不想一直停下來看講解、只想把 basic 踩穩的日子。",
+        source: "https://www.youtube.com/watch?v=RTnNpSSxpRE"
+      },
+      {
         id: "TJGfUGUoZe0",
         title: "6 Bachata Basic Steps",
         creator: "iASO Records / Adam Taub",
@@ -1249,6 +1330,26 @@
         source: "https://glasp.co/youtube/RtbQt2ct-Nw"
       },
       {
+        id: "xmvDKN5cwT0",
+        title: "Dominican Bachata Footwork Beginner Basics",
+        creator: "Bachata Dance Academy",
+        level: "beginner",
+        topics: ["footwork", "basic"],
+        style: "dominican",
+        note: "無舞伴也能練的 Dominican footwork 入門，適合先把腳步做小做乾淨。",
+        source: "https://www.youtube.com/watch?v=xmvDKN5cwT0"
+      },
+      {
+        id: "vaiSaxgn-cU",
+        title: "Dominican Bachata Footwork & Partnerwork",
+        creator: "Bachata Dance Academy",
+        level: "intermediate",
+        topics: ["footwork", "partnerwork"],
+        style: "dominican",
+        note: "把 Dominican 腳步接回 partnerwork 的參考影片，適合 Level 3。",
+        source: "https://www.youtube.com/watch?v=vaiSaxgn-cU"
+      },
+      {
         id: "h2Mi_BeQvWM",
         title: "Bachata Sensual Medium Level 01",
         creator: "CaptainSalsa & Liana",
@@ -1257,6 +1358,56 @@
         style: "sensual",
         note: "中階 sensual 組合，適合在基本連接穩定後使用。",
         source: "https://glasp.co/youtube/h2Mi_BeQvWM"
+      },
+      {
+        id: "HgYMAV-K-24",
+        title: "Bachata Body Isolations & Movement Tutorial",
+        creator: "Bachata Dance Academy",
+        level: "intermediate",
+        topics: ["sensual", "safety"],
+        style: "movement",
+        note: "Sensual 前必練的 rib cage / body isolation，能降低 body roll 硬折風險。",
+        source: "https://www.youtube.com/watch?v=HgYMAV-K-24"
+      },
+      {
+        id: "zAAGe8IwXl0",
+        title: "8 Easy Isolations in Bachata Sensual",
+        creator: "Roberto & Magdalena Bachata",
+        level: "intermediate",
+        topics: ["sensual", "styling"],
+        style: "movement",
+        note: "把 isolation 拆成容易跟練的小動作，適合 Level 4 前半段。",
+        source: "https://www.youtube.com/watch?v=zAAGe8IwXl0"
+      },
+      {
+        id: "FaLYQUa1PDg",
+        title: "Body Roll & Body Wave Tutorial",
+        creator: "Melitta Siomos",
+        level: "intermediate",
+        topics: ["sensual", "styling", "safety"],
+        style: "movement",
+        note: "Body roll / wave 的 solo 技術拆解，先練身體控制再進雙人。",
+        source: "https://www.youtube.com/watch?v=FaLYQUa1PDg"
+      },
+      {
+        id: "C692mzPuGg8",
+        title: "How to Feel the Music: 3 Rhythms of Bachata",
+        creator: "KST Dance / SDB Film Room",
+        level: "intermediate",
+        topics: ["musicality", "footwork"],
+        style: "musicality",
+        note: "用 3 種節奏理解 Bachata musicality，適合把腳步和音樂連起來。",
+        source: "https://www.youtube.com/watch?v=C692mzPuGg8"
+      },
+      {
+        id: "WFSBZEdrj64",
+        title: "Bachata Timing and Staying On Beat",
+        creator: "Bachata Dance Academy",
+        level: "beginner",
+        topics: ["musicality", "basic"],
+        style: "timing",
+        note: "專門補 timing 和 on beat，適合覺得自己常常跳掉拍的人。",
+        source: "https://www.youtube.com/watch?v=WFSBZEdrj64"
       },
       {
         search: "https://www.youtube.com/results?search_query=Bachata+Dance+Academy+Dominican+Bachata+Footwork+Partnerwork",
@@ -1423,8 +1574,23 @@
       },
       {
         title: "Roberto & Magdalena",
-        text: "Glasp 收錄的 beginner footwork 影片，有逐字稿與影片 ID，適合入門 solo 腳步練習。",
-        url: "https://glasp.co/youtube/RtbQt2ct-Nw"
+        text: "適合補 beginner moves、isolation 和社交舞池實用動作，很多影片能直接拆成站內練習素材。",
+        url: "https://www.youtube.com/@RobertoMagdalenaBachata"
+      },
+      {
+        title: "Marius & Elena Official",
+        text: "適合 partnerwork、hammerlock、social combos 和 musicality；目前 Hammerlock 長影片已做成切片庫。",
+        url: "https://www.youtube.com/@MariusElenaBachata"
+      },
+      {
+        title: "Dance Dojo",
+        text: "Follow-along 類型很適合日常練習，尤其是 basic step、timing、musicality 的穩定度。",
+        url: "https://www.youtube.com/@DanceDojo"
+      },
+      {
+        title: "Bachata Library",
+        text: "適合找 musicality breakdown，用歌曲結構理解 intro、break、節奏層次和停拍。",
+        url: "https://www.youtube.com/@BachataLibrary"
       },
       {
         title: "Korke & Judith",
@@ -1688,12 +1854,22 @@
     const segmentCategory = document.querySelector("#segmentCategory");
     const segmentCount = document.querySelector("#segmentCount");
     const levelCards = document.querySelectorAll("[data-level-jump]");
+    const videoPresetButtons = document.querySelectorAll("[data-video-preset]");
 
     const levelRoutes = {
       "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
       "2": { level: "beginner", topic: "partnerwork", videoQuery: "turn", segmentQuery: "", target: "#library" },
       "3": { level: "intermediate", topic: "footwork", videoQuery: "footwork", segmentQuery: "", target: "#library" },
       "4": { level: "intermediate", topic: "sensual", videoQuery: "sensual", segmentQuery: "Hammerlock", target: "#segments" }
+    };
+
+    const videoPresets = {
+      basic: { level: "beginner", topic: "basic", query: "" },
+      partnerwork: { level: "all", topic: "partnerwork", query: "" },
+      footwork: { level: "all", topic: "footwork", query: "" },
+      sensual: { level: "all", topic: "sensual", query: "" },
+      musicality: { level: "all", topic: "musicality", query: "" },
+      safety: { level: "all", topic: "safety", query: "" }
     };
 
     function videoKey(video) {
@@ -1765,7 +1941,8 @@
         partnerwork: "雙人",
         sensual: "Sensual",
         musicality: "音樂性",
-        styling: "Styling"
+        styling: "Styling",
+        safety: "安全技巧"
       }[value] || value;
     }
 
@@ -1846,6 +2023,19 @@
       document.querySelector(route.target).scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function applyVideoPreset(presetName) {
+      const preset = videoPresets[presetName];
+      if (!preset) return;
+      level.value = preset.level;
+      topic.value = preset.topic;
+      search.value = preset.query;
+      state.savedOnly = false;
+      savedOnly.classList.remove("saved");
+      savedOnly.textContent = "只看收藏";
+      renderVideos();
+      videoPresetButtons.forEach(button => button.classList.toggle("active", button.dataset.videoPreset === presetName));
+    }
+
     function renderWeeks() {
       const list = document.querySelector("#weekList");
       list.innerHTML = weeks.map((week, index) => `
@@ -1901,6 +2091,12 @@
 
     segmentSearch.addEventListener("input", renderSegments);
     segmentCategory.addEventListener("input", renderSegments);
+
+    document.querySelector("#library").addEventListener("click", event => {
+      const button = event.target.closest("[data-video-preset]");
+      if (!button) return;
+      applyVideoPreset(button.dataset.videoPreset);
+    });
 
     renderVideos();
     renderSources();
