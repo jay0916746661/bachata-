@@ -518,6 +518,21 @@
       padding: 18px;
       display: grid;
       gap: 12px;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    button.path-card {
+      font: inherit;
+    }
+
+    .path-card:hover,
+    .path-card.active {
+      transform: translateY(-2px);
+      border-color: var(--wine);
+      box-shadow: var(--shadow);
     }
 
     .path-card h3,
@@ -884,26 +899,26 @@
             <p>先把基本步與節拍練到穩，再加轉圈、partnerwork、Dominican 腳步、Sensual 身體控制與 musicality。這個順序比較像真的能跳出去，而不是只背動作。</p>
           </div>
           <div class="path-grid">
-            <article class="path-card">
+            <button class="path-card" type="button" data-level-jump="1">
               <span class="badge">Level 1</span>
               <h3>節拍與基本步</h3>
               <p>1-8 拍、側向 basic、forward/back、box step、right turn。目標是不用想也能踩準。</p>
-            </article>
-            <article class="path-card">
+            </button>
+            <button class="path-card" type="button" data-level-jump="2">
               <span class="badge gold">Level 2</span>
               <h3>連接與帶跟</h3>
               <p>open hold、closed hold、inside/outside turns、簡單手位變化，練「舒服」比練花更重要。</p>
-            </article>
-            <article class="path-card">
+            </button>
+            <button class="path-card" type="button" data-level-jump="3">
               <span class="badge blue">Level 3</span>
               <h3>腳步與風格</h3>
               <p>Dominican footwork、syncopation、cha-cha timing、solo shines，讓腳下有音樂感。</p>
-            </article>
-            <article class="path-card">
+            </button>
+            <button class="path-card" type="button" data-level-jump="4">
               <span class="badge wine">Level 4</span>
               <h3>Sensual 與表達</h3>
               <p>body roll、wave、isolation、musicality、styling，全部建立在清楚安全的 lead/follow 上。</p>
-            </article>
+            </button>
           </div>
         </div>
       </section>
@@ -1672,6 +1687,14 @@
     const segmentSearch = document.querySelector("#segmentSearch");
     const segmentCategory = document.querySelector("#segmentCategory");
     const segmentCount = document.querySelector("#segmentCount");
+    const levelCards = document.querySelectorAll("[data-level-jump]");
+
+    const levelRoutes = {
+      "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
+      "2": { level: "beginner", topic: "partnerwork", videoQuery: "turn", segmentQuery: "", target: "#library" },
+      "3": { level: "intermediate", topic: "footwork", videoQuery: "footwork", segmentQuery: "", target: "#library" },
+      "4": { level: "intermediate", topic: "sensual", videoQuery: "sensual", segmentQuery: "Hammerlock", target: "#segments" }
+    };
 
     function videoKey(video) {
       return video.id || video.search;
@@ -1809,6 +1832,20 @@
       return `${minutes}:${rest}`;
     }
 
+    function applyLevel(levelNumber) {
+      const route = levelRoutes[levelNumber];
+      if (!route) return;
+      level.value = route.level;
+      topic.value = route.topic;
+      search.value = route.videoQuery;
+      segmentSearch.value = route.segmentQuery;
+      segmentCategory.value = "all";
+      renderVideos();
+      renderSegments();
+      levelCards.forEach(card => card.classList.toggle("active", card.dataset.levelJump === levelNumber));
+      document.querySelector(route.target).scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function renderWeeks() {
       const list = document.querySelector("#weekList");
       list.innerHTML = weeks.map((week, index) => `
@@ -1854,6 +1891,12 @@
       const button = event.target.closest("[data-lesson]");
       if (!button) return;
       selectLesson(button.dataset.lesson);
+    });
+
+    document.querySelector("#path").addEventListener("click", event => {
+      const card = event.target.closest("[data-level-jump]");
+      if (!card) return;
+      applyLevel(card.dataset.levelJump);
     });
 
     segmentSearch.addEventListener("input", renderSegments);
