@@ -381,6 +381,19 @@
       color: var(--muted);
     }
 
+    .segment-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .segment-count {
+      color: var(--muted);
+      font-size: 14px;
+      margin-left: auto;
+    }
+
     .segment-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -837,6 +850,7 @@
       <div class="nav-links">
         <a href="#path">課綱</a>
         <a href="#moves">招數表</a>
+        <a href="#segments">切片庫</a>
         <a href="#library">影片庫</a>
         <a href="#practice">練習</a>
         <a href="#sources">來源</a>
@@ -1092,10 +1106,17 @@
                 </tbody>
                 </table>
               </div>
-              <div class="segment-section">
+              <div class="segment-section" id="segments">
                 <div>
                   <h3>影片切片分類：Hammerlock 社交組合</h3>
                   <p>來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。</p>
+                </div>
+                <div class="segment-tools">
+                  <input class="search" id="segmentSearch" type="search" placeholder="搜尋切片：Combo、Hammerlock、Bonus...">
+                  <select class="select" id="segmentCategory">
+                    <option value="all">全部切片分類</option>
+                  </select>
+                  <span class="segment-count" id="segmentCount"></span>
                 </div>
                 <div class="segment-grid" id="segmentGrid"></div>
               </div>
@@ -1648,6 +1669,9 @@
     const lessonExplain = document.querySelector("#lessonExplain");
     const lessonPoints = document.querySelector("#lessonPoints");
     const segmentGrid = document.querySelector("#segmentGrid");
+    const segmentSearch = document.querySelector("#segmentSearch");
+    const segmentCategory = document.querySelector("#segmentCategory");
+    const segmentCount = document.querySelector("#segmentCount");
 
     function videoKey(video) {
       return video.id || video.search;
@@ -1752,12 +1776,31 @@
     }
 
     function renderSegments() {
-      segmentGrid.innerHTML = videoSegments.map(segment => `
+      const categories = [...new Set(videoSegments.map(segment => segment.category))];
+      if (segmentCategory.options.length === 1) {
+        segmentCategory.insertAdjacentHTML("beforeend", categories.map(category => `<option value="${category}">${category}</option>`).join(""));
+      }
+
+      const query = segmentSearch.value.trim().toLowerCase();
+      const selectedCategory = segmentCategory.value;
+      const filtered = videoSegments.filter(segment => {
+        const haystack = [segment.title, segment.category, segment.explain, segment.points.join(" ")].join(" ").toLowerCase();
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesCategory = selectedCategory === "all" || segment.category === selectedCategory;
+        return matchesQuery && matchesCategory;
+      });
+
+      segmentCount.textContent = `${filtered.length} / ${videoSegments.length} 個切片`;
+      segmentGrid.innerHTML = filtered.map(segment => `
         <button class="segment-card" type="button" data-lesson="${segment.key}">
           <strong>${segment.title}</strong>
           <span>${formatTime(segment.start)} - ${formatTime(segment.end)} · ${segment.category}</span>
         </button>
       `).join("");
+
+      if (!filtered.length) {
+        segmentGrid.innerHTML = `<div class="empty">找不到符合條件的切片。</div>`;
+      }
     }
 
     function formatTime(seconds) {
@@ -1812,6 +1855,9 @@
       if (!button) return;
       selectLesson(button.dataset.lesson);
     });
+
+    segmentSearch.addEventListener("input", renderSegments);
+    segmentCategory.addEventListener("input", renderSegments);
 
     renderVideos();
     renderSources();
