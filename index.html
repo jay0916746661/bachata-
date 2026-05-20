@@ -886,6 +886,18 @@
       margin-bottom: 14px;
     }
 
+    .source-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
     .pipeline-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -946,6 +958,7 @@
 
       .practice-layout,
       .move-layout,
+      .source-form,
       .stats {
         grid-template-columns: 1fr;
       }
@@ -1361,6 +1374,11 @@
             <h2>待處理來源</h2>
             <p>這裡是適合之後檢查、切片或轉成課程的來源。能嵌入的優先進影片庫；不能嵌入的保留外連與筆記。</p>
           </div>
+          <form class="source-form" id="sourceForm">
+            <input class="search" id="sourceTitle" type="text" placeholder="來源標題或備註，例如：IG body roll 靈感">
+            <input class="search" id="sourceUrl" type="url" placeholder="貼上 IG / TikTok / YouTube / Website 連結">
+            <button class="small-btn" type="submit">加入來源</button>
+          </form>
           <div class="sources-grid" id="sourceInbox"></div>
           <div class="sources-grid" id="sourcesGrid"></div>
         </div>
@@ -2051,6 +2069,7 @@
       saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
       weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]")),
       segments: new Set(JSON.parse(localStorage.getItem("bachata-segments") || "[]")),
+      customSources: JSON.parse(localStorage.getItem("bachata-custom-sources") || "[]"),
       currentLesson: "hammerlock-1"
     };
 
@@ -2075,6 +2094,9 @@
     const videoPresetButtons = document.querySelectorAll("[data-video-preset]");
     const sourceSearch = document.querySelector("#sourceSearch");
     const sourcePlatform = document.querySelector("#sourcePlatform");
+    const sourceForm = document.querySelector("#sourceForm");
+    const sourceTitle = document.querySelector("#sourceTitle");
+    const sourceUrl = document.querySelector("#sourceUrl");
 
     const levelRoutes = {
       "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
@@ -2208,7 +2230,8 @@
         document.querySelector("#platformRadar").innerHTML = `<div class="empty">找不到符合條件的平台來源。</div>`;
       }
 
-      document.querySelector("#sourceInbox").innerHTML = sourceInbox.map(item => `
+      const combinedInbox = [...state.customSources, ...sourceInbox];
+      document.querySelector("#sourceInbox").innerHTML = combinedInbox.map(item => `
         <article class="source-card">
           <div class="source-meta">
             <span class="tag">${item.platform}</span>
@@ -2218,6 +2241,7 @@
           <p>${item.action}</p>
           <div class="resource-actions">
             <a class="small-btn" href="${item.url}" target="_blank" rel="noreferrer">開啟來源</a>
+            ${item.customId ? `<button class="small-btn" type="button" data-remove-source="${item.customId}">移除</button>` : ""}
           </div>
         </article>
       `).join("");
@@ -2231,6 +2255,49 @@
           </div>
         </article>
       `).join("");
+    }
+
+    function detectSourcePlatform(url) {
+      const lower = url.toLowerCase();
+      if (lower.includes("instagram.com")) return "Instagram";
+      if (lower.includes("tiktok.com")) return "TikTok";
+      if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "YouTube";
+      if (lower.includes("reddit.com")) return "Reddit";
+      return "Website";
+    }
+
+    function suggestedSourceStatus(platform) {
+      if (platform === "YouTube") return "待切片";
+      if (platform === "Instagram" || platform === "TikTok") return "外連追蹤";
+      if (platform === "Reddit") return "研究";
+      return "待整理";
+    }
+
+    function addCustomSource(event) {
+      event.preventDefault();
+      const url = sourceUrl.value.trim();
+      if (!url) return;
+      const platform = detectSourcePlatform(url);
+      const title = sourceTitle.value.trim() || `${platform} 新來源`;
+      const source = {
+        customId: String(Date.now()),
+        title,
+        platform,
+        status: suggestedSourceStatus(platform),
+        action: platform === "YouTube" ? "檢查是否有章節；適合就切片進平台。" : "先外連追蹤，挑出安全、清楚、值得練的招式。",
+        url
+      };
+      state.customSources.unshift(source);
+      localStorage.setItem("bachata-custom-sources", JSON.stringify(state.customSources));
+      sourceTitle.value = "";
+      sourceUrl.value = "";
+      renderSources();
+    }
+
+    function removeCustomSource(id) {
+      state.customSources = state.customSources.filter(item => item.customId !== id);
+      localStorage.setItem("bachata-custom-sources", JSON.stringify(state.customSources));
+      renderSources();
     }
 
     function embedUrl(videoId, start = 0) {
@@ -2402,6 +2469,12 @@
     nextSegmentBtn.addEventListener("click", selectNextSegment);
     sourceSearch.addEventListener("input", renderSources);
     sourcePlatform.addEventListener("input", renderSources);
+    sourceForm.addEventListener("submit", addCustomSource);
+    document.querySelector("#sources").addEventListener("click", event => {
+      const removeButton = event.target.closest("[data-remove-source]");
+      if (!removeButton) return;
+      removeCustomSource(removeButton.dataset.removeSource);
+    });
 
     document.querySelector("#library").addEventListener("click", event => {
       const button = event.target.closest("[data-video-preset]");
