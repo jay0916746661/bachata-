@@ -878,6 +878,21 @@
       margin-bottom: 22px;
     }
 
+    .source-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
     .source-card {
       padding: 16px;
       display: grid;
@@ -888,6 +903,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+    }
+
+    .source-card.hidden {
+      display: none;
     }
 
     .empty {
@@ -920,6 +939,7 @@
       .path-grid,
       .video-grid,
       .radar-grid,
+      .pipeline-grid,
       .sources-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -953,6 +973,7 @@
       .path-grid,
       .video-grid,
       .radar-grid,
+      .pipeline-grid,
       .sources-grid,
       .map-branches,
       .category-presets,
@@ -1328,7 +1349,19 @@
             <h2>來源與延伸</h2>
             <p>這裡放的是查到的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。</p>
           </div>
+          <div class="pipeline-grid" id="sourcePipeline"></div>
+          <div class="source-tools">
+            <input class="search" id="sourceSearch" type="search" placeholder="搜尋來源：IG、TikTok、musicality、combo...">
+            <select class="select" id="sourcePlatform">
+              <option value="all">全部平台</option>
+            </select>
+          </div>
           <div class="radar-grid" id="platformRadar"></div>
+          <div class="section-title">
+            <h2>待處理來源</h2>
+            <p>這裡是適合之後檢查、切片或轉成課程的來源。能嵌入的優先進影片庫；不能嵌入的保留外連與筆記。</p>
+          </div>
+          <div class="sources-grid" id="sourceInbox"></div>
           <div class="sources-grid" id="sourcesGrid"></div>
         </div>
       </section>
@@ -1690,6 +1723,7 @@
         platform: "Instagram",
         use: "短 combo、社交示範、活動片段",
         mode: "外連追蹤",
+        status: "追蹤",
         url: "https://www.instagram.com/mariuselenaofficial/"
       },
       {
@@ -1697,6 +1731,7 @@
         platform: "Instagram",
         use: "musicality、connection、學習觀念",
         mode: "外連追蹤",
+        status: "追蹤",
         url: "https://www.instagram.com/tamphambachata/"
       },
       {
@@ -1704,6 +1739,7 @@
         platform: "Website / Instagram / YouTube",
         use: "系統課程、basic、Dominican、timing",
         mode: "可轉成課程來源",
+        status: "課程來源",
         url: "https://www.bachatadanceacademy.com/our-instructors.html"
       },
       {
@@ -1711,6 +1747,7 @@
         platform: "Website / YouTube",
         use: "musicality、connection、課程架構",
         mode: "可轉成課程來源",
+        status: "課程來源",
         url: "https://www.bachatalibrary.com/"
       },
       {
@@ -1718,6 +1755,7 @@
         platform: "TikTok",
         use: "短招式靈感、流行 combo",
         mode: "外連追蹤",
+        status: "靈感",
         url: "https://www.tiktok.com/search?q=bachata%20tutorial"
       },
       {
@@ -1725,6 +1763,7 @@
         platform: "Instagram",
         use: "Reels、老師帳號、活動示範",
         mode: "外連追蹤",
+        status: "靈感",
         url: "https://www.instagram.com/explore/tags/bachatatutorial/"
       },
       {
@@ -1732,6 +1771,7 @@
         platform: "Reddit",
         use: "老師推薦、學習問題、社群經驗",
         mode: "研究來源",
+        status: "研究",
         url: "https://www.reddit.com/r/Bachata/"
       },
       {
@@ -1739,7 +1779,46 @@
         platform: "YouTube",
         use: "可嵌入長影片、可切章節",
         mode: "站內播放優先",
+        status: "可切片",
         url: "https://www.youtube.com/results?search_query=bachata+tutorial"
+      }
+    ];
+
+    const sourcePipeline = [
+      { title: "站內播放", text: "YouTube 或可嵌入影片，直接進影片庫。", count: "29 影片" },
+      { title: "可切片", text: "有章節或可標時間碼的長影片，拆成切片庫。", count: "11 切片" },
+      { title: "外連追蹤", text: "IG / TikTok / Reels，保留來源與用途。", count: "4 來源" },
+      { title: "研究整理", text: "Reddit、網站、課程頁，用來補課綱和老師推薦。", count: "3 來源" }
+    ];
+
+    const sourceInbox = [
+      {
+        title: "IG / Reels 連結",
+        platform: "Instagram",
+        status: "待人工挑選",
+        action: "看是否能轉成招式筆記；通常不嵌入，只外連。",
+        url: "https://www.instagram.com/explore/tags/bachatatutorial/"
+      },
+      {
+        title: "TikTok Bachata tutorial",
+        platform: "TikTok",
+        status: "待人工挑選",
+        action: "找短 combo 靈感，挑穩定安全的招式轉成文字練習。",
+        url: "https://www.tiktok.com/search?q=bachata%20tutorial"
+      },
+      {
+        title: "YouTube 長教學",
+        platform: "YouTube",
+        status: "優先處理",
+        action: "有章節就切片；沒章節就用人工時間碼做切片。",
+        url: "https://www.youtube.com/results?search_query=bachata+combo+tutorial"
+      },
+      {
+        title: "課程網站 / Blog",
+        platform: "Website",
+        status: "研究",
+        action: "整理觀念、課綱和安全提醒，不直接複製付費內容。",
+        url: "https://www.bachatalibrary.com/"
       }
     ];
 
@@ -1994,6 +2073,8 @@
     const nextSegmentBtn = document.querySelector("#nextSegmentBtn");
     const levelCards = document.querySelectorAll("[data-level-jump]");
     const videoPresetButtons = document.querySelectorAll("[data-video-preset]");
+    const sourceSearch = document.querySelector("#sourceSearch");
+    const sourcePlatform = document.querySelector("#sourcePlatform");
 
     const levelRoutes = {
       "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
@@ -2086,14 +2167,55 @@
     }
 
     function renderSources() {
-      document.querySelector("#platformRadar").innerHTML = platformRadar.map(item => `
+      const platforms = [...new Set(platformRadar.map(item => item.platform))];
+      if (sourcePlatform.options.length === 1) {
+        sourcePlatform.insertAdjacentHTML("beforeend", platforms.map(platform => `<option value="${platform}">${platform}</option>`).join(""));
+      }
+
+      const query = sourceSearch.value.trim().toLowerCase();
+      const selectedPlatform = sourcePlatform.value;
+      const filteredRadar = platformRadar.filter(item => {
+        const haystack = [item.title, item.platform, item.use, item.mode, item.status].join(" ").toLowerCase();
+        const matchesQuery = !query || haystack.includes(query);
+        const matchesPlatform = selectedPlatform === "all" || item.platform === selectedPlatform;
+        return matchesQuery && matchesPlatform;
+      });
+
+      document.querySelector("#sourcePipeline").innerHTML = sourcePipeline.map(item => `
+        <article class="source-card">
+          <span class="badge blue">${item.count}</span>
+          <h3>${item.title}</h3>
+          <p>${item.text}</p>
+        </article>
+      `).join("");
+
+      document.querySelector("#platformRadar").innerHTML = filteredRadar.map(item => `
         <article class="source-card">
           <div class="source-meta">
             <span class="tag">${item.platform}</span>
             <span class="tag">${item.mode}</span>
+            <span class="tag">${item.status}</span>
           </div>
           <h3>${item.title}</h3>
           <p>${item.use}</p>
+          <div class="resource-actions">
+            <a class="small-btn" href="${item.url}" target="_blank" rel="noreferrer">開啟來源</a>
+          </div>
+        </article>
+      `).join("");
+
+      if (!filteredRadar.length) {
+        document.querySelector("#platformRadar").innerHTML = `<div class="empty">找不到符合條件的平台來源。</div>`;
+      }
+
+      document.querySelector("#sourceInbox").innerHTML = sourceInbox.map(item => `
+        <article class="source-card">
+          <div class="source-meta">
+            <span class="tag">${item.platform}</span>
+            <span class="tag">${item.status}</span>
+          </div>
+          <h3>${item.title}</h3>
+          <p>${item.action}</p>
           <div class="resource-actions">
             <a class="small-btn" href="${item.url}" target="_blank" rel="noreferrer">開啟來源</a>
           </div>
@@ -2278,6 +2400,8 @@
     segmentSearch.addEventListener("input", renderSegments);
     segmentCategory.addEventListener("input", renderSegments);
     nextSegmentBtn.addEventListener("click", selectNextSegment);
+    sourceSearch.addEventListener("input", renderSources);
+    sourcePlatform.addEventListener("input", renderSources);
 
     document.querySelector("#library").addEventListener("click", event => {
       const button = event.target.closest("[data-video-preset]");
