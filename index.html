@@ -394,6 +394,27 @@
       margin-left: auto;
     }
 
+    .segment-progress {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8f5ef;
+    }
+
+    .segment-progress strong,
+    .segment-progress span {
+      display: block;
+    }
+
+    .segment-progress span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .segment-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -411,6 +432,11 @@
       text-align: left;
     }
 
+    .segment-card.done {
+      border-color: rgba(24, 115, 107, .55);
+      background: #edf7f5;
+    }
+
     .segment-card strong {
       display: block;
     }
@@ -418,6 +444,32 @@
     .segment-card span {
       color: var(--muted);
       font-size: 13px;
+    }
+
+    .segment-card-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .segment-status {
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
+    .segment-done-btn {
+      min-height: 30px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 820;
     }
 
     .move-table {
@@ -1168,6 +1220,13 @@
                   <h3>影片切片分類：Hammerlock 社交組合</h3>
                   <p>來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。</p>
                 </div>
+                <div class="segment-progress">
+                  <div>
+                    <strong id="segmentProgressTitle">切片進度 0 / 11</strong>
+                    <span id="segmentProgressHint">下一個建議：Combo 1</span>
+                  </div>
+                  <button class="small-btn" type="button" id="nextSegmentBtn">練下一段</button>
+                </div>
                 <div class="segment-tools">
                   <input class="search" id="segmentSearch" type="search" placeholder="搜尋切片：Combo、Hammerlock、Bonus...">
                   <select class="select" id="segmentCategory">
@@ -1836,7 +1895,9 @@
     const state = {
       savedOnly: false,
       saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
-      weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]"))
+      weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]")),
+      segments: new Set(JSON.parse(localStorage.getItem("bachata-segments") || "[]")),
+      currentLesson: "hammerlock-1"
     };
 
     const grid = document.querySelector("#videoGrid");
@@ -1853,6 +1914,9 @@
     const segmentSearch = document.querySelector("#segmentSearch");
     const segmentCategory = document.querySelector("#segmentCategory");
     const segmentCount = document.querySelector("#segmentCount");
+    const segmentProgressTitle = document.querySelector("#segmentProgressTitle");
+    const segmentProgressHint = document.querySelector("#segmentProgressHint");
+    const nextSegmentBtn = document.querySelector("#nextSegmentBtn");
     const levelCards = document.querySelectorAll("[data-level-jump]");
     const videoPresetButtons = document.querySelectorAll("[data-video-preset]");
 
@@ -1968,6 +2032,7 @@
     function selectLesson(key) {
       const lesson = lessons[key] || videoSegments.find(segment => segment.key === key);
       if (!lesson) return;
+      state.currentLesson = key;
       lessonFrame.src = embedUrl(lesson.videoId, lesson.start || 0);
       lessonTitle.textContent = lesson.title;
       lessonExplain.textContent = lesson.explain;
@@ -1992,21 +2057,47 @@
 
       segmentCount.textContent = `${filtered.length} / ${videoSegments.length} 個切片`;
       segmentGrid.innerHTML = filtered.map(segment => `
-        <button class="segment-card" type="button" data-lesson="${segment.key}">
+        <button class="segment-card ${state.segments.has(segment.key) ? "done" : ""}" type="button" data-lesson="${segment.key}">
           <strong>${segment.title}</strong>
           <span>${formatTime(segment.start)} - ${formatTime(segment.end)} · ${segment.category}</span>
+          <span class="segment-card-actions">
+            <span class="segment-status">${state.segments.has(segment.key) ? "已完成" : "待練習"}</span>
+            <span class="segment-done-btn" data-segment-done="${segment.key}">${state.segments.has(segment.key) ? "取消完成" : "標記完成"}</span>
+          </span>
         </button>
       `).join("");
 
       if (!filtered.length) {
         segmentGrid.innerHTML = `<div class="empty">找不到符合條件的切片。</div>`;
       }
+      renderSegmentProgress();
     }
 
     function formatTime(seconds) {
       const minutes = Math.floor(seconds / 60);
       const rest = String(seconds % 60).padStart(2, "0");
       return `${minutes}:${rest}`;
+    }
+
+    function renderSegmentProgress() {
+      const done = videoSegments.filter(segment => state.segments.has(segment.key)).length;
+      const next = videoSegments.find(segment => !state.segments.has(segment.key));
+      segmentProgressTitle.textContent = `切片進度 ${done} / ${videoSegments.length}`;
+      segmentProgressHint.textContent = next ? `下一個建議：${next.category} · ${next.title}` : "這組切片已全部完成，可以回頭複習最不穩的 2 段。";
+      nextSegmentBtn.textContent = next ? "練下一段" : "全部完成";
+      nextSegmentBtn.disabled = !next;
+    }
+
+    function toggleSegmentDone(key) {
+      if (state.segments.has(key)) state.segments.delete(key);
+      else state.segments.add(key);
+      localStorage.setItem("bachata-segments", JSON.stringify([...state.segments]));
+      renderSegments();
+    }
+
+    function selectNextSegment() {
+      const next = videoSegments.find(segment => !state.segments.has(segment.key)) || videoSegments[0];
+      if (next) selectLesson(next.key);
     }
 
     function applyLevel(levelNumber) {
@@ -2078,6 +2169,12 @@
     });
 
     document.querySelector("#moves").addEventListener("click", event => {
+      const doneButton = event.target.closest("[data-segment-done]");
+      if (doneButton) {
+        event.stopPropagation();
+        toggleSegmentDone(doneButton.dataset.segmentDone);
+        return;
+      }
       const button = event.target.closest("[data-lesson]");
       if (!button) return;
       selectLesson(button.dataset.lesson);
@@ -2091,6 +2188,7 @@
 
     segmentSearch.addEventListener("input", renderSegments);
     segmentCategory.addEventListener("input", renderSegments);
+    nextSegmentBtn.addEventListener("click", selectNextSegment);
 
     document.querySelector("#library").addEventListener("click", event => {
       const button = event.target.closest("[data-video-preset]");
