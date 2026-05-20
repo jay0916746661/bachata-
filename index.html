@@ -871,10 +871,23 @@
       gap: 14px;
     }
 
+    .radar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
     .source-card {
       padding: 16px;
       display: grid;
       gap: 12px;
+    }
+
+    .source-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     .empty {
@@ -906,6 +919,7 @@
     @media (max-width: 920px) {
       .path-grid,
       .video-grid,
+      .radar-grid,
       .sources-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -938,6 +952,7 @@
 
       .path-grid,
       .video-grid,
+      .radar-grid,
       .sources-grid,
       .map-branches,
       .category-presets,
@@ -1311,8 +1326,9 @@
         <div class="section-inner">
           <div class="section-title">
             <h2>來源與延伸</h2>
-            <p>這裡放的是查到的主要來源。免費 YouTube 影片適合入門與複習；如果要系統性細節，可以再考慮付費課或現場課。</p>
+            <p>這裡放的是查到的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。</p>
           </div>
+          <div class="radar-grid" id="platformRadar"></div>
           <div class="sources-grid" id="sourcesGrid"></div>
         </div>
       </section>
@@ -1668,6 +1684,65 @@
       }
     ];
 
+    const platformRadar = [
+      {
+        title: "Marius & Elena Instagram",
+        platform: "Instagram",
+        use: "短 combo、社交示範、活動片段",
+        mode: "外連追蹤",
+        url: "https://www.instagram.com/mariuselenaofficial/"
+      },
+      {
+        title: "Tam Pham / Bachata Library",
+        platform: "Instagram",
+        use: "musicality、connection、學習觀念",
+        mode: "外連追蹤",
+        url: "https://www.instagram.com/tamphambachata/"
+      },
+      {
+        title: "Bachata Dance Academy",
+        platform: "Website / Instagram / YouTube",
+        use: "系統課程、basic、Dominican、timing",
+        mode: "可轉成課程來源",
+        url: "https://www.bachatadanceacademy.com/our-instructors.html"
+      },
+      {
+        title: "Bachata Library",
+        platform: "Website / YouTube",
+        use: "musicality、connection、課程架構",
+        mode: "可轉成課程來源",
+        url: "https://www.bachatalibrary.com/"
+      },
+      {
+        title: "TikTok Bachata 搜尋",
+        platform: "TikTok",
+        use: "短招式靈感、流行 combo",
+        mode: "外連追蹤",
+        url: "https://www.tiktok.com/search?q=bachata%20tutorial"
+      },
+      {
+        title: "Instagram Bachata 搜尋",
+        platform: "Instagram",
+        use: "Reels、老師帳號、活動示範",
+        mode: "外連追蹤",
+        url: "https://www.instagram.com/explore/tags/bachatatutorial/"
+      },
+      {
+        title: "r/Bachata",
+        platform: "Reddit",
+        use: "老師推薦、學習問題、社群經驗",
+        mode: "研究來源",
+        url: "https://www.reddit.com/r/Bachata/"
+      },
+      {
+        title: "YouTube 搜尋池",
+        platform: "YouTube",
+        use: "可嵌入長影片、可切章節",
+        mode: "站內播放優先",
+        url: "https://www.youtube.com/results?search_query=bachata+tutorial"
+      }
+    ];
+
     const weeks = [
       ["Week 1", "Basic side step、節拍、重量轉移"],
       ["Week 2", "Forward/back、box step、right turn"],
@@ -2011,6 +2086,20 @@
     }
 
     function renderSources() {
+      document.querySelector("#platformRadar").innerHTML = platformRadar.map(item => `
+        <article class="source-card">
+          <div class="source-meta">
+            <span class="tag">${item.platform}</span>
+            <span class="tag">${item.mode}</span>
+          </div>
+          <h3>${item.title}</h3>
+          <p>${item.use}</p>
+          <div class="resource-actions">
+            <a class="small-btn" href="${item.url}" target="_blank" rel="noreferrer">開啟來源</a>
+          </div>
+        </article>
+      `).join("");
+
       document.querySelector("#sourcesGrid").innerHTML = sources.map(item => `
         <article class="source-card">
           <h3>${item.title}</h3>
