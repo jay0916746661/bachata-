@@ -217,6 +217,70 @@
       font-size: 14px;
     }
 
+    .style-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .style-tab {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .style-tab strong,
+    .style-tab span {
+      display: block;
+    }
+
+    .style-tab span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .style-tab.active {
+      color: #fff;
+      border-color: var(--wine);
+      background: var(--wine);
+    }
+
+    .style-tab.active span {
+      color: rgba(255,255,255,.78);
+    }
+
+    .style-panel {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .style-info {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      display: grid;
+      gap: 12px;
+    }
+
+    .mini-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #3c4148;
+    }
+
+    .class-video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
     .path-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -727,6 +791,17 @@
       box-shadow: var(--shadow);
     }
 
+    .media-label {
+      position: absolute;
+      inset: 10px auto auto 10px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      color: #fff;
+      background: rgba(31, 34, 40, .82);
+      font-size: 12px;
+      font-weight: 820;
+    }
+
     .video-body {
       padding: 15px;
       display: grid;
@@ -962,6 +1037,7 @@
 
       .practice-layout,
       .move-layout,
+      .style-panel,
       .source-form,
       .stats {
         grid-template-columns: 1fr;
@@ -993,6 +1069,8 @@
 
       .path-grid,
       .video-grid,
+      .style-tabs,
+      .class-video-grid,
       .radar-grid,
       .pipeline-grid,
       .sources-grid,
@@ -1042,6 +1120,7 @@
     <nav class="nav" aria-label="主要導覽">
       <div class="brand"><span class="brand-mark">B</span> Bachata Training</div>
       <div class="nav-links">
+        <a href="#danceStyles">舞風</a>
         <a href="#path">課綱</a>
         <a href="#moves">招數表</a>
         <a href="#segments">切片庫</a>
@@ -1051,7 +1130,7 @@
       </div>
     </nav>
     <nav class="mobile-tabbar" aria-label="手機快速導覽">
-      <a href="#path">課綱</a>
+      <a href="#danceStyles">舞風</a>
       <a href="#segments">切片</a>
       <a href="#library">影片</a>
       <a href="#practice">練習</a>
@@ -1078,6 +1157,34 @@
     </header>
 
     <main>
+      <section class="band alt" id="danceStyles">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2>舞風分頁</h2>
+            <p>Bachata 已經是完整平台；Salsa、Zouk、Blues 先用同一套模式建立分頁骨架，之後可以各自加入影片、切片、招式表和上課影片。</p>
+          </div>
+          <div class="style-tabs" id="styleTabs"></div>
+          <div class="style-panel">
+            <section class="style-info">
+              <span class="badge" id="styleStatus">Active</span>
+              <h3 id="styleTitle">Bachata</h3>
+              <p id="styleDescription">完整平台：影片庫、切片庫、招式表、來源雷達與練習進度。</p>
+              <ul class="mini-list" id="styleLevels"></ul>
+            </section>
+            <section class="style-info">
+              <h3>手機上課影片庫</h3>
+              <p>把手機錄的課堂影片先上傳到 YouTube unlisted、Google Drive 或 iCloud 分享，再把連結貼進來。平台會存在你的手機瀏覽器，不會塞進 GitHub repo。</p>
+              <form class="source-form" id="classVideoForm">
+                <input class="search" id="classVideoTitle" type="text" placeholder="例如：Zouk 週三課 body movement">
+                <input class="search" id="classVideoUrl" type="url" placeholder="貼上 YouTube unlisted / Drive / iCloud 連結">
+                <button class="small-btn" type="submit">加入上課影片</button>
+              </form>
+              <div class="class-video-grid" id="classVideoGrid"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+
       <section class="band alt" id="path">
         <div class="section-inner">
           <div class="section-title">
@@ -1883,6 +1990,33 @@
       }
     ];
 
+    const danceStyles = {
+      bachata: {
+        title: "Bachata",
+        status: "完整平台",
+        summary: "影片庫、切片庫、招式表、來源雷達與練習進度都已上線。",
+        levels: ["Level 1: Basic / timing", "Level 2: Partnerwork / turns", "Level 3: Footwork / musicality", "Level 4: Sensual / styling"]
+      },
+      salsa: {
+        title: "Salsa",
+        status: "準備建立",
+        summary: "可以沿用同一套模式：basic timing、cross body lead、turn patterns、shines、musicality。",
+        levels: ["Level 1: On1 / On2 timing", "Level 2: Cross body lead", "Level 3: Turn patterns", "Level 4: Shines / social combinations"]
+      },
+      zouk: {
+        title: "Zouk",
+        status: "準備建立",
+        summary: "適合用安全優先模式：basic、connection、body movement、head movement progression。",
+        levels: ["Level 1: Basic / lateral", "Level 2: Frame / connection", "Level 3: Body movement", "Level 4: Head movement safety"]
+      },
+      blues: {
+        title: "Blues",
+        status: "準備建立",
+        summary: "可以整理成 close embrace、pulse、solo movement、musicality 和不同 blues idioms。",
+        levels: ["Level 1: Pulse / posture", "Level 2: Close embrace", "Level 3: Solo movement", "Level 4: Idioms / musicality"]
+      }
+    };
+
     const weeks = [
       ["Week 1", "Basic side step、節拍、重量轉移"],
       ["Week 2", "Forward/back、box step、right turn"],
@@ -1976,9 +2110,9 @@
       },
       "musical-pause": {
         title: "Musical Pause / Break",
-        videoId: "TJGfUGUoZe0",
-        explain: "停拍是最有用的 musicality。當歌手拉長音或鼓點斷開，停住比硬塞步伐更有味道。",
-        points: ["聽歌時標出 break 和停頓。", "停住時 frame 不要垮。", "下一拍要能乾淨回 basic。"]
+        videoId: "C692mzPuGg8",
+        explain: "停拍是 musicality 的一部分，不是 Dominican basic steps。先學會聽到 break、延長音或節奏空白，再用停住、慢動作或小 body movement 回應音樂。",
+        points: ["先聽歌找 break，不急著跳。", "停住時 frame 不要垮。", "下一拍要能乾淨回 basic。"]
       },
       "styling": {
         title: "Arm / Ladies / Men Styling",
@@ -2113,6 +2247,8 @@
       weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]")),
       segments: new Set(JSON.parse(localStorage.getItem("bachata-segments") || "[]")),
       customSources: JSON.parse(localStorage.getItem("bachata-custom-sources") || "[]"),
+      classVideos: JSON.parse(localStorage.getItem("dance-class-videos") || "[]"),
+      style: localStorage.getItem("dance-style") || "bachata",
       currentLesson: "hammerlock-1"
     };
 
@@ -2140,6 +2276,15 @@
     const sourceForm = document.querySelector("#sourceForm");
     const sourceTitle = document.querySelector("#sourceTitle");
     const sourceUrl = document.querySelector("#sourceUrl");
+    const styleTabs = document.querySelector("#styleTabs");
+    const styleStatus = document.querySelector("#styleStatus");
+    const styleTitle = document.querySelector("#styleTitle");
+    const styleDescription = document.querySelector("#styleDescription");
+    const styleLevels = document.querySelector("#styleLevels");
+    const classVideoForm = document.querySelector("#classVideoForm");
+    const classVideoTitle = document.querySelector("#classVideoTitle");
+    const classVideoUrl = document.querySelector("#classVideoUrl");
+    const classVideoGrid = document.querySelector("#classVideoGrid");
 
     const levelRoutes = {
       "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
@@ -2189,8 +2334,9 @@
         const key = videoKey(video);
         const saved = state.saved.has(key);
         const media = video.id
-          ? `<div class="thumb"><iframe src="https://www.youtube-nocookie.com/embed/${video.id}" title="${video.title}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+          ? `<div class="thumb"><span class="media-label">站內播放</span><iframe src="https://www.youtube-nocookie.com/embed/${video.id}" title="${video.title}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
           : `<a class="thumb" href="${videoUrl(video)}" target="_blank" rel="noreferrer">
+              <span class="media-label">搜尋入口</span>
               <img src="${thumb(video)}" alt="${video.title}">
               <span class="play" aria-hidden="true">▶</span>
             </a>`;
@@ -2341,6 +2487,74 @@
       state.customSources = state.customSources.filter(item => item.customId !== id);
       localStorage.setItem("bachata-custom-sources", JSON.stringify(state.customSources));
       renderSources();
+    }
+
+    function renderDanceStyles() {
+      styleTabs.innerHTML = Object.entries(danceStyles).map(([key, item]) => `
+        <button class="style-tab ${state.style === key ? "active" : ""}" type="button" data-style="${key}">
+          <strong>${item.title}</strong>
+          <span>${item.status}</span>
+        </button>
+      `).join("");
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      styleStatus.textContent = current.status;
+      styleTitle.textContent = current.title;
+      styleDescription.textContent = current.summary;
+      styleLevels.innerHTML = current.levels.map(level => `<li>${level}</li>`).join("");
+      renderClassVideos();
+    }
+
+    function selectDanceStyle(key) {
+      if (!danceStyles[key]) return;
+      state.style = key;
+      localStorage.setItem("dance-style", key);
+      renderDanceStyles();
+    }
+
+    function addClassVideo(event) {
+      event.preventDefault();
+      const url = classVideoUrl.value.trim();
+      if (!url) return;
+      const platform = detectSourcePlatform(url);
+      const styleName = danceStyles[state.style]?.title || "Dance";
+      state.classVideos.unshift({
+        id: String(Date.now()),
+        title: classVideoTitle.value.trim() || `${styleName} 上課影片`,
+        url,
+        platform,
+        style: state.style
+      });
+      localStorage.setItem("dance-class-videos", JSON.stringify(state.classVideos));
+      classVideoTitle.value = "";
+      classVideoUrl.value = "";
+      renderClassVideos();
+    }
+
+    function removeClassVideo(id) {
+      state.classVideos = state.classVideos.filter(video => video.id !== id);
+      localStorage.setItem("dance-class-videos", JSON.stringify(state.classVideos));
+      renderClassVideos();
+    }
+
+    function renderClassVideos() {
+      const videosForStyle = state.classVideos.filter(video => video.style === state.style);
+      classVideoGrid.innerHTML = videosForStyle.map(video => `
+        <article class="source-card">
+          <div class="source-meta">
+            <span class="tag">${danceStyles[video.style]?.title || "Dance"}</span>
+            <span class="tag">${video.platform}</span>
+          </div>
+          <h3>${video.title}</h3>
+          <p>私人上課影片連結。若是 YouTube unlisted，之後可以再切片進課程。</p>
+          <div class="resource-actions">
+            <a class="small-btn" href="${video.url}" target="_blank" rel="noreferrer">開啟影片</a>
+            <button class="small-btn" type="button" data-remove-class-video="${video.id}">移除</button>
+          </div>
+        </article>
+      `).join("");
+      if (!videosForStyle.length) {
+        classVideoGrid.innerHTML = `<div class="empty">這個舞風還沒有私人上課影片。先把影片上傳成分享連結，再貼進來。</div>`;
+      }
     }
 
     function embedUrl(videoId, start = 0) {
@@ -2518,6 +2732,17 @@
       if (!removeButton) return;
       removeCustomSource(removeButton.dataset.removeSource);
     });
+    styleTabs.addEventListener("click", event => {
+      const button = event.target.closest("[data-style]");
+      if (!button) return;
+      selectDanceStyle(button.dataset.style);
+    });
+    classVideoForm.addEventListener("submit", addClassVideo);
+    classVideoGrid.addEventListener("click", event => {
+      const button = event.target.closest("[data-remove-class-video]");
+      if (!button) return;
+      removeClassVideo(button.dataset.removeClassVideo);
+    });
 
     document.querySelector("#library").addEventListener("click", event => {
       const button = event.target.closest("[data-video-preset]");
@@ -2529,6 +2754,7 @@
     renderSources();
     renderWeeks();
     renderSegments();
+    renderDanceStyles();
   </script>
 </body>
 </html>
