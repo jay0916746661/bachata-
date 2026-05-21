@@ -1493,8 +1493,8 @@
       <section class="band alt" id="practice">
         <div class="section-inner">
           <div class="section-title">
-            <h2>8 週練習計畫</h2>
-            <p>每週 3 次，每次 25-45 分鐘。每次練習都要有一段「無影片跟跳」時間，確認身體真的記住了。</p>
+            <h2 id="practiceTitle">8 週練習計畫</h2>
+            <p id="practiceIntro">每週 3 次，每次 25-45 分鐘。每次練習都要有一段「無影片跟跳」時間，確認身體真的記住了。</p>
           </div>
           <div class="practice-layout">
             <section class="practice-panel">
@@ -1503,8 +1503,8 @@
               <div class="week-list" id="weekList"></div>
             </section>
             <section class="practice-panel">
-              <h3>今天的 30 分鐘</h3>
-              <div class="drill-grid">
+              <h3 id="drillTitle">今天的 30 分鐘</h3>
+              <div class="drill-grid" id="drillGrid">
                 <div class="drill"><strong>5 分鐘</strong><span>只踩 basic，開節拍器或慢歌，嘴巴數 1-8。</span></div>
                 <div class="drill"><strong>8 分鐘</strong><span>練一個 footwork 或 turn，不追速度，追重量轉移。</span></div>
                 <div class="drill"><strong>10 分鐘</strong><span>跟影片練 partnerwork 或 body movement，拍自己看一次。</span></div>
@@ -2053,6 +2053,76 @@
       ["Week 8", "社交舞池組合、複習、拍片自檢"]
     ];
 
+    const stylePracticeContent = {
+      bachata: {
+        intro: "每週 3 次，每次 25-45 分鐘。每次練習都要有一段「無影片跟跳」時間，確認身體真的記住了。",
+        weeks,
+        drills: [
+          ["5 分鐘", "只踩 basic，開節拍器或慢歌，嘴巴數 1-8。"],
+          ["8 分鐘", "練一個 footwork 或 turn，不追速度，追重量轉移。"],
+          ["10 分鐘", "跟影片練 partnerwork 或 body movement，拍自己看一次。"],
+          ["7 分鐘", "放一首完整歌，把今天素材只用 2-3 次，其他時間跳基本。"]
+        ]
+      },
+      salsa: {
+        intro: "Salsa 用 8 週把 timing、cross body lead、turn pattern 和 shines 串起來。每次練習都要有一段不看影片的社交模擬。",
+        weeks: [
+          ["Week 1", "On1 basic、side basic、back break、找到 1 拍"],
+          ["Week 2", "Right turn、left turn、轉完回 basic"],
+          ["Week 3", "Cross body lead、讓線、follower 路線"],
+          ["Week 4", "Inside / outside turn、手位與出口"],
+          ["Week 5", "Turn pattern 只練 2 組高成功率組合"],
+          ["Week 6", "Shines、Suzy Q、mambo step、solo break"],
+          ["Week 7", "On2 timing、clave、break 與 musicality"],
+          ["Week 8", "社交模擬：basic + CBL + 2 組 pattern + shines"]
+        ],
+        drills: [
+          ["5 分鐘", "只踩 On1 basic，嘴巴數 1-2-3 / 5-6-7。"],
+          ["8 分鐘", "Cross body lead 慢速 10 次，確認自己真的有讓線。"],
+          ["10 分鐘", "選一個 inside/outside turn 變化，轉完一定回 basic。"],
+          ["7 分鐘", "放一首歌，只用 CBL、right turn、1 個 shine，練乾淨。"]
+        ]
+      },
+      zouk: {
+        intro: "Zouk 的 8 週順序以安全為主：basic、lateral、frame、connection 先穩，再進 body movement 和 head movement prep。",
+        weeks: [
+          ["Week 1", "Basic step、lateral、重心與小步幅"],
+          ["Week 2", "Frame、elastic connection、距離控制"],
+          ["Week 3", "Viradinha、basic turn、方向提示"],
+          ["Week 4", "Yo-yo、send and return、momentum 控制"],
+          ["Week 5", "Body isolation、胸椎、髖部、核心控制"],
+          ["Week 6", "Body wave、tilt、cambré prep，先 solo 再雙人"],
+          ["Week 7", "Musicality、flow、停頓與延展"],
+          ["Week 8", "Head movement safety、同意、軸心與小幅度 drill"]
+        ],
+        drills: [
+          ["5 分鐘", "Lateral basic 慢速左右各 20 次，步幅小、軸心穩。"],
+          ["8 分鐘", "Frame drill：手臂不拉，用身體方向給訊號。"],
+          ["10 分鐘", "Viradinha 或 basic turn，只練 entry/exit，不加頭動作。"],
+          ["7 分鐘", "放慢歌做 body wave solo，再回 lateral，確認不靠下背硬折。"]
+        ]
+      },
+      blues: {
+        intro: "Blues 的 8 週目標不是背很多招，而是 pulse、weight shift、close embrace、solo vocabulary 和 musical conversation。",
+        weeks: [
+          ["Week 1", "Pulse、posture、weight shift，原地也能有 groove"],
+          ["Week 2", "Walks、方向改變、慢速 basic movement"],
+          ["Week 3", "Close embrace、距離、界線與舒適 frame"],
+          ["Week 4", "Slow drag、simple turns、擁抱中的重心交換"],
+          ["Week 5", "Solo blues vocabulary、hips、shoulders、texture"],
+          ["Week 6", "Call and response、留空間給舞伴回應"],
+          ["Week 7", "Idioms：slow drag、struttin'、不同藍調感"],
+          ["Week 8", "Musicality：tension/release、break、整首歌即興"]
+        ],
+        drills: [
+          ["5 分鐘", "只做 pulse 和 weight shift，不加花招。"],
+          ["8 分鐘", "Close embrace 距離 drill：找舒服壓力，不推不拉。"],
+          ["10 分鐘", "Slow drag + walks，保持 groove 不斷。"],
+          ["7 分鐘", "放一首 blues，做 call and response：一句自己、一句留空間。"]
+        ]
+      }
+    };
+
     const lessons = {
       "side-basic": {
         title: "Side Basic / 原地 Basic",
@@ -2269,7 +2339,7 @@
     const state = {
       savedOnly: false,
       saved: new Set(JSON.parse(localStorage.getItem("bachata-saved") || "[]")),
-      weeks: new Set(JSON.parse(localStorage.getItem("bachata-weeks") || "[]")),
+      weeks: new Set(JSON.parse(localStorage.getItem((localStorage.getItem("dance-style") || "bachata") === "bachata" ? "bachata-weeks" : `dance-weeks-${localStorage.getItem("dance-style") || "bachata"}`) || "[]")),
       segments: new Set(JSON.parse(localStorage.getItem("bachata-segments") || "[]")),
       customSources: JSON.parse(localStorage.getItem("bachata-custom-sources") || "[]"),
       classVideos: JSON.parse(localStorage.getItem("dance-class-videos") || "[]"),
@@ -2307,6 +2377,10 @@
     const segmentSection = document.querySelector("#segments");
     const segmentTitle = document.querySelector("#segmentTitle");
     const segmentIntro = document.querySelector("#segmentIntro");
+    const practiceTitle = document.querySelector("#practiceTitle");
+    const practiceIntro = document.querySelector("#practiceIntro");
+    const drillTitle = document.querySelector("#drillTitle");
+    const drillGrid = document.querySelector("#drillGrid");
     const libraryTitle = document.querySelector("#libraryTitle");
     const libraryIntro = document.querySelector("#libraryIntro");
     const categoryPresets = document.querySelector("#categoryPresets");
@@ -2490,6 +2564,30 @@
           ["Connection Safety", "必修", "wine", "任何 close、lean、慢速連接前。", "同意、距離、壓力可調。", "不確認界線或用身體壓迫對方。", "connection safety", "safety"]
         ]
       }
+    };
+
+    const styleSegmentPlans = {
+      salsa: [
+        { category: "Timing", title: "On1 Basic / Back Break", focus: "拆 basic、back break、右轉準備，先讓腳下不亂。", query: "basic step on1", topic: "basic" },
+        { category: "Partnerwork", title: "Cross Body Lead", focus: "長影片第一個要切的主題：讓線、換位、follower 路線。", query: "cross body lead", topic: "partnerwork" },
+        { category: "Turns", title: "Inside / Outside Turn", focus: "分成手位、轉前準備、轉後回 basic 三段切片。", query: "inside outside turn", topic: "partnerwork" },
+        { category: "Footwork", title: "Shines / Suzy Q", focus: "適合切成 solo 練習短片，放在手機跟練。", query: "shines footwork", topic: "footwork" },
+        { category: "Musicality", title: "Clave / Break", focus: "把數拍、clave、break、停頓各切成獨立練習。", query: "clave musicality", topic: "musicality" }
+      ],
+      zouk: [
+        { category: "Basic", title: "Lateral / Basic Step", focus: "先切 basic、lateral、方向轉換，建立安全地基。", query: "lateral basic", topic: "basic" },
+        { category: "Connection", title: "Frame / Elastic Connection", focus: "把 frame、tension/release、身體 lead 切成短 drill。", query: "connection frame elastico", topic: "safety" },
+        { category: "Partnerwork", title: "Viradinha / Giro Basico", focus: "最適合當 Zouk 入門 combo 切片庫的核心。", query: "viradinha basic turn", topic: "partnerwork" },
+        { category: "Body Movement", title: "Body Wave / Tilt", focus: "先切 solo isolation，再切雙人 lead/follow。", query: "body movement wave", topic: "sensual" },
+        { category: "Safety", title: "Head Movement Prep", focus: "只收安全教學：軸心、同意、小幅度、頸部保護。", query: "head movement safety", topic: "safety" }
+      ],
+      blues: [
+        { category: "Foundation", title: "Pulse / Weight Shift", focus: "Blues 第一批切片：pulse、weight、groove，越小越重要。", query: "pulse weight shift", topic: "basic" },
+        { category: "Connection", title: "Close Embrace", focus: "切距離、界線、壓力、呼吸，不只切動作。", query: "close embrace", topic: "partnerwork" },
+        { category: "Social", title: "Slow Drag", focus: "最適合做 Blues 社交基本切片，慢速也要有 groove。", query: "slow drag", topic: "partnerwork" },
+        { category: "Solo", title: "Solo Blues Vocabulary", focus: "把 hips、shoulders、walks、texture 做成短練習。", query: "solo blues", topic: "styling" },
+        { category: "Musicality", title: "Call and Response / Idioms", focus: "切 musical conversation、idioms、break 與樂句。", query: "call and response idioms", topic: "musicality" }
+      ]
     };
 
     const styleVideoLibrary = {
@@ -3105,7 +3203,7 @@
       }
 
       lessonPanel.hidden = true;
-      segmentSection.hidden = true;
+      segmentSection.hidden = false;
       mindMap.innerHTML = `
         <article class="map-node main">
           <h3>${moves.core[0]}</h3>
@@ -3134,6 +3232,29 @@
           <td>${avoid}</td>
           <td><button class="lesson-link" type="button" data-move-video="${query}" data-move-topic="${preset}">看影片</button></td>
         </tr>
+      `).join("");
+    }
+
+    function weekStorageKey() {
+      return state.style === "bachata" ? "bachata-weeks" : `dance-weeks-${state.style}`;
+    }
+
+    function activePracticePlan() {
+      return stylePracticeContent[state.style] || stylePracticeContent.bachata;
+    }
+
+    function loadWeeksForStyle() {
+      state.weeks = new Set(JSON.parse(localStorage.getItem(weekStorageKey()) || "[]"));
+    }
+
+    function renderPracticeContent() {
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const plan = activePracticePlan();
+      practiceTitle.textContent = `${current.title} 8 週練習計畫`;
+      practiceIntro.textContent = plan.intro;
+      drillTitle.textContent = `${current.title} 今天的 30 分鐘`;
+      drillGrid.innerHTML = plan.drills.map(([time, text]) => `
+        <div class="drill"><strong>${time}</strong><span>${text}</span></div>
       `).join("");
     }
 
@@ -3166,7 +3287,11 @@
       if (state.style === "bachata") {
         segmentTitle.textContent = "影片切片分類：Hammerlock 社交組合";
         segmentIntro.textContent = "來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。";
+      } else {
+        segmentTitle.textContent = `${current.title} 切片規劃`;
+        segmentIntro.textContent = `先用這些主題收集 ${current.title} 長影片或手機上課影片。之後可把每張卡變成實際時間碼切片。`;
       }
+      renderPracticeContent();
     }
 
     function selectDanceStyle(key) {
@@ -3178,6 +3303,7 @@
       topic.value = "all";
       segmentSearch.value = "";
       segmentCategory.value = "all";
+      loadWeeksForStyle();
       state.savedOnly = false;
       savedOnly.classList.remove("saved");
       savedOnly.textContent = "只看收藏";
@@ -3185,6 +3311,7 @@
       renderStyleContent();
       renderVideos();
       renderSegments();
+      renderWeeks();
     }
 
     function addClassVideo(event) {
@@ -3251,22 +3378,46 @@
       document.querySelector("#lessonPanel").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function activeSegmentPlans() {
+      return state.style === "bachata" ? videoSegments : (styleSegmentPlans[state.style] || []);
+    }
+
     function renderSegments() {
-      const categories = [...new Set(videoSegments.map(segment => segment.category))];
-      if (segmentCategory.options.length === 1) {
-        segmentCategory.insertAdjacentHTML("beforeend", categories.map(category => `<option value="${category}">${category}</option>`).join(""));
-      }
+      const segments = activeSegmentPlans();
+      const categories = [...new Set(segments.map(segment => segment.category))];
+      const currentCategory = segmentCategory.value;
+      segmentCategory.innerHTML = `<option value="all">全部切片分類</option>${categories.map(category => `<option value="${category}">${category}</option>`).join("")}`;
+      segmentCategory.value = categories.includes(currentCategory) ? currentCategory : "all";
 
       const query = segmentSearch.value.trim().toLowerCase();
       const selectedCategory = segmentCategory.value;
-      const filtered = videoSegments.filter(segment => {
-        const haystack = [segment.title, segment.category, segment.explain, segment.points.join(" ")].join(" ").toLowerCase();
+      const filtered = segments.filter(segment => {
+        const haystack = [segment.title, segment.category, segment.explain || segment.focus, segment.points?.join(" ") || segment.query].join(" ").toLowerCase();
         const matchesQuery = !query || haystack.includes(query);
         const matchesCategory = selectedCategory === "all" || segment.category === selectedCategory;
         return matchesQuery && matchesCategory;
       });
 
-      segmentCount.textContent = `${filtered.length} / ${videoSegments.length} 個切片`;
+      if (state.style !== "bachata") {
+        segmentCount.textContent = `${filtered.length} / ${segments.length} 個切片主題`;
+        segmentGrid.innerHTML = filtered.map(segment => `
+          <button class="segment-card" type="button" data-move-video="${segment.query}" data-move-topic="${segment.topic}">
+            <strong>${segment.title}</strong>
+            <span>${segment.category} · ${segment.focus}</span>
+            <span class="segment-card-actions">
+              <span class="segment-status">待找影片</span>
+              <span class="segment-done-btn">看影片來源</span>
+            </span>
+          </button>
+        `).join("");
+        if (!filtered.length) {
+          segmentGrid.innerHTML = `<div class="empty">找不到符合條件的切片主題。</div>`;
+        }
+        renderSegmentProgress();
+        return;
+      }
+
+      segmentCount.textContent = `${filtered.length} / ${segments.length} 個切片`;
       segmentGrid.innerHTML = filtered.map(segment => `
         <button class="segment-card ${state.segments.has(segment.key) ? "done" : ""}" type="button" data-lesson="${segment.key}">
           <strong>${segment.title}</strong>
@@ -3291,6 +3442,15 @@
     }
 
     function renderSegmentProgress() {
+      if (state.style !== "bachata") {
+        const plans = activeSegmentPlans();
+        const next = plans[0];
+        segmentProgressTitle.textContent = `切片規劃 ${plans.length} 個主題`;
+        segmentProgressHint.textContent = next ? `下一個建議：${next.category} · ${next.title}` : "這個舞風還沒有切片規劃。";
+        nextSegmentBtn.textContent = "先找來源";
+        nextSegmentBtn.disabled = !next;
+        return;
+      }
       const done = videoSegments.filter(segment => state.segments.has(segment.key)).length;
       const next = videoSegments.find(segment => !state.segments.has(segment.key));
       segmentProgressTitle.textContent = `切片進度 ${done} / ${videoSegments.length}`;
@@ -3307,6 +3467,11 @@
     }
 
     function selectNextSegment() {
+      if (state.style !== "bachata") {
+        const next = activeSegmentPlans()[0];
+        if (next) applyMoveVideo(next.query, next.topic);
+        return;
+      }
       const next = videoSegments.find(segment => !state.segments.has(segment.key)) || videoSegments[0];
       if (next) selectLesson(next.key);
     }
@@ -3358,14 +3523,15 @@
 
     function renderWeeks() {
       const list = document.querySelector("#weekList");
-      list.innerHTML = weeks.map((week, index) => `
+      const plan = activePracticePlan();
+      list.innerHTML = plan.weeks.map((week, index) => `
         <label class="week-item">
           <input type="checkbox" data-week="${index}" ${state.weeks.has(index) ? "checked" : ""}>
           <span><strong>${week[0]}</strong><span>${week[1]}</span></span>
           <span>${state.weeks.has(index) ? "完成" : "待練"}</span>
         </label>
       `).join("");
-      const percent = Math.round((state.weeks.size / weeks.length) * 100);
+      const percent = Math.round((state.weeks.size / plan.weeks.length) * 100);
       document.querySelector("#progressBar").style.width = `${percent}%`;
     }
 
@@ -3385,7 +3551,7 @@
       const index = Number(checkbox.dataset.week);
       if (checkbox.checked) state.weeks.add(index);
       else state.weeks.delete(index);
-      localStorage.setItem("bachata-weeks", JSON.stringify([...state.weeks]));
+      localStorage.setItem(weekStorageKey(), JSON.stringify([...state.weeks]));
       renderWeeks();
     });
 
