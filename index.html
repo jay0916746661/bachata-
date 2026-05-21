@@ -1168,7 +1168,7 @@
         <div class="section-inner">
           <div class="section-title">
             <h2>舞風分頁</h2>
-            <p>Bachata 已經是完整平台；Salsa、Zouk、Blues 先用同一套模式建立分頁骨架，之後可以各自加入影片、切片、招式表和上課影片。</p>
+            <p>Bachata、Salsa、Zouk、Blues 都有各自的課綱、影片入口、招數表與心智圖；手機上課影片也可以分舞風收藏。</p>
           </div>
           <div class="style-tabs" id="styleTabs"></div>
           <div class="style-panel">
@@ -2018,7 +2018,7 @@
         starters: ["Basic step On1", "Cross body lead", "Right turn", "Inside turn"],
         search: "salsa on1 beginner cross body lead tutorial",
         intro: "Salsa 先建立 On1 / On2 節拍與 basic，再練 cross body lead、右轉、inside/outside turn，最後把 shines 和社交組合放進音樂裡。",
-        moveIntro: "Salsa 招數表會以 timing、cross body lead、turn pattern、shines、social combo 為主；目前先建立分類與影片搜尋入口。"
+        moveIntro: "Salsa 招數表以 timing、cross body lead、turn pattern、shines、social combo 為主；先把社交高頻動作練乾淨。"
       },
       zouk: {
         title: "Zouk",
@@ -2028,7 +2028,7 @@
         starters: ["Basic lateral", "Connection frame", "Body wave", "Head movement prep"],
         search: "brazilian zouk beginner basic connection tutorial",
         intro: "Zouk 要先安全：lateral basic、frame、connection 和軸心穩定後，再進 body movement，head movement 要最後才放進來。",
-        moveIntro: "Zouk 招數表會以 connection、elastic frame、body movement、head movement safety 為主；先用安全優先的搜尋入口收集教材。"
+        moveIntro: "Zouk 招數表以 connection、elastic frame、body movement、head movement safety 為主；順序一定要安全優先。"
       },
       blues: {
         title: "Blues",
@@ -2038,7 +2038,7 @@
         starters: ["Pulse", "Close embrace", "Weight shift", "Call and response"],
         search: "blues dance beginner pulse close embrace tutorial",
         intro: "Blues 先練 pulse、posture 和 weight shift，再進 close embrace、solo movement、call and response，最後理解不同 blues idioms。",
-        moveIntro: "Blues 招數表會以 pulse、embrace、weight shift、solo vocabulary 和 musical conversation 為主；目前先整理入門分類與來源。"
+        moveIntro: "Blues 招數表以 pulse、embrace、weight shift、solo vocabulary 和 musical conversation 為主；重點是音樂對話，不是堆招。"
       }
     };
 
@@ -2301,6 +2301,10 @@
     const movesIntro = document.querySelector("#movesIntro");
     const styleMovePlaceholder = document.querySelector("#styleMovePlaceholder");
     const moveLayout = document.querySelector("#moveLayout");
+    const mindMap = document.querySelector(".mind-map");
+    const moveTableBody = document.querySelector(".move-table tbody");
+    const lessonPanel = document.querySelector("#lessonPanel");
+    const segmentSection = document.querySelector("#segments");
     const segmentTitle = document.querySelector("#segmentTitle");
     const segmentIntro = document.querySelector("#segmentIntro");
     const libraryTitle = document.querySelector("#libraryTitle");
@@ -2321,6 +2325,8 @@
     const classVideoTitle = document.querySelector("#classVideoTitle");
     const classVideoUrl = document.querySelector("#classVideoUrl");
     const classVideoGrid = document.querySelector("#classVideoGrid");
+    const originalMindMapHtml = mindMap.innerHTML;
+    const originalMoveTableBodyHtml = moveTableBody.innerHTML;
 
     const levelRoutes = {
       "1": { level: "beginner", topic: "basic", videoQuery: "basic", segmentQuery: "", target: "#library" },
@@ -2401,6 +2407,87 @@
           ["musicality", "Idioms", "call response、break"],
           ["styling", "Expression", "body、solo、texture"],
           ["safety", "Consent", "距離、界線、舒適度"]
+        ]
+      }
+    };
+
+    const styleMoveContent = {
+      salsa: {
+        core: ["核心：Timing + Slot + Cross Body Lead", "Salsa 先穩住 1-2-3 / 5-6-7，再用 slot、frame 和 cross body lead 把舞變成流動。"],
+        branches: [
+          ["入門枝幹", "Basic step → side basic → back break → right turn。"],
+          ["社交枝幹", "Cross body lead → inside turn → outside turn → turn pattern。"],
+          ["腳步枝幹", "Shines → Suzy Q → mambo steps → solo break。"],
+          ["音樂枝幹", "On1 / On2 timing → clave → break → phrasing。"]
+        ],
+        priorities: [
+          ["先練 On1 basic 與 back break", "能不用看腳穩定踩完整首歌，才開始加手位。"],
+          ["把 Cross Body Lead 練乾淨", "leader 讓線、follower 走線，不用手把人拖過去。"],
+          ["加入右轉與 inside/outside turn", "轉圈先求軸心與回拍，再求變化數量。"],
+          ["每次只練 1 組 turn pattern", "社交時 3-5 個乾淨組合比 20 個半熟招更有用。"],
+          ["最後補 shines 與 musicality", "分開跳時也能踩在音樂上，不只是等下一個雙人招。"]
+        ],
+        moves: [
+          ["Basic Step On1", "必學 1", "", "任何歌曲開頭、找拍、與新舞伴暖身。", "1-2-3 / 5-6-7、4 和 8 不亂踩。", "還聽不到 1 拍時硬接組合。", "basic step on1", "basic"],
+          ["Back Break", "必學 2", "", "準備 right turn、open break 或 cross body lead 前。", "重心回到自己腳上，不後仰。", "後方沒空間或舞伴重心不穩。", "back break", "basic"],
+          ["Right Turn", "必學 3", "", "8 拍結尾、簡單變化、換句時。", "軸心、spotting、手不壓頭。", "對方鞋底卡或轉完回不了拍。", "right turn", "partnerwork"],
+          ["Cross Body Lead", "核心", "gold", "線性 Salsa 最常用換位，幾乎每首都會用。", "leader 讓線，follower 自己走過去。", "用手拉人、旁邊太擠。", "cross body lead", "partnerwork"],
+          ["Inside Turn", "高頻", "gold", "cross body 後最常接的變化。", "提前準備手位與路線。", "手腕扭轉或 follower 軸心未完成。", "inside turn", "partnerwork"],
+          ["Outside Turn", "高頻", "gold", "與 inside turn 交替，增加組合方向。", "轉前 frame 清楚，轉後回 basic。", "音樂太快還硬轉多圈。", "outside turn", "partnerwork"],
+          ["Shines", "加分", "blue", "solo break、舞伴分開、音樂有打擊段落。", "basic 和腳下節奏穩。", "為了秀腳步而掉拍。", "shines footwork", "footwork"],
+          ["Clave / Musicality", "加分", "dark", "聽到 break、停頓、樂句轉換時。", "能數拍，也開始聽樂器層次。", "每個 break 都硬停，下一拍回不來。", "clave musicality", "musicality"]
+        ]
+      },
+      zouk: {
+        core: ["核心：Connection + Frame + Safe Flow", "Zouk 先練可控的 lateral、frame 與身體 lead，再把 body movement 和 head movement 慢慢放進來。"],
+        branches: [
+          ["入門枝幹", "Basic step → lateral → viradinha → basic turn。"],
+          ["連接枝幹", "Frame → elastic connection → send and return → yo-yo。"],
+          ["身體枝幹", "Isolation → body wave → tilt → cambré prep。"],
+          ["安全枝幹", "Axis → consent → neck safety → head movement progression。"]
+        ],
+        priorities: [
+          ["先練 lateral 和 basic", "重心、步幅、方向穩，才有 Zouk 的流動感。"],
+          ["建立 frame 與 elastic connection", "用身體傳遞，不用手拉或扭。"],
+          ["加入 viradinha / basic turn", "先能順暢改方向，再加複雜組合。"],
+          ["Body movement 先 solo 再雙人", "wave、tilt、roll 都要先能自己控制。"],
+          ["Head movement 最後才練", "只在安全技術、同意與身體支撐都足夠時加入。"]
+        ],
+        moves: [
+          ["Basic Step / Passo Basico", "必學 1", "", "建立節奏、重心與基本流動。", "小步、軸心、身體不要飄。", "還不穩時直接模仿表演頭動作。", "basic step", "basic"],
+          ["Lateral", "必學 2", "", "Zouk 最常見左右流動與換位。", "frame、步幅、partner 距離。", "用手把對方甩到另一側。", "lateral basic", "basic"],
+          ["Viradinha", "必學 3", "gold", "改方向、接 basic turn 或 social combo。", "pivot、方向提示、重心清楚。", "跟舞伴還沒同步時硬轉。", "viradinha", "partnerwork"],
+          ["Basic Turn / Giro Basico", "高頻", "gold", "從入門進到社交組合的基本轉向。", "轉前 frame 和轉後回線。", "轉速太快、對方軸心不穩。", "basic turn giro", "partnerwork"],
+          ["Elastic Connection", "核心", "blue", "send and return、yo-yo、flow 組合前。", "tension/release 來自身體，不是手臂。", "拉扯手腕或肩膀。", "elastico connection", "safety"],
+          ["Yo-Yo", "中階", "blue", "練 momentum 和回收，適合 Level 3。", "connection 與 timing 穩。", "距離過大或沒有控制回收。", "yo-yo", "partnerwork"],
+          ["Body Wave", "中階", "wine", "慢歌、延展音、body movement 段落。", "isolation、核心、呼吸。", "腰硬折或讓對方承重。", "body movement wave", "sensual"],
+          ["Head Movement Prep", "謹慎", "wine", "只在課堂、安全 drills 或熟悉舞伴中。", "頸部安全、軸心、明確同意。", "陌生舞伴、酒後、頸部不舒服。", "head movement safety", "safety"]
+        ]
+      },
+      blues: {
+        core: ["核心：Pulse + Connection + Musical Conversation", "Blues 不靠大量花招，核心是 pulse、重心、擁抱距離與和音樂互相對話。"],
+        branches: [
+          ["入門枝幹", "Pulse → weight shift → walks → close embrace。"],
+          ["社交枝幹", "Connection → slow drag → simple turns → call and response。"],
+          ["個人枝幹", "Solo blues → hips → shoulders → texture。"],
+          ["音樂枝幹", "Blues phrasing → tension/release → idioms → improvisation。"]
+        ],
+        priorities: [
+          ["先練 pulse 和 weight shift", "不用花招也能和音樂一起呼吸。"],
+          ["建立舒服的 close embrace", "距離、界線、壓力與呼吸都比動作多更重要。"],
+          ["加入 walks 和 slow drag", "用小變化跳完整首慢 blues。"],
+          ["練 solo blues vocabulary", "身體有 groove，雙人時才不僵。"],
+          ["最後學 idioms 與 musicality", "理解 slow drag、struttin'、call and response。"]
+        ],
+        moves: [
+          ["Pulse", "必學 1", "", "任何 blues 歌曲開頭、找 groove、暖身。", "膝蓋放鬆、重心在腳下。", "只晃上半身、腳下沒有重量。", "pulse", "basic"],
+          ["Weight Shift", "必學 2", "", "慢歌、close embrace、空間很小時。", "左右腳重心清楚。", "踩太大或推著舞伴走。", "weight shift", "basic"],
+          ["Close Embrace", "核心", "gold", "慢 blues、信任已建立、需要更細膩連接。", "界線、呼吸、frame 舒服。", "對方不想 close 或距離不舒服。", "close embrace", "partnerwork"],
+          ["Slow Drag", "高頻", "gold", "慢速 blues、穩定 groove、社交基本款。", "pulse、weight shift、擁抱距離。", "沒有 pulse 時只變成走路。", "slow drag", "partnerwork"],
+          ["Solo Blues", "加分", "blue", "break、分開跳、想加入個人 texture。", "pulse 不斷、身體各部位可分開。", "為了裝飾失去音樂。", "solo blues", "styling"],
+          ["Call and Response", "中階", "blue", "和舞伴或音樂做問答式互動。", "聽樂句，留空間給對方。", "一直塞動作不給回應。", "call and response", "musicality"],
+          ["Idioms", "中階", "dark", "想理解不同 Blues 風格，而不只跳慢舞。", "基本 pulse、歷史脈絡、音樂感。", "不了解脈絡就混用表演動作。", "blues idioms", "musicality"],
+          ["Connection Safety", "必修", "wine", "任何 close、lean、慢速連接前。", "同意、距離、壓力可調。", "不確認界線或用身體壓迫對方。", "connection safety", "safety"]
         ]
       }
     };
@@ -3007,6 +3094,49 @@
       renderClassVideos();
     }
 
+    function renderStyleMoves() {
+      const moves = styleMoveContent[state.style];
+      if (!moves) {
+        mindMap.innerHTML = originalMindMapHtml;
+        moveTableBody.innerHTML = originalMoveTableBodyHtml;
+        lessonPanel.hidden = false;
+        segmentSection.hidden = false;
+        return;
+      }
+
+      lessonPanel.hidden = true;
+      segmentSection.hidden = true;
+      mindMap.innerHTML = `
+        <article class="map-node main">
+          <h3>${moves.core[0]}</h3>
+          <p>${moves.core[1]}</p>
+        </article>
+        <div class="map-branches">
+          ${moves.branches.map(([title, text]) => `
+            <article class="map-node">
+              <h3>${title}</h3>
+              <p>${text}</p>
+            </article>
+          `).join("")}
+        </div>
+        <ol class="priority-list">
+          ${moves.priorities.map(([title, text], index) => `
+            <li><span class="rank">${index + 1}</span><div><strong>${title}</strong><span>${text}</span></div></li>
+          `).join("")}
+        </ol>
+      `;
+      moveTableBody.innerHTML = moves.moves.map(([name, priority, pillClass, timing, prereq, avoid, query, preset]) => `
+        <tr>
+          <td>${name}</td>
+          <td><span class="pill ${pillClass}">${priority}</span></td>
+          <td>${timing}</td>
+          <td>${prereq}</td>
+          <td>${avoid}</td>
+          <td><button class="lesson-link" type="button" data-move-video="${query}" data-move-topic="${preset}">看影片</button></td>
+        </tr>
+      `).join("");
+    }
+
     function renderStyleContent() {
       const current = danceStyles[state.style] || danceStyles.bachata;
       const content = styleContent[state.style] || styleContent.bachata;
@@ -3030,18 +3160,12 @@
 
       movesTitle.textContent = `${current.title} 招數表與心智圖`;
       movesIntro.textContent = current.moveIntro;
+      styleMovePlaceholder.hidden = true;
+      moveLayout.hidden = false;
+      renderStyleMoves();
       if (state.style === "bachata") {
-        styleMovePlaceholder.hidden = true;
-        moveLayout.hidden = false;
         segmentTitle.textContent = "影片切片分類：Hammerlock 社交組合";
         segmentIntro.textContent = "來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。";
-      } else {
-        moveLayout.hidden = true;
-        styleMovePlaceholder.hidden = false;
-        styleMovePlaceholder.innerHTML = `
-          <strong>${current.title} 招數表正在建立中。</strong>
-          <span>目前已切換成 ${current.title} 的課綱、影片分類和搜尋入口。下一步可把找到的長影片或手機上課影片貼進來，我再把它拆成招式表與章節切片。</span>
-        `;
       }
     }
 
@@ -3215,6 +3339,23 @@
       document.querySelectorAll("[data-video-preset]").forEach(button => button.classList.toggle("active", button.dataset.videoPreset === presetName));
     }
 
+    function applyMoveVideo(query, presetName) {
+      const topicValues = [...topic.options].map(option => option.value);
+      const preset = videoPresets[presetName] || {
+        level: "all",
+        topic: topicValues.includes(presetName) ? presetName : "all",
+        query: ""
+      };
+      level.value = preset.level;
+      topic.value = preset.topic;
+      search.value = query || preset.query || "";
+      state.savedOnly = false;
+      savedOnly.classList.remove("saved");
+      savedOnly.textContent = "只看收藏";
+      renderVideos();
+      document.querySelector("#library").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function renderWeeks() {
       const list = document.querySelector("#weekList");
       list.innerHTML = weeks.map((week, index) => `
@@ -3266,6 +3407,12 @@
       const button = event.target.closest("[data-lesson]");
       if (!button) return;
       selectLesson(button.dataset.lesson);
+    });
+
+    document.querySelector("#moves").addEventListener("click", event => {
+      const button = event.target.closest("[data-move-video]");
+      if (!button) return;
+      applyMoveVideo(button.dataset.moveVideo, button.dataset.moveTopic);
     });
 
     document.querySelector("#path").addEventListener("click", event => {
