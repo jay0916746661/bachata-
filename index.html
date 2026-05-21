@@ -947,6 +947,10 @@
       color: #fff;
     }
 
+    .mobile-tabbar {
+      display: none;
+    }
+
     @media (max-width: 920px) {
       .path-grid,
       .video-grid,
@@ -965,13 +969,17 @@
     }
 
     @media (max-width: 640px) {
+      body {
+        padding-bottom: 74px;
+      }
+
       .nav {
         position: absolute;
         align-items: flex-start;
       }
 
       .nav-links {
-        max-width: 210px;
+        display: none;
       }
 
       .hero {
@@ -998,6 +1006,34 @@
       .video-actions {
         grid-template-columns: 1fr;
       }
+
+      .mobile-tabbar {
+        position: fixed;
+        z-index: 20;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 1px;
+        padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+        background: rgba(31, 34, 40, .94);
+        backdrop-filter: blur(14px);
+        border-top: 1px solid rgba(255,255,255,.14);
+      }
+
+      .mobile-tabbar a {
+        min-height: 46px;
+        display: grid;
+        place-items: center;
+        padding: 6px 4px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 820;
+        background: rgba(255,255,255,.08);
+      }
     }
   </style>
 </head>
@@ -1013,6 +1049,13 @@
         <a href="#practice">練習</a>
         <a href="#sources">來源</a>
       </div>
+    </nav>
+    <nav class="mobile-tabbar" aria-label="手機快速導覽">
+      <a href="#path">課綱</a>
+      <a href="#segments">切片</a>
+      <a href="#library">影片</a>
+      <a href="#practice">練習</a>
+      <a href="#sources">來源</a>
     </nav>
 
     <header class="hero">
