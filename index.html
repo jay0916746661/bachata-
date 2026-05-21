@@ -1196,10 +1196,10 @@
       <section class="band alt" id="path">
         <div class="section-inner">
           <div class="section-title">
-            <h2>完整學習路線</h2>
-            <p>先把基本步與節拍練到穩，再加轉圈、partnerwork、Dominican 腳步、Sensual 身體控制與 musicality。這個順序比較像真的能跳出去，而不是只背動作。</p>
+            <h2 id="pathTitle">完整學習路線</h2>
+            <p id="pathIntro">先把基本步與節拍練到穩，再加轉圈、partnerwork、Dominican 腳步、Sensual 身體控制與 musicality。這個順序比較像真的能跳出去，而不是只背動作。</p>
           </div>
-          <div class="path-grid">
+          <div class="path-grid" id="pathGrid">
             <button class="path-card" type="button" data-level-jump="1">
               <span class="badge">Level 1</span>
               <h3>節拍與基本步</h3>
@@ -1227,10 +1227,11 @@
       <section class="band" id="moves">
         <div class="section-inner">
           <div class="section-title">
-            <h2>招數表與心智圖</h2>
-            <p>先用「能穩定跳完整首歌」當目標，不要先追很花的招。下面把 Bachata 招數分成技能樹與舞池實用表：知道什麼時候用、什麼時候不要用，會比單純背招更快進步。</p>
+            <h2 id="movesTitle">招數表與心智圖</h2>
+            <p id="movesIntro">先用「能穩定跳完整首歌」當目標，不要先追很花的招。下面把 Bachata 招數分成技能樹與舞池實用表：知道什麼時候用、什麼時候不要用，會比單純背招更快進步。</p>
           </div>
-          <div class="move-layout">
+          <div class="empty" id="styleMovePlaceholder" hidden></div>
+          <div class="move-layout" id="moveLayout">
             <section class="mind-map" aria-label="Bachata 學習心智圖">
               <article class="map-node main">
                 <h3>核心：Basic + Timing + Connection</h3>
@@ -1424,8 +1425,8 @@
               </div>
               <div class="segment-section" id="segments">
                 <div>
-                  <h3>影片切片分類：Hammerlock 社交組合</h3>
-                  <p>來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。</p>
+                  <h3 id="segmentTitle">影片切片分類：Hammerlock 社交組合</h3>
+                  <p id="segmentIntro">來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。</p>
                 </div>
                 <div class="segment-progress">
                   <div>
@@ -1451,10 +1452,10 @@
       <section class="band" id="library">
         <div class="section-inner">
           <div class="section-title">
-            <h2>影片資料庫</h2>
-            <p>包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。</p>
+            <h2 id="libraryTitle">影片資料庫</h2>
+            <p id="libraryIntro">包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。</p>
           </div>
-          <div class="category-presets" aria-label="影片分類快捷鍵">
+          <div class="category-presets" id="categoryPresets" aria-label="影片分類快捷鍵">
             <button class="category-preset" type="button" data-video-preset="basic"><strong>Basic 基礎</strong><span>節拍、基本步、入門動作</span></button>
             <button class="category-preset" type="button" data-video-preset="partnerwork"><strong>Partnerwork</strong><span>雙人、轉圈、組合</span></button>
             <button class="category-preset" type="button" data-video-preset="footwork"><strong>Footwork</strong><span>Dominican、solo shines</span></button>
@@ -2005,7 +2006,9 @@
         summary: "影片庫、切片庫、招式表、來源雷達與練習進度都已上線。",
         levels: ["Level 1: Basic / timing", "Level 2: Partnerwork / turns", "Level 3: Footwork / musicality", "Level 4: Sensual / styling"],
         starters: ["Side basic", "Right turn", "Hammerlock combo", "Musicality break"],
-        search: "bachata tutorial beginner social dance"
+        search: "bachata tutorial beginner social dance",
+        intro: "先把基本步與節拍練到穩，再加轉圈、partnerwork、Dominican 腳步、Sensual 身體控制與 musicality。這個順序比較像真的能跳出去，而不是只背動作。",
+        moveIntro: "先用「能穩定跳完整首歌」當目標，不要先追很花的招。下面把 Bachata 招數分成技能樹與舞池實用表：知道什麼時候用、什麼時候不要用，會比單純背招更快進步。"
       },
       salsa: {
         title: "Salsa",
@@ -2013,7 +2016,9 @@
         summary: "可以沿用同一套模式：basic timing、cross body lead、turn patterns、shines、musicality。",
         levels: ["Level 1: On1 / On2 timing", "Level 2: Cross body lead", "Level 3: Turn patterns", "Level 4: Shines / social combinations"],
         starters: ["Basic step On1", "Cross body lead", "Right turn", "Inside turn"],
-        search: "salsa on1 beginner cross body lead tutorial"
+        search: "salsa on1 beginner cross body lead tutorial",
+        intro: "Salsa 先建立 On1 / On2 節拍與 basic，再練 cross body lead、右轉、inside/outside turn，最後把 shines 和社交組合放進音樂裡。",
+        moveIntro: "Salsa 招數表會以 timing、cross body lead、turn pattern、shines、social combo 為主；目前先建立分類與影片搜尋入口。"
       },
       zouk: {
         title: "Zouk",
@@ -2021,7 +2026,9 @@
         summary: "適合用安全優先模式：basic、connection、body movement、head movement progression。",
         levels: ["Level 1: Basic / lateral", "Level 2: Frame / connection", "Level 3: Body movement", "Level 4: Head movement safety"],
         starters: ["Basic lateral", "Connection frame", "Body wave", "Head movement prep"],
-        search: "brazilian zouk beginner basic connection tutorial"
+        search: "brazilian zouk beginner basic connection tutorial",
+        intro: "Zouk 要先安全：lateral basic、frame、connection 和軸心穩定後，再進 body movement，head movement 要最後才放進來。",
+        moveIntro: "Zouk 招數表會以 connection、elastic frame、body movement、head movement safety 為主；先用安全優先的搜尋入口收集教材。"
       },
       blues: {
         title: "Blues",
@@ -2029,7 +2036,9 @@
         summary: "可以整理成 close embrace、pulse、solo movement、musicality 和不同 blues idioms。",
         levels: ["Level 1: Pulse / posture", "Level 2: Close embrace", "Level 3: Solo movement", "Level 4: Idioms / musicality"],
         starters: ["Pulse", "Close embrace", "Weight shift", "Call and response"],
-        search: "blues dance beginner pulse close embrace tutorial"
+        search: "blues dance beginner pulse close embrace tutorial",
+        intro: "Blues 先練 pulse、posture 和 weight shift，再進 close embrace、solo movement、call and response，最後理解不同 blues idioms。",
+        moveIntro: "Blues 招數表會以 pulse、embrace、weight shift、solo vocabulary 和 musical conversation 為主；目前先整理入門分類與來源。"
       }
     };
 
@@ -2285,8 +2294,18 @@
     const segmentProgressTitle = document.querySelector("#segmentProgressTitle");
     const segmentProgressHint = document.querySelector("#segmentProgressHint");
     const nextSegmentBtn = document.querySelector("#nextSegmentBtn");
-    const levelCards = document.querySelectorAll("[data-level-jump]");
-    const videoPresetButtons = document.querySelectorAll("[data-video-preset]");
+    const pathTitle = document.querySelector("#pathTitle");
+    const pathIntro = document.querySelector("#pathIntro");
+    const pathGrid = document.querySelector("#pathGrid");
+    const movesTitle = document.querySelector("#movesTitle");
+    const movesIntro = document.querySelector("#movesIntro");
+    const styleMovePlaceholder = document.querySelector("#styleMovePlaceholder");
+    const moveLayout = document.querySelector("#moveLayout");
+    const segmentTitle = document.querySelector("#segmentTitle");
+    const segmentIntro = document.querySelector("#segmentIntro");
+    const libraryTitle = document.querySelector("#libraryTitle");
+    const libraryIntro = document.querySelector("#libraryIntro");
+    const categoryPresets = document.querySelector("#categoryPresets");
     const sourceSearch = document.querySelector("#sourceSearch");
     const sourcePlatform = document.querySelector("#sourcePlatform");
     const sourceForm = document.querySelector("#sourceForm");
@@ -2319,6 +2338,73 @@
       safety: { level: "all", topic: "safety", query: "" }
     };
 
+    const styleContent = {
+      bachata: {
+        pathCards: [
+          { badge: "Level 1", badgeClass: "", title: "節拍與基本步", text: "1-8 拍、側向 basic、forward/back、box step、right turn。目標是不用想也能踩準。", route: levelRoutes["1"] },
+          { badge: "Level 2", badgeClass: "gold", title: "連接與帶跟", text: "open hold、closed hold、inside/outside turns、簡單手位變化，練「舒服」比練花更重要。", route: levelRoutes["2"] },
+          { badge: "Level 3", badgeClass: "blue", title: "腳步與風格", text: "Dominican footwork、syncopation、cha-cha timing、solo shines，讓腳下有音樂感。", route: levelRoutes["3"] },
+          { badge: "Level 4", badgeClass: "wine", title: "Sensual 與表達", text: "body roll、wave、isolation、musicality、styling，全部建立在清楚安全的 lead/follow 上。", route: levelRoutes["4"] }
+        ],
+        presets: [
+          ["basic", "Basic 基礎", "節拍、基本步、入門動作"],
+          ["partnerwork", "Partnerwork", "雙人、轉圈、組合"],
+          ["footwork", "Footwork", "Dominican、solo shines"],
+          ["sensual", "Sensual", "isolation、body roll"],
+          ["musicality", "Musicality", "break、timing、歌曲結構"],
+          ["safety", "Safety", "head roll、dip、舒適連接"]
+        ]
+      },
+      salsa: {
+        pathCards: [
+          { badge: "Level 1", badgeClass: "", title: "On1 / On2 節拍", text: "先把 basic、side step、back break 和 1 拍位置踩穩，能不用看腳跳完整首歌。", route: { level: "beginner", topic: "basic", videoQuery: "basic step on1", target: "#library" } },
+          { badge: "Level 2", badgeClass: "gold", title: "Cross Body Lead", text: "Salsa 社交核心動作：讓路線、換位、保持 frame，再接 right turn 或 inside turn。", route: { level: "beginner", topic: "partnerwork", videoQuery: "cross body lead", target: "#library" } },
+          { badge: "Level 3", badgeClass: "blue", title: "Turn Patterns", text: "right turn、inside turn、outside turn、double hand hold，先乾淨再加速度。", route: { level: "intermediate", topic: "partnerwork", videoQuery: "turn pattern", target: "#library" } },
+          { badge: "Level 4", badgeClass: "wine", title: "Shines / Musicality", text: "分開跳 shines、break、mambo steps，讓音樂感不只靠 partnerwork。", route: { level: "intermediate", topic: "musicality", videoQuery: "shines musicality", target: "#library" } }
+        ],
+        presets: [
+          ["basic", "Basic / Timing", "On1、On2、back break"],
+          ["partnerwork", "Cross Body", "換位、轉圈、手位"],
+          ["footwork", "Shines", "solo footwork、mambo"],
+          ["musicality", "Musicality", "break、clave、樂句"],
+          ["styling", "Styling", "arm、body、solo 線條"],
+          ["safety", "Social Safety", "空間、手腕、frame"]
+        ]
+      },
+      zouk: {
+        pathCards: [
+          { badge: "Level 1", badgeClass: "", title: "Lateral Basic", text: "先練 lateral、重心、步幅與轉換方向，讓身體不要飄。", route: { level: "beginner", topic: "basic", videoQuery: "lateral basic", target: "#library" } },
+          { badge: "Level 2", badgeClass: "gold", title: "Frame / Connection", text: "建立彈性 frame、body lead 和距離感，避免用手拉人。", route: { level: "beginner", topic: "partnerwork", videoQuery: "connection frame", target: "#library" } },
+          { badge: "Level 3", badgeClass: "blue", title: "Body Movement", text: "body wave、tilt、cambré 前先練核心、胸椎與髖部控制。", route: { level: "intermediate", topic: "sensual", videoQuery: "body movement", target: "#library" } },
+          { badge: "Level 4", badgeClass: "wine", title: "Head Movement Safety", text: "head movement 必須循序漸進，只在技術與同意都清楚時練。", route: { level: "advanced", topic: "safety", videoQuery: "head movement safety", target: "#library" } }
+        ],
+        presets: [
+          ["basic", "Basic / Lateral", "基本步、方向、重心"],
+          ["partnerwork", "Connection", "frame、lead、follow"],
+          ["sensual", "Body Movement", "wave、tilt、flow"],
+          ["musicality", "Musicality", "flow、break、phrase"],
+          ["styling", "Solo Control", "axis、mobility"],
+          ["safety", "Head Safety", "頸部安全、同意、控制"]
+        ]
+      },
+      blues: {
+        pathCards: [
+          { badge: "Level 1", badgeClass: "", title: "Pulse / Posture", text: "把 pulse、放鬆膝蓋、重心與上半身姿態練穩，先不急著做花招。", route: { level: "beginner", topic: "basic", videoQuery: "pulse posture", target: "#library" } },
+          { badge: "Level 2", badgeClass: "gold", title: "Close Embrace", text: "練舒服的距離、呼吸、frame 與 weight shift，尊重舞伴界線。", route: { level: "beginner", topic: "partnerwork", videoQuery: "close embrace", target: "#library" } },
+          { badge: "Level 3", badgeClass: "blue", title: "Solo Movement", text: "加入 walks、turns、hip movement 和 body vocabulary，但保持 groove。", route: { level: "intermediate", topic: "footwork", videoQuery: "solo movement", target: "#library" } },
+          { badge: "Level 4", badgeClass: "wine", title: "Idioms / Musicality", text: "學不同 blues idioms、call and response、break 和樂句對話。", route: { level: "intermediate", topic: "musicality", videoQuery: "idioms musicality", target: "#library" } }
+        ],
+        presets: [
+          ["basic", "Pulse 基礎", "pulse、posture、weight"],
+          ["partnerwork", "Embrace", "close embrace、connection"],
+          ["footwork", "Solo", "walks、turns、groove"],
+          ["musicality", "Idioms", "call response、break"],
+          ["styling", "Expression", "body、solo、texture"],
+          ["safety", "Consent", "距離、界線、舒適度"]
+        ]
+      }
+    };
+
     function videoKey(video) {
       return video.id || video.search;
     }
@@ -2334,11 +2420,38 @@
       return video.id ? `https://www.youtube.com/watch?v=${video.id}` : video.search;
     }
 
+    function activeStyleVideos() {
+      if (state.style === "bachata") return videos;
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const content = styleContent[state.style] || styleContent.bachata;
+      const cards = content.pathCards.map((card, index) => ({
+        search: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${card.route.videoQuery} tutorial`)}`,
+        title: `${current.title}: ${card.title}`,
+        creator: "YouTube 搜尋入口",
+        level: card.route.level,
+        topics: [card.route.topic],
+        style: state.style,
+        note: card.text,
+        source: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${card.route.videoQuery} tutorial`)}`
+      }));
+      const starterCards = current.starters.map(starter => ({
+        search: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${starter} tutorial`)}`,
+        title: `${current.title} 起手式：${starter}`,
+        creator: "YouTube 搜尋入口",
+        level: "beginner",
+        topics: ["basic"],
+        style: state.style,
+        note: `先找 ${starter} 的清楚教學，確認適合社交與手機練習後，再加入正式影片庫或切片。`,
+        source: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${starter} tutorial`)}`
+      }));
+      return [...cards, ...starterCards];
+    }
+
     function renderVideos() {
       const query = search.value.trim().toLowerCase();
       const selectedLevel = level.value;
       const selectedTopic = topic.value;
-      const filtered = videos.filter(video => {
+      const filtered = activeStyleVideos().filter(video => {
         const haystack = [video.title, video.creator, video.level, video.style, video.note, video.topics.join(" ")].join(" ").toLowerCase();
         const matchesQuery = !query || haystack.includes(query);
         const matchesLevel = selectedLevel === "all" || video.level === selectedLevel;
@@ -2544,11 +2657,60 @@
       renderClassVideos();
     }
 
+    function renderStyleContent() {
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const content = styleContent[state.style] || styleContent.bachata;
+      pathTitle.textContent = `${current.title} 完整學習路線`;
+      pathIntro.textContent = current.intro;
+      pathGrid.innerHTML = content.pathCards.map((card, index) => `
+        <button class="path-card" type="button" data-level-jump="${index + 1}">
+          <span class="badge ${card.badgeClass}">${card.badge}</span>
+          <h3>${card.title}</h3>
+          <p>${card.text}</p>
+        </button>
+      `).join("");
+
+      libraryTitle.textContent = `${current.title} 影片資料庫`;
+      libraryIntro.textContent = state.style === "bachata"
+        ? "包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。"
+        : `這裡先放 ${current.title} 的分類搜尋入口。找到適合影片後，可以加入待處理來源，再慢慢切成正式課程。`;
+      categoryPresets.innerHTML = content.presets.map(([key, title, text]) => `
+        <button class="category-preset" type="button" data-video-preset="${key}"><strong>${title}</strong><span>${text}</span></button>
+      `).join("");
+
+      movesTitle.textContent = `${current.title} 招數表與心智圖`;
+      movesIntro.textContent = current.moveIntro;
+      if (state.style === "bachata") {
+        styleMovePlaceholder.hidden = true;
+        moveLayout.hidden = false;
+        segmentTitle.textContent = "影片切片分類：Hammerlock 社交組合";
+        segmentIntro.textContent = "來源：Marius & Elena「10 Bachata Hammerlock Combos」。每個按鈕都在站內播放器從對應章節開始播，適合把同一支長影片拆成招式庫。";
+      } else {
+        moveLayout.hidden = true;
+        styleMovePlaceholder.hidden = false;
+        styleMovePlaceholder.innerHTML = `
+          <strong>${current.title} 招數表正在建立中。</strong>
+          <span>目前已切換成 ${current.title} 的課綱、影片分類和搜尋入口。下一步可把找到的長影片或手機上課影片貼進來，我再把它拆成招式表與章節切片。</span>
+        `;
+      }
+    }
+
     function selectDanceStyle(key) {
       if (!danceStyles[key]) return;
       state.style = key;
       localStorage.setItem("dance-style", key);
+      search.value = "";
+      level.value = "all";
+      topic.value = "all";
+      segmentSearch.value = "";
+      segmentCategory.value = "all";
+      state.savedOnly = false;
+      savedOnly.classList.remove("saved");
+      savedOnly.textContent = "只看收藏";
       renderDanceStyles();
+      renderStyleContent();
+      renderVideos();
+      renderSegments();
     }
 
     function addClassVideo(event) {
@@ -2676,16 +2838,17 @@
     }
 
     function applyLevel(levelNumber) {
-      const route = levelRoutes[levelNumber];
+      const content = styleContent[state.style] || styleContent.bachata;
+      const route = content.pathCards[Number(levelNumber) - 1]?.route;
       if (!route) return;
       level.value = route.level;
       topic.value = route.topic;
       search.value = route.videoQuery;
-      segmentSearch.value = route.segmentQuery;
+      segmentSearch.value = route.segmentQuery || "";
       segmentCategory.value = "all";
       renderVideos();
       renderSegments();
-      levelCards.forEach(card => card.classList.toggle("active", card.dataset.levelJump === levelNumber));
+      document.querySelectorAll("[data-level-jump]").forEach(card => card.classList.toggle("active", card.dataset.levelJump === levelNumber));
       document.querySelector(route.target).scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
@@ -2699,7 +2862,7 @@
       savedOnly.classList.remove("saved");
       savedOnly.textContent = "只看收藏";
       renderVideos();
-      videoPresetButtons.forEach(button => button.classList.toggle("active", button.dataset.videoPreset === presetName));
+      document.querySelectorAll("[data-video-preset]").forEach(button => button.classList.toggle("active", button.dataset.videoPreset === presetName));
     }
 
     function renderWeeks() {
@@ -2795,11 +2958,12 @@
       applyVideoPreset(button.dataset.videoPreset);
     });
 
-    renderVideos();
     renderSources();
     renderWeeks();
-    renderSegments();
     renderDanceStyles();
+    renderStyleContent();
+    renderVideos();
+    renderSegments();
   </script>
 </body>
 </html>
