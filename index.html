@@ -1156,7 +1156,7 @@
         </div>
           <div class="stats" aria-label="平台摘要">
           <div class="stat"><strong>8</strong><span>週完整路線</span></div>
-          <div class="stat"><strong>29</strong><span>精選影片與搜尋入口</span></div>
+          <div class="stat"><strong>45+</strong><span>精選影片與搜尋入口</span></div>
           <div class="stat"><strong>16</strong><span>招數使用情境</span></div>
           <div class="stat"><strong>0</strong><span>需要安裝的套件</span></div>
         </div>
@@ -1962,7 +1962,7 @@
     ];
 
     const sourcePipeline = [
-      { title: "站內播放", text: "YouTube 或可嵌入影片，直接進影片庫。", count: "29 影片" },
+      { title: "站內播放", text: "YouTube 或可嵌入影片，直接進影片庫。", count: "45+ 影片" },
       { title: "可切片", text: "有章節或可標時間碼的長影片，拆成切片庫。", count: "11 切片" },
       { title: "外連追蹤", text: "IG / TikTok / Reels，保留來源與用途。", count: "4 來源" },
       { title: "研究整理", text: "Reddit、網站、課程頁，用來補課綱和老師推薦。", count: "3 來源" }
@@ -2405,6 +2405,175 @@
       }
     };
 
+    const styleVideoLibrary = {
+      salsa: [
+        {
+          id: "0OQBgq78egM",
+          title: "Cross Body Lead by Salomon",
+          creator: "Salomon / Salsa lesson",
+          level: "beginner",
+          topics: ["partnerwork"],
+          style: "salsa",
+          note: "Cross body lead 是 Salsa 線性社交的核心換位動作，適合放在 Level 2 反覆練。",
+          source: "https://www.youtube.com/watch?v=0OQBgq78egM"
+        },
+        {
+          id: "icOKC4knZBA",
+          title: "Essential Cross Body Lead 180",
+          creator: "Salsa tutorial",
+          level: "beginner",
+          topics: ["partnerwork"],
+          style: "salsa",
+          note: "用 180 度轉向理解 leader 讓線、follower 通過路線的概念。",
+          source: "https://www.youtube.com/watch?v=icOKC4knZBA"
+        },
+        {
+          id: "aV8dS2m9Adc",
+          title: "Beginner Salsa Review of 36 Movements",
+          creator: "Salsa review lesson",
+          level: "intermediate",
+          topics: ["partnerwork", "basic"],
+          style: "salsa",
+          note: "適合建立 Salsa 招式字彙庫，先挑 5 個高成功率動作進社交。",
+          source: "https://www.youtube.com/watch?v=aV8dS2m9Adc"
+        },
+        {
+          id: "r879DgB36XU",
+          title: "20 Salsa Moves",
+          creator: "Salsa social moves",
+          level: "intermediate",
+          topics: ["partnerwork"],
+          style: "salsa",
+          note: "社交組合參考，適合從 basic、cross body、turns 逐步串起來。",
+          source: "https://www.youtube.com/watch?v=r879DgB36XU"
+        },
+        {
+          id: "0uRPlnEt0JE",
+          title: "Salsa On1 Right Turn Tip for Beginners",
+          creator: "Salsa On1 tutorial",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "salsa",
+          note: "右轉是最常用變化之一，先練軸心和回拍，不急著接複雜手位。",
+          source: "https://www.youtube.com/watch?v=0uRPlnEt0JE"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=Salsa+for+Beginners+8+Salsa+Basic+Moves+Daniel+Rosas",
+          title: "Salsa for Beginners - 8 Basic Moves",
+          creator: "Daniel Rosas / YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic"],
+          style: "salsa",
+          note: "入門 basic move 合集，適合先看整體動作地圖再挑單招練。",
+          source: "https://chordify.net/chords/salsa-for-beginners-8-salsa-basic-moves-for-the-absolute-beginner-daniel-rosas"
+        }
+      ],
+      zouk: [
+        {
+          id: "L2E08NKnlcE",
+          title: "Brazilian Zouk Basic Step",
+          creator: "Zouk tutorial",
+          level: "beginner",
+          topics: ["basic"],
+          style: "zouk",
+          note: "先建立 Zouk basic step 的節奏與重心，後面 lateral 和 frame 才會穩。",
+          source: "https://www.youtube.com/watch?v=L2E08NKnlcE"
+        },
+        {
+          id: "Uqvv3jt_mCo",
+          title: "Zouk Beginner #1 / #2",
+          creator: "Zouk beginner lesson",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "zouk",
+          note: "早期入門教學入口，適合當 lateral、basic、partner connection 的補充素材。",
+          source: "https://www.youtube.com/watch?v=Uqvv3jt_mCo"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=Brazilian+Zouk+Beginner+Class+Introduction+Tutorial+Basic+Step+Lateral+Step+Frame+Salka+Charlie",
+          title: "Brazilian Zouk Beginner Class: Basic, Lateral, Frame",
+          creator: "Salka & Charlie / YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "zouk",
+          note: "很符合平台課綱：basic step、lateral step、frame。找到可嵌入影片後可再切片。",
+          source: "https://www.gone-dancing.com/school/zouk-with-salka-charlie/"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=Brazilian+Zouk+18+foundational+moves+beginner+lateral+viradinha+basic+turn",
+          title: "Brazilian Zouk 18 Foundational Moves",
+          creator: "Rio Zouk Immersion / 文章與影片入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork", "safety"],
+          style: "zouk",
+          note: "包含 basic step、lateral、viradinha、basic turn、body roll、head movement 等基礎地圖。",
+          source: "https://www.riozoukimmersion.com/zouk-basic-moves-for-beginners/"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=Brazilian+Zouk+head+movement+safety+beginner+tutorial",
+          title: "Brazilian Zouk Head Movement Safety",
+          creator: "YouTube 搜尋入口",
+          level: "advanced",
+          topics: ["safety", "sensual"],
+          style: "zouk",
+          note: "Head movement 放在最後，先找安全講解和循序練習，不直接模仿表演影片。",
+          source: "https://www.youtube.com/results?search_query=Brazilian+Zouk+head+movement+safety+beginner+tutorial"
+        }
+      ],
+      blues: [
+        {
+          id: "_FS1j51Gh_I",
+          title: "Blues Dancing Crash Course",
+          creator: "Blues dance tutorial",
+          level: "beginner",
+          topics: ["basic", "musicality"],
+          style: "blues",
+          note: "適合建立 blues 的 pulse、groove 和基本移動概念，先不要追複雜 pattern。",
+          source: "https://www.youtube.com/watch?v=_FS1j51Gh_I"
+        },
+        {
+          id: "mD9tneQWrKU",
+          title: "Close Embrace / Slow Dance Connection",
+          creator: "Connection tutorial",
+          level: "beginner",
+          topics: ["partnerwork", "safety"],
+          style: "blues",
+          note: "用來補 close embrace 與舒適距離，但實際 Blues 還要回到 pulse 和音樂對話。",
+          source: "https://www.youtube.com/watch?v=mD9tneQWrKU"
+        },
+        {
+          id: "XCUAQ4evGjM",
+          title: "Blues Dance Example",
+          creator: "Blues dance example",
+          level: "intermediate",
+          topics: ["musicality", "styling"],
+          style: "blues",
+          note: "先當風格觀察：看 connection、pulse、improvisation，而不是照抄動作。",
+          source: "https://www.youtube.com/watch?v=XCUAQ4evGjM"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=beginner+blues+dance+pulse+connection+tutorial",
+          title: "Beginner Blues Dance: Pulse / Connection",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "blues",
+          note: "收集 pulse、weight shift、connection 的入門教學，之後可挑最清楚的影片切片。",
+          source: "https://www.youtube.com/results?search_query=beginner+blues+dance+pulse+connection+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=Damon+Stone+blues+dance+close+embrace+idiom+tutorial",
+          title: "Damon Stone / Blues Idioms Research",
+          creator: "YouTube 搜尋入口",
+          level: "intermediate",
+          topics: ["musicality", "styling"],
+          style: "blues",
+          note: "Blues 不只是慢舞，後續可用 idioms、歷史脈絡和 musical conversation 做進階分類。",
+          source: "https://www.decodenoir.org/"
+        }
+      ]
+    };
+
     function videoKey(video) {
       return video.id || video.search;
     }
@@ -2424,6 +2593,7 @@
       if (state.style === "bachata") return videos;
       const current = danceStyles[state.style] || danceStyles.bachata;
       const content = styleContent[state.style] || styleContent.bachata;
+      const curated = styleVideoLibrary[state.style] || [];
       const cards = content.pathCards.map((card, index) => ({
         search: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${card.route.videoQuery} tutorial`)}`,
         title: `${current.title}: ${card.title}`,
@@ -2444,7 +2614,7 @@
         note: `先找 ${starter} 的清楚教學，確認適合社交與手機練習後，再加入正式影片庫或切片。`,
         source: `https://www.youtube.com/results?search_query=${encodeURIComponent(`${current.title} ${starter} tutorial`)}`
       }));
-      return [...cards, ...starterCards];
+      return [...curated, ...cards, ...starterCards];
     }
 
     function renderVideos() {
