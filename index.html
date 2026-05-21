@@ -275,6 +275,13 @@
       color: #3c4148;
     }
 
+    .style-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
     .class-video-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1170,6 +1177,7 @@
               <h3 id="styleTitle">Bachata</h3>
               <p id="styleDescription">完整平台：影片庫、切片庫、招式表、來源雷達與練習進度。</p>
               <ul class="mini-list" id="styleLevels"></ul>
+              <div class="style-actions" id="styleActions"></div>
             </section>
             <section class="style-info">
               <h3>手機上課影片庫</h3>
@@ -1995,25 +2003,33 @@
         title: "Bachata",
         status: "完整平台",
         summary: "影片庫、切片庫、招式表、來源雷達與練習進度都已上線。",
-        levels: ["Level 1: Basic / timing", "Level 2: Partnerwork / turns", "Level 3: Footwork / musicality", "Level 4: Sensual / styling"]
+        levels: ["Level 1: Basic / timing", "Level 2: Partnerwork / turns", "Level 3: Footwork / musicality", "Level 4: Sensual / styling"],
+        starters: ["Side basic", "Right turn", "Hammerlock combo", "Musicality break"],
+        search: "bachata tutorial beginner social dance"
       },
       salsa: {
         title: "Salsa",
-        status: "準備建立",
+        status: "迷你課綱",
         summary: "可以沿用同一套模式：basic timing、cross body lead、turn patterns、shines、musicality。",
-        levels: ["Level 1: On1 / On2 timing", "Level 2: Cross body lead", "Level 3: Turn patterns", "Level 4: Shines / social combinations"]
+        levels: ["Level 1: On1 / On2 timing", "Level 2: Cross body lead", "Level 3: Turn patterns", "Level 4: Shines / social combinations"],
+        starters: ["Basic step On1", "Cross body lead", "Right turn", "Inside turn"],
+        search: "salsa on1 beginner cross body lead tutorial"
       },
       zouk: {
         title: "Zouk",
-        status: "準備建立",
+        status: "迷你課綱",
         summary: "適合用安全優先模式：basic、connection、body movement、head movement progression。",
-        levels: ["Level 1: Basic / lateral", "Level 2: Frame / connection", "Level 3: Body movement", "Level 4: Head movement safety"]
+        levels: ["Level 1: Basic / lateral", "Level 2: Frame / connection", "Level 3: Body movement", "Level 4: Head movement safety"],
+        starters: ["Basic lateral", "Connection frame", "Body wave", "Head movement prep"],
+        search: "brazilian zouk beginner basic connection tutorial"
       },
       blues: {
         title: "Blues",
-        status: "準備建立",
+        status: "迷你課綱",
         summary: "可以整理成 close embrace、pulse、solo movement、musicality 和不同 blues idioms。",
-        levels: ["Level 1: Pulse / posture", "Level 2: Close embrace", "Level 3: Solo movement", "Level 4: Idioms / musicality"]
+        levels: ["Level 1: Pulse / posture", "Level 2: Close embrace", "Level 3: Solo movement", "Level 4: Idioms / musicality"],
+        starters: ["Pulse", "Close embrace", "Weight shift", "Call and response"],
+        search: "blues dance beginner pulse close embrace tutorial"
       }
     };
 
@@ -2281,6 +2297,7 @@
     const styleTitle = document.querySelector("#styleTitle");
     const styleDescription = document.querySelector("#styleDescription");
     const styleLevels = document.querySelector("#styleLevels");
+    const styleActions = document.querySelector("#styleActions");
     const classVideoForm = document.querySelector("#classVideoForm");
     const classVideoTitle = document.querySelector("#classVideoTitle");
     const classVideoUrl = document.querySelector("#classVideoUrl");
@@ -2483,6 +2500,22 @@
       renderSources();
     }
 
+    function addStyleSource(key) {
+      const style = danceStyles[key];
+      if (!style) return;
+      state.customSources.unshift({
+        customId: String(Date.now()),
+        title: `${style.title} 影片搜尋池`,
+        platform: "YouTube",
+        status: "待切片",
+        action: `搜尋 ${style.title} 入門與社交教學，挑適合的長影片切片進平台。`,
+        url: `https://www.youtube.com/results?search_query=${encodeURIComponent(style.search)}`
+      });
+      localStorage.setItem("bachata-custom-sources", JSON.stringify(state.customSources));
+      renderSources();
+      document.querySelector("#sources").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function removeCustomSource(id) {
       state.customSources = state.customSources.filter(item => item.customId !== id);
       localStorage.setItem("bachata-custom-sources", JSON.stringify(state.customSources));
@@ -2500,7 +2533,14 @@
       styleStatus.textContent = current.status;
       styleTitle.textContent = current.title;
       styleDescription.textContent = current.summary;
-      styleLevels.innerHTML = current.levels.map(level => `<li>${level}</li>`).join("");
+      styleLevels.innerHTML = [
+        ...current.levels,
+        `推薦起手式：${current.starters.join(" / ")}`
+      ].map(level => `<li>${level}</li>`).join("");
+      styleActions.innerHTML = `
+        <a class="small-btn" href="https://www.youtube.com/results?search_query=${encodeURIComponent(current.search)}" target="_blank" rel="noreferrer">找 ${current.title} 影片</a>
+        <button class="small-btn" type="button" data-add-style-source="${state.style}">加入待處理</button>
+      `;
       renderClassVideos();
     }
 
@@ -2736,6 +2776,11 @@
       const button = event.target.closest("[data-style]");
       if (!button) return;
       selectDanceStyle(button.dataset.style);
+    });
+    styleActions.addEventListener("click", event => {
+      const button = event.target.closest("[data-add-style-source]");
+      if (!button) return;
+      addStyleSource(button.dataset.addStyleSource);
     });
     classVideoForm.addEventListener("submit", addClassVideo);
     classVideoGrid.addEventListener("click", event => {
