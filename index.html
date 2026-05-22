@@ -1125,7 +1125,7 @@
 <body>
   <div class="shell">
     <nav class="nav" aria-label="主要導覽">
-      <div class="brand"><span class="brand-mark">B</span> Bachata Training</div>
+      <div class="brand"><span class="brand-mark" id="brandMark">B</span> <span id="brandName">Bachata Training</span></div>
       <div class="nav-links">
         <a href="#danceStyles">舞風</a>
         <a href="#path">課綱</a>
@@ -1147,17 +1147,17 @@
     <header class="hero">
       <div class="hero-inner">
         <div>
-          <h1>Bachata Training</h1>
-          <p class="hero-copy">一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。</p>
+          <h1 id="heroTitle">Bachata Training</h1>
+          <p class="hero-copy" id="heroCopy">一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。</p>
         </div>
         <div class="hero-actions">
           <a class="btn dark" href="#library">開始看影片</a>
           <a class="btn ghost" href="#practice">今天練什麼</a>
         </div>
           <div class="stats" aria-label="平台摘要">
-          <div class="stat"><strong>8</strong><span>週完整路線</span></div>
-          <div class="stat"><strong>80+</strong><span>精選影片與搜尋入口</span></div>
-          <div class="stat"><strong>16</strong><span>招數使用情境</span></div>
+          <div class="stat"><strong id="heroStatWeeks">8</strong><span id="heroStatWeeksLabel">週完整路線</span></div>
+          <div class="stat"><strong id="heroStatVideos">80+</strong><span>精選影片與搜尋入口</span></div>
+          <div class="stat"><strong id="heroStatMoves">16</strong><span>招數使用情境</span></div>
           <div class="stat"><strong>0</strong><span>需要安裝的套件</span></div>
         </div>
       </div>
@@ -1167,8 +1167,8 @@
       <section class="band alt" id="danceStyles">
         <div class="section-inner">
           <div class="section-title">
-            <h2>舞風分頁</h2>
-            <p>Bachata、Salsa、Zouk、Blues 都有各自的課綱、影片入口、招數表與心智圖；手機上課影片也可以分舞風收藏。</p>
+            <h2 id="stylesTitle">舞風分頁</h2>
+            <p id="stylesIntro">Bachata、Salsa、Zouk、Blues 都有各自的課綱、影片入口、招數表與心智圖；手機上課影片也可以分舞風收藏。</p>
           </div>
           <div class="style-tabs" id="styleTabs"></div>
           <div class="style-panel">
@@ -1518,8 +1518,8 @@
       <section class="band" id="sources">
         <div class="section-inner">
           <div class="section-title">
-            <h2>來源與延伸</h2>
-            <p>這裡放的是查到的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。</p>
+            <h2 id="sourcesTitle">來源與延伸</h2>
+            <p id="sourcesIntro">這裡放的是查到的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。</p>
           </div>
           <div class="pipeline-grid" id="sourcePipeline"></div>
           <div class="source-tools">
@@ -1530,8 +1530,8 @@
           </div>
           <div class="radar-grid" id="platformRadar"></div>
           <div class="section-title">
-            <h2>待處理來源</h2>
-            <p>這裡是適合之後檢查、切片或轉成課程的來源。能嵌入的優先進影片庫；不能嵌入的保留外連與筆記。</p>
+            <h2 id="inboxTitle">待處理來源</h2>
+            <p id="inboxIntro">這裡是適合之後檢查、切片或轉成課程的來源。能嵌入的優先進影片庫；不能嵌入的保留外連與筆記。</p>
           </div>
           <form class="source-form" id="sourceForm">
             <input class="search" id="sourceTitle" type="text" placeholder="來源標題或備註，例如：IG body roll 靈感">
@@ -1546,7 +1546,7 @@
 
     <footer>
       <div class="section-inner">
-        <span>Bachata Training local platform</span>
+        <span id="footerBrand">Bachata Training local platform</span>
         <span>影片版權屬原作者，平台僅整理嵌入與連結。</span>
       </div>
     </footer>
@@ -2141,6 +2141,61 @@
       }
     };
 
+    const stylePageContent = {
+      bachata: {
+        mark: "B",
+        brand: "Bachata Training",
+        heroTitle: "Bachata Training",
+        heroCopy: "一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。",
+        stylesIntro: "Bachata、Salsa、Zouk、Blues 都有各自的課綱、影片入口、招數表與心智圖；手機上課影片也可以分舞風收藏。",
+        sourcesTitle: "Bachata 來源與延伸",
+        sourcesIntro: "這裡放 Bachata 的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。",
+        inboxTitle: "Bachata 待處理來源",
+        inboxIntro: "這裡是適合之後檢查、切片或轉成 Bachata 課程的來源。能嵌入的優先進影片庫；不能嵌入的保留外連與筆記。",
+        sourcePlaceholder: "搜尋 Bachata 來源：IG、TikTok、musicality、combo...",
+        footer: "Bachata Training local platform"
+      },
+      salsa: {
+        mark: "S",
+        brand: "Salsa Training",
+        heroTitle: "Salsa Training",
+        heroCopy: "Salsa 分頁整理 On1 / On2 timing、cross body lead、turn patterns、shines、musicality 和社交安全，適合用手機快速複習。",
+        stylesIntro: "目前正在 Salsa 模式：整頁會顯示 Salsa 的課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
+        sourcesTitle: "Salsa 來源與延伸",
+        sourcesIntro: "這裡優先收 Salsa full class、cross body lead、turn variations、shines、On2 timing、clave 和社交 floorcraft。",
+        inboxTitle: "Salsa 待處理來源",
+        inboxIntro: "優先把長課拆成 basic、cross body lead、inside/outside turn、shines、clave / musicality 幾條切片線。",
+        sourcePlaceholder: "搜尋 Salsa 來源：On2、cross body、shines、clave...",
+        footer: "Salsa Training local platform"
+      },
+      zouk: {
+        mark: "Z",
+        brand: "Zouk Training",
+        heroTitle: "Zouk Training",
+        heroCopy: "Zouk 分頁以安全優先：lateral、frame、connection、viradinha、body movement、head movement safety 都分開整理。",
+        stylesIntro: "目前正在 Zouk 模式：整頁會顯示 Zouk 的安全課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
+        sourcesTitle: "Zouk 來源與延伸",
+        sourcesIntro: "這裡優先收 Brazilian Zouk basic、lateral、viradinha、frame、elastic connection、body movement 和 head safety。",
+        inboxTitle: "Zouk 待處理來源",
+        inboxIntro: "優先找清楚講 frame / connection / viradinha 的長課；head movement 只收安全拆解，不收純表演片。",
+        sourcePlaceholder: "搜尋 Zouk 來源：viradinha、frame、head safety...",
+        footer: "Zouk Training local platform"
+      },
+      blues: {
+        mark: "L",
+        brand: "Blues Training",
+        heroTitle: "Blues Training",
+        heroCopy: "Blues 分頁整理 pulse、weight shift、close embrace、slow drag、solo blues、idioms 和 musical conversation。",
+        stylesIntro: "目前正在 Blues 模式：整頁會顯示 Blues 的課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
+        sourcesTitle: "Blues 來源與延伸",
+        sourcesIntro: "這裡優先收 pulse、slow drag、close embrace、solo blues、idioms、call and response 和社交安全來源。",
+        inboxTitle: "Blues 待處理來源",
+        inboxIntro: "優先把 Blues 來源拆成 pulse、close embrace、slow drag、solo vocabulary、idioms 和 musicality。",
+        sourcePlaceholder: "搜尋 Blues 來源：slow drag、pulse、idioms、solo...",
+        footer: "Blues Training local platform"
+      }
+    };
+
     const weeks = [
       ["Week 1", "Basic side step、節拍、重量轉移"],
       ["Week 2", "Forward/back、box step、right turn"],
@@ -2488,6 +2543,19 @@
     const sourceForm = document.querySelector("#sourceForm");
     const sourceTitle = document.querySelector("#sourceTitle");
     const sourceUrl = document.querySelector("#sourceUrl");
+    const brandMark = document.querySelector("#brandMark");
+    const brandName = document.querySelector("#brandName");
+    const heroTitle = document.querySelector("#heroTitle");
+    const heroCopy = document.querySelector("#heroCopy");
+    const heroStatVideos = document.querySelector("#heroStatVideos");
+    const heroStatMoves = document.querySelector("#heroStatMoves");
+    const stylesTitle = document.querySelector("#stylesTitle");
+    const stylesIntro = document.querySelector("#stylesIntro");
+    const sourcesTitle = document.querySelector("#sourcesTitle");
+    const sourcesIntro = document.querySelector("#sourcesIntro");
+    const inboxTitle = document.querySelector("#inboxTitle");
+    const inboxIntro = document.querySelector("#inboxIntro");
+    const footerBrand = document.querySelector("#footerBrand");
     const styleTabs = document.querySelector("#styleTabs");
     const styleStatus = document.querySelector("#styleStatus");
     const styleTitle = document.querySelector("#styleTitle");
@@ -3173,6 +3241,20 @@
       return video.id ? `https://www.youtube.com/watch?v=${video.id}` : video.search;
     }
 
+    function styleKeywords(key = state.style) {
+      return {
+        bachata: ["bachata", "marius", "korke", "judith", "tam pham", "iaso", "roberto", "magdalena", "dance dojo", "danceus"],
+        salsa: ["salsa", "clave", "on1", "on2", "cross body", "inside turn", "outside turn", "shines"],
+        zouk: ["zouk", "viradinha", "giro", "rio zouk", "brazilian", "elastico", "head movement", "lateral"],
+        blues: ["blues", "slow drag", "solo blues", "idioms", "decode noir", "close embrace", "pulse"]
+      }[key] || [];
+    }
+
+    function belongsToStyle(item, key = state.style) {
+      const text = [item.title, item.text, item.use, item.action, item.url, item.platform, item.status].filter(Boolean).join(" ").toLowerCase();
+      return styleKeywords(key).some(keyword => text.includes(keyword));
+    }
+
     function activeStyleVideos() {
       if (state.style === "bachata") return videos;
       const current = danceStyles[state.style] || danceStyles.bachata;
@@ -3262,21 +3344,31 @@
     }
 
     function renderSources() {
-      const platforms = [...new Set(platformRadar.map(item => item.platform))];
-      if (sourcePlatform.options.length === 1) {
-        sourcePlatform.insertAdjacentHTML("beforeend", platforms.map(platform => `<option value="${platform}">${platform}</option>`).join(""));
-      }
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const radarForStyle = platformRadar.filter(item => belongsToStyle(item));
+      const inboxForStyle = sourceInbox.filter(item => belongsToStyle(item));
+      const sourcesForStyle = sources.filter(item => belongsToStyle(item));
+      const platforms = [...new Set(radarForStyle.map(item => item.platform))];
+      const currentPlatform = sourcePlatform.value;
+      sourcePlatform.innerHTML = `<option value="all">全部平台</option>${platforms.map(platform => `<option value="${platform}">${platform}</option>`).join("")}`;
+      sourcePlatform.value = platforms.includes(currentPlatform) ? currentPlatform : "all";
 
       const query = sourceSearch.value.trim().toLowerCase();
       const selectedPlatform = sourcePlatform.value;
-      const filteredRadar = platformRadar.filter(item => {
+      const filteredRadar = radarForStyle.filter(item => {
         const haystack = [item.title, item.platform, item.use, item.mode, item.status].join(" ").toLowerCase();
         const matchesQuery = !query || haystack.includes(query);
         const matchesPlatform = selectedPlatform === "all" || item.platform === selectedPlatform;
         return matchesQuery && matchesPlatform;
       });
 
-      document.querySelector("#sourcePipeline").innerHTML = sourcePipeline.map(item => `
+      const pipeline = [
+        { title: "站內播放", text: `${current.title} 可嵌入影片會直接進影片庫。`, count: `${activeStyleVideos().length}+ 影片` },
+        { title: "可切片", text: `${current.title} 長影片或課堂影片可拆成切片庫。`, count: `${activeSegmentPlans().length} 主題` },
+        { title: "外連追蹤", text: "IG / TikTok / Reels，保留來源與用途。", count: `${radarForStyle.filter(item => item.mode.includes("外連")).length} 來源` },
+        { title: "研究整理", text: "網站、社群、課程頁，用來補課綱和安全提醒。", count: `${sourcesForStyle.length} 來源` }
+      ];
+      document.querySelector("#sourcePipeline").innerHTML = pipeline.map(item => `
         <article class="source-card">
           <span class="badge blue">${item.count}</span>
           <h3>${item.title}</h3>
@@ -3303,7 +3395,8 @@
         document.querySelector("#platformRadar").innerHTML = `<div class="empty">找不到符合條件的平台來源。</div>`;
       }
 
-      const combinedInbox = [...state.customSources, ...sourceInbox];
+      const customForStyle = state.customSources.filter(item => !item.style || item.style === state.style || belongsToStyle(item));
+      const combinedInbox = [...customForStyle, ...inboxForStyle];
       document.querySelector("#sourceInbox").innerHTML = combinedInbox.map(item => `
         <article class="source-card">
           <div class="source-meta">
@@ -3319,7 +3412,7 @@
         </article>
       `).join("");
 
-      document.querySelector("#sourcesGrid").innerHTML = sources.map(item => `
+      document.querySelector("#sourcesGrid").innerHTML = sourcesForStyle.map(item => `
         <article class="source-card">
           <h3>${item.title}</h3>
           <p>${item.text}</p>
@@ -3328,6 +3421,9 @@
           </div>
         </article>
       `).join("");
+      if (!sourcesForStyle.length) {
+        document.querySelector("#sourcesGrid").innerHTML = `<div class="empty">這個舞風還沒有整理好的延伸來源。</div>`;
+      }
     }
 
     function detectSourcePlatform(url) {
@@ -3357,6 +3453,7 @@
         title,
         platform,
         status: suggestedSourceStatus(platform),
+        style: state.style,
         action: platform === "YouTube" ? "檢查是否有章節；適合就切片進平台。" : "先外連追蹤，挑出安全、清楚、值得練的招式。",
         url
       };
@@ -3375,6 +3472,7 @@
         title: `${style.title} 影片搜尋池`,
         platform: "YouTube",
         status: "待切片",
+        style: key,
         action: `搜尋 ${style.title} 入門與社交教學，挑適合的長影片切片進平台。`,
         url: `https://www.youtube.com/results?search_query=${encodeURIComponent(style.search)}`
       });
@@ -3477,6 +3575,27 @@
       `).join("");
     }
 
+    function renderPageChrome() {
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const page = stylePageContent[state.style] || stylePageContent.bachata;
+      const movesCount = state.style === "bachata" ? 16 : (styleMoveContent[state.style]?.moves.length || 0);
+      brandMark.textContent = page.mark;
+      brandName.textContent = page.brand;
+      heroTitle.textContent = page.heroTitle;
+      heroCopy.textContent = page.heroCopy;
+      stylesTitle.textContent = `${current.title} 舞風分頁`;
+      stylesIntro.textContent = page.stylesIntro;
+      sourcesTitle.textContent = page.sourcesTitle;
+      sourcesIntro.textContent = page.sourcesIntro;
+      inboxTitle.textContent = page.inboxTitle;
+      inboxIntro.textContent = page.inboxIntro;
+      sourceSearch.placeholder = page.sourcePlaceholder;
+      footerBrand.textContent = page.footer;
+      heroStatVideos.textContent = `${activeStyleVideos().length}+`;
+      heroStatMoves.textContent = String(movesCount);
+      document.title = `${page.brand} | 完整教學平台`;
+    }
+
     function renderStyleContent() {
       const current = danceStyles[state.style] || danceStyles.bachata;
       const content = styleContent[state.style] || styleContent.bachata;
@@ -3511,6 +3630,7 @@
         segmentIntro.textContent = `先用這些主題收集 ${current.title} 長影片或手機上課影片。之後可把每張卡變成實際時間碼切片。`;
       }
       renderPracticeContent();
+      renderPageChrome();
     }
 
     function selectDanceStyle(key) {
