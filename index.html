@@ -1156,7 +1156,7 @@
         </div>
           <div class="stats" aria-label="平台摘要">
           <div class="stat"><strong>8</strong><span>週完整路線</span></div>
-          <div class="stat"><strong>60+</strong><span>精選影片與搜尋入口</span></div>
+          <div class="stat"><strong>80+</strong><span>精選影片與搜尋入口</span></div>
           <div class="stat"><strong>16</strong><span>招數使用情境</span></div>
           <div class="stat"><strong>0</strong><span>需要安裝的套件</span></div>
         </div>
@@ -1891,6 +1891,31 @@
         title: "r/Bachata 社群推薦",
         text: "用來補充社群常提到的頻道、練習觀念與學習順序；內容需自行判斷品質。",
         url: "https://www.reddit.com/r/Bachata/"
+      },
+      {
+        title: "Salsa Vida",
+        text: "適合補 Salsa 風格、timing、社交舞池觀念與教學脈絡；用來建立 On1 / On2 和 musicality 筆記。",
+        url: "https://www.salsavida.com/salsa-dance/"
+      },
+      {
+        title: "Dance Dojo Salsa",
+        text: "Salsa partnerwork、turn variations、inside/outside turn 很適合做下一批切片候選。",
+        url: "https://www.youtube.com/results?search_query=Dance+Dojo+salsa+inside+outside+turn+cross+body+lead"
+      },
+      {
+        title: "Rio Zouk Immersion",
+        text: "Brazilian Zouk foundational moves、viradinha、basic turn、head movement safety，可當 Zouk 分頁的招式地圖來源。",
+        url: "https://www.riozoukimmersion.com/zouk-basic-moves-for-beginners/"
+      },
+      {
+        title: "Brazilian Zouk Council",
+        text: "適合補 Zouk rhythm、音樂結構與風格定義，避免只收表演型 head movement。",
+        url: "https://www.brazilianzoukcouncil.com/dance-education/identifying-the-brazilian-zouk-rhythm/"
+      },
+      {
+        title: "Decode Noir / Blues idioms",
+        text: "Blues 舞風需要歷史脈絡和 idioms；這類來源適合補 slow drag、call and response、musical conversation。",
+        url: "https://www.decodenoir.org/"
       }
     ];
 
@@ -1958,11 +1983,43 @@
         mode: "站內播放優先",
         status: "可切片",
         url: "https://www.youtube.com/results?search_query=bachata+tutorial"
+      },
+      {
+        title: "Salsa YouTube 搜尋池",
+        platform: "YouTube",
+        use: "On1 / On2 timing、cross body lead、turn pattern、shines",
+        mode: "站內播放優先",
+        status: "可切片",
+        url: "https://www.youtube.com/results?search_query=salsa+beginner+full+class+cross+body+lead+shines+musicality"
+      },
+      {
+        title: "Brazilian Zouk 搜尋池",
+        platform: "YouTube",
+        use: "lateral、viradinha、connection、body movement、head safety",
+        mode: "站內播放優先",
+        status: "可切片",
+        url: "https://www.youtube.com/results?search_query=brazilian+zouk+beginner+class+viradinha+connection+body+movement"
+      },
+      {
+        title: "Blues Dance 搜尋池",
+        platform: "YouTube",
+        use: "pulse、slow drag、close embrace、solo blues、idioms",
+        mode: "站內播放優先",
+        status: "可切片",
+        url: "https://www.youtube.com/results?search_query=blues+dance+beginner+lesson+pulse+slow+drag+close+embrace"
+      },
+      {
+        title: "Instagram Salsa / Zouk / Blues 搜尋",
+        platform: "Instagram",
+        use: "短招、老師帳號、社交示範、課堂片段",
+        mode: "外連追蹤",
+        status: "靈感",
+        url: "https://www.instagram.com/explore/search/keyword/?q=salsa%20zouk%20blues%20dance%20tutorial"
       }
     ];
 
     const sourcePipeline = [
-      { title: "站內播放", text: "YouTube 或可嵌入影片，直接進影片庫。", count: "60+ 影片" },
+      { title: "站內播放", text: "YouTube 或可嵌入影片，直接進影片庫。", count: "80+ 影片" },
       { title: "可切片", text: "有章節或可標時間碼的長影片，拆成切片庫。", count: "11 切片" },
       { title: "外連追蹤", text: "IG / TikTok / Reels，保留來源與用途。", count: "4 來源" },
       { title: "研究整理", text: "Reddit、網站、課程頁，用來補課綱和老師推薦。", count: "3 來源" }
@@ -1996,6 +2053,48 @@
         status: "研究",
         action: "整理觀念、課綱和安全提醒，不直接複製付費內容。",
         url: "https://www.bachatalibrary.com/"
+      },
+      {
+        title: "Salsa full class / turn pattern 搜尋",
+        platform: "YouTube",
+        status: "待切片",
+        action: "優先找 20-40 分鐘長課：basic、cross body lead、inside/outside turn、shines，可拆成 Salsa 切片庫。",
+        url: "https://www.youtube.com/results?search_query=salsa+beginner+full+class+cross+body+lead+inside+outside+turn+shines"
+      },
+      {
+        title: "Salsa On2 / clave musicality 搜尋",
+        platform: "YouTube",
+        status: "研究",
+        action: "補 On2 timing、clave、break 與 musicality，適合做 Level 4 的觀念課。",
+        url: "https://www.youtube.com/results?search_query=salsa+on2+timing+clave+musicality+dance+tutorial"
+      },
+      {
+        title: "Brazilian Zouk viradinha / giro 搜尋",
+        platform: "YouTube",
+        status: "待切片",
+        action: "挑清楚講解 viradinha、basic turn、yo-yo 的長影片，切成 Zouk partnerwork 主題。",
+        url: "https://www.youtube.com/results?search_query=brazilian+zouk+viradinha+basic+turn+yo-yo+tutorial"
+      },
+      {
+        title: "Brazilian Zouk connection / safety 搜尋",
+        platform: "YouTube",
+        status: "安全優先",
+        action: "只收講 frame、elastic connection、head movement safety 的教學，不收單純表演影片。",
+        url: "https://www.youtube.com/results?search_query=brazilian+zouk+connection+frame+head+movement+safety+tutorial"
+      },
+      {
+        title: "Blues slow drag / close embrace 搜尋",
+        platform: "YouTube",
+        status: "待切片",
+        action: "找 slow drag、pulse、close embrace 的基礎課，拆成 Blues 社交核心切片。",
+        url: "https://www.youtube.com/results?search_query=blues+dance+slow+drag+close+embrace+pulse+tutorial"
+      },
+      {
+        title: "Blues solo / idioms 搜尋",
+        platform: "YouTube",
+        status: "研究",
+        action: "補 solo blues、call and response、idioms，避免 Blues 只被整理成慢舞。",
+        url: "https://www.youtube.com/results?search_query=solo+blues+dance+idioms+call+and+response+tutorial"
       }
     ];
 
@@ -2711,6 +2810,46 @@
           style: "salsa",
           note: "把 Salsa 從數拍帶到聽 clave、樂句與 break，適合 Level 4。",
           source: "https://www.salsavida.com/salsa-dance/"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=salsa+beginner+full+class+cross+body+lead+turn+pattern",
+          title: "Salsa Full Class: Basic to Cross Body",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "salsa",
+          note: "優先找能拆成 basic、CBL、turn pattern 的長課，適合做 Salsa 第一批切片庫。",
+          source: "https://www.youtube.com/results?search_query=salsa+beginner+full+class+cross+body+lead+turn+pattern"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=salsa+social+dance+combination+beginner+intermediate+tutorial",
+          title: "Salsa Social Combination Pool",
+          creator: "YouTube 搜尋入口",
+          level: "intermediate",
+          topics: ["partnerwork"],
+          style: "salsa",
+          note: "收集社交可用 combo，挑能安全退出、能回 basic 的組合。",
+          source: "https://www.youtube.com/results?search_query=salsa+social+dance+combination+beginner+intermediate+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=salsa+ladies+men+styling+beginner+arms+body+movement+tutorial",
+          title: "Salsa Styling Starter",
+          creator: "YouTube 搜尋入口",
+          level: "intermediate",
+          topics: ["styling"],
+          style: "salsa",
+          note: "補手臂、body line、solo styling，但優先不影響 frame 和 timing。",
+          source: "https://www.youtube.com/results?search_query=salsa+ladies+men+styling+beginner+arms+body+movement+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=salsa+social+dance+floorcraft+lead+follow+safety+tutorial",
+          title: "Salsa Social Safety / Floorcraft",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["safety", "partnerwork"],
+          style: "salsa",
+          note: "補社交舞池安全、手腕保護、空間控制，避免只學花招。",
+          source: "https://www.youtube.com/results?search_query=salsa+social+dance+floorcraft+lead+follow+safety+tutorial"
         }
       ],
       zouk: [
@@ -2823,6 +2962,46 @@
           style: "zouk",
           note: "補 Zouk 的流動感、停頓、延展與樂句，不只做連續 head/body movement。",
           source: "https://www.brazilianzoukcouncil.com/dance-education/identifying-the-brazilian-zouk-rhythm/"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=brazilian+zouk+beginner+full+class+lateral+viradinha+frame",
+          title: "Brazilian Zouk Full Class: Lateral / Viradinha",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "zouk",
+          note: "找能從 lateral 接到 viradinha 的長課，適合拆成 Zouk Level 1-2 切片。",
+          source: "https://www.youtube.com/results?search_query=brazilian+zouk+beginner+full+class+lateral+viradinha+frame"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=brazilian+zouk+frame+connection+lead+follow+tutorial",
+          title: "Brazilian Zouk Frame / Lead-Follow",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["partnerwork", "safety"],
+          style: "zouk",
+          note: "補 frame、lead/follow、elastic connection，作為所有 body movement 前的必修。",
+          source: "https://www.youtube.com/results?search_query=brazilian+zouk+frame+connection+lead+follow+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=brazilian+zouk+cambr%C3%A9+tilt+body+movement+safety+tutorial",
+          title: "Brazilian Zouk Tilt / Cambré Safety",
+          creator: "YouTube 搜尋入口",
+          level: "advanced",
+          topics: ["sensual", "safety"],
+          style: "zouk",
+          note: "只收安全拆解：核心、軸心、支撐、幅度控制，不收純表演片。",
+          source: "https://www.youtube.com/results?search_query=brazilian+zouk+cambr%C3%A9+tilt+body+movement+safety+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=brazilian+zouk+social+dance+beginner+combination+tutorial",
+          title: "Brazilian Zouk Social Combination Pool",
+          creator: "YouTube 搜尋入口",
+          level: "intermediate",
+          topics: ["partnerwork", "musicality"],
+          style: "zouk",
+          note: "收集可社交使用的小組合，優先選能清楚進出、不需要危險頭動作的素材。",
+          source: "https://www.youtube.com/results?search_query=brazilian+zouk+social+dance+beginner+combination+tutorial"
         }
       ],
       blues: [
@@ -2935,6 +3114,46 @@
           style: "blues",
           note: "補 tension/release、情緒、樂句與即興，讓 Blues 分頁更像完整舞風。",
           source: "https://www.mayihavethisdance.com/blog/styles-of-social-dance"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=blues+dance+beginner+full+lesson+pulse+slow+drag",
+          title: "Blues Full Lesson: Pulse / Slow Drag",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["basic", "partnerwork"],
+          style: "blues",
+          note: "優先找可切成 pulse、weight shift、slow drag 的完整課。",
+          source: "https://www.youtube.com/results?search_query=blues+dance+beginner+full+lesson+pulse+slow+drag"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=blues+dance+close+embrace+connection+consent+tutorial",
+          title: "Blues Close Embrace / Consent",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["partnerwork", "safety"],
+          style: "blues",
+          note: "收集 close embrace、距離、同意和舒適 frame 的素材，這是 Blues 分頁的安全核心。",
+          source: "https://www.youtube.com/results?search_query=blues+dance+close+embrace+connection+consent+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=solo+blues+dance+vocabulary+beginner+hips+shoulders+walks+tutorial",
+          title: "Solo Blues Vocabulary Pool",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["styling", "basic"],
+          style: "blues",
+          note: "補 solo vocabulary：hips、shoulders、walks、texture，讓雙人舞更有身體語言。",
+          source: "https://www.youtube.com/results?search_query=solo+blues+dance+vocabulary+beginner+hips+shoulders+walks+tutorial"
+        },
+        {
+          search: "https://www.youtube.com/results?search_query=blues+dance+floorcraft+social+dance+etiquette+tutorial",
+          title: "Blues Social Etiquette / Floorcraft",
+          creator: "YouTube 搜尋入口",
+          level: "beginner",
+          topics: ["safety"],
+          style: "blues",
+          note: "補社交禮儀、界線和舞池安全，適合放在 Blues 必修安全章節。",
+          source: "https://www.youtube.com/results?search_query=blues+dance+floorcraft+social+dance+etiquette+tutorial"
         }
       ]
     };
