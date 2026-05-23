@@ -1133,6 +1133,7 @@
         <a href="#segments">切片庫</a>
         <a href="#library">影片庫</a>
         <a href="#practice">練習</a>
+        <a href="#scenarios">情境</a>
         <a href="#sources">來源</a>
       </div>
     </nav>
@@ -1512,6 +1513,16 @@
               </div>
             </section>
           </div>
+        </div>
+      </section>
+
+      <section class="band" id="scenarios">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2 id="scenarioTitle">社交情境速查</h2>
+            <p id="scenarioIntro">上舞池時先看情境，不要只背招。每張卡都對應到影片庫的搜尋方向。</p>
+          </div>
+          <div class="drill-grid" id="scenarioGrid"></div>
         </div>
       </section>
 
@@ -2196,6 +2207,45 @@
       }
     };
 
+    const styleScenarioContent = {
+      bachata: {
+        intro: "Bachata 上舞池時先看空間、音樂速度和舞伴熟悉度，再決定用 basic、turn、hammerlock 或 sensual。",
+        cards: [
+          ["舞池很擠", "用 side basic、open hold、小幅度 right turn；不要做大位移、dip、head roll。", "basic safety", "safety"],
+          ["新手舞伴", "先 basic + right turn + open/closed hold，確認對方節拍和距離感。", "beginner basic turn", "basic"],
+          ["慢歌 / Sensual", "先 isolation、body wave、musical pause；只在雙方舒服時加 body roll。", "sensual body wave", "sensual"],
+          ["Break / 停拍", "停住 frame、做小 body movement 或慢 basic，下一拍一定回得來。", "musicality break", "musicality"]
+        ]
+      },
+      salsa: {
+        intro: "Salsa 社交時先用 timing 和 slot 控制場面；cross body lead 是最穩的中樞，不需要一開始就堆複雜 pattern。",
+        cards: [
+          ["舞池很擠", "用 basic、back break、小 right turn；cross body 要縮短路線。", "floorcraft social safety", "safety"],
+          ["新手舞伴", "basic、right turn、cross body lead 慢速版，先讓對方知道 slot。", "basic step cross body lead", "basic"],
+          ["音樂能量高", "加 inside/outside turn 或 1 組 turn pattern，但每次都能回 basic。", "turn pattern social combo", "partnerwork"],
+          ["Break / Mambo 段", "用 shines、Suzy Q、mambo steps 做短 solo，不要失去 clave。", "shines musicality clave", "footwork"]
+        ]
+      },
+      zouk: {
+        intro: "Zouk 情境判斷以安全為第一：frame、axis、距離和同意比動作量重要，head movement 永遠最後才加。",
+        cards: [
+          ["舞池很擠", "用 lateral、小 basic turn、frame 變化；不要做大幅 body/head movement。", "lateral basic floorcraft", "basic"],
+          ["新手舞伴", "只做 basic、lateral、connection drill，確認對方能跟到身體方向。", "connection frame beginner", "partnerwork"],
+          ["慢歌 / Flow", "可加 body wave、tilt prep，但幅度小、先 solo 控制再雙人。", "body movement wave", "sensual"],
+          ["安全檢查", "任何 head movement 前確認同意、頸部狀態、軸心和出口。", "head movement safety", "safety"]
+        ]
+      },
+      blues: {
+        intro: "Blues 社交不靠堆招，先用 pulse、距離、呼吸和音樂對話建立舒服的共同 groove。",
+        cards: [
+          ["舞池很擠", "用 pulse、weight shift、small walks；close embrace 也要保留界線。", "pulse weight shift", "basic"],
+          ["新手舞伴", "先 open 或舒服距離，做 pulse / slow drag，不急著 close。", "close embrace consent", "safety"],
+          ["慢歌", "slow drag、close embrace、呼吸和小 weight shift 是核心。", "slow drag close embrace", "partnerwork"],
+          ["Call and Response", "一句自己、一句留空間給對方或音樂回應，避免一直塞動作。", "call and response musicality", "musicality"]
+        ]
+      }
+    };
+
     const weeks = [
       ["Week 1", "Basic side step、節拍、重量轉移"],
       ["Week 2", "Forward/back、box step、right turn"],
@@ -2535,6 +2585,9 @@
     const practiceIntro = document.querySelector("#practiceIntro");
     const drillTitle = document.querySelector("#drillTitle");
     const drillGrid = document.querySelector("#drillGrid");
+    const scenarioTitle = document.querySelector("#scenarioTitle");
+    const scenarioIntro = document.querySelector("#scenarioIntro");
+    const scenarioGrid = document.querySelector("#scenarioGrid");
     const libraryTitle = document.querySelector("#libraryTitle");
     const libraryIntro = document.querySelector("#libraryIntro");
     const categoryPresets = document.querySelector("#categoryPresets");
@@ -3596,6 +3649,19 @@
       document.title = `${page.brand} | 完整教學平台`;
     }
 
+    function renderScenarios() {
+      const current = danceStyles[state.style] || danceStyles.bachata;
+      const scenario = styleScenarioContent[state.style] || styleScenarioContent.bachata;
+      scenarioTitle.textContent = `${current.title} 社交情境速查`;
+      scenarioIntro.textContent = scenario.intro;
+      scenarioGrid.innerHTML = scenario.cards.map(([title, text, query, topic]) => `
+        <button class="drill" type="button" data-move-video="${query}" data-move-topic="${topic}">
+          <strong>${title}</strong>
+          <span>${text}</span>
+        </button>
+      `).join("");
+    }
+
     function renderStyleContent() {
       const current = danceStyles[state.style] || danceStyles.bachata;
       const content = styleContent[state.style] || styleContent.bachata;
@@ -3631,6 +3697,7 @@
       }
       renderPracticeContent();
       renderPageChrome();
+      renderScenarios();
     }
 
     function selectDanceStyle(key) {
