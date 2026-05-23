@@ -3315,7 +3315,17 @@
       if (video.id) {
         return `https://img.youtube.com/vi/${video.id}/hqdefault.jpg`;
       }
-      return "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80";
+      const text = [video.title, video.creator, video.style, video.note, video.topics?.join(" ")].filter(Boolean).join(" ").toLowerCase();
+      const style = video.style || state.style;
+      const query = (() => {
+        if (style === "salsa" || text.includes("salsa") || text.includes("clave") || text.includes("cross body")) return "salsa,dance,couple";
+        if (style === "zouk" || text.includes("zouk") || text.includes("viradinha") || text.includes("head movement")) return "partner,dance,flow";
+        if (style === "blues" || text.includes("blues") || text.includes("slow drag") || text.includes("close embrace")) return "social,dance,couple";
+        if (text.includes("footwork") || text.includes("shines") || text.includes("solo")) return "dance,footwork,studio";
+        if (text.includes("sensual") || text.includes("body") || text.includes("wave")) return "couple,dance,studio";
+        return "bachata,dance,couple";
+      })();
+      return `https://source.unsplash.com/900x520/?${query}`;
     }
 
     function videoUrl(video) {
