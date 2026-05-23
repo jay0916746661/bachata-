@@ -20,6 +20,10 @@
 
     * { box-sizing: border-box; }
 
+    [hidden] {
+      display: none !important;
+    }
+
     body {
       margin: 0;
       color: var(--ink);
@@ -2786,6 +2790,30 @@
       }
     };
 
+    const styleFeaturedLessons = {
+      salsa: {
+        videoId: "0OQBgq78egM",
+        title: "Salsa 主講解：Cross Body Lead / Slot",
+        explain: "Salsa 模式不再使用 Bachata 影片。先用 cross body lead 建立線性 Salsa 的 slot、讓線和換位概念，再接 right turn、inside/outside turn 和 shines。",
+        points: ["先用 On1 basic 數 1-2-3 / 5-6-7。", "leader 開路線，不用手把人拖過去。", "轉完或換位後一定能回 basic。"],
+        query: "cross body lead"
+      },
+      zouk: {
+        videoId: "L2E08NKnlcE",
+        title: "Zouk 主講解：Basic / Lateral / Connection",
+        explain: "Zouk 模式只顯示 Zouk 教學方向。先把 basic、lateral、frame 和 connection 穩住，body movement 和 head movement safety 才能安全加入。",
+        points: ["先練 lateral basic，小步幅、軸心穩。", "用身體方向 lead，不用手臂拉扯。", "head movement 一律放到安全技術之後。"],
+        query: "lateral basic connection"
+      },
+      blues: {
+        videoId: "_FS1j51Gh_I",
+        title: "Blues 主講解：Pulse / Slow Drag / Musical Conversation",
+        explain: "Blues 模式只顯示 Blues 教學方向。先練 pulse、weight shift、close embrace 和 slow drag，重點是音樂對話，不是堆很多招。",
+        points: ["先做 pulse 和 weight shift，不加花招。", "close embrace 要有同意、距離和舒適 frame。", "slow drag 保持 groove，不要變成只是走路。"],
+        query: "pulse slow drag close embrace"
+      }
+    };
+
     const styleSegmentPlans = {
       salsa: [
         { category: "Timing", title: "On1 Basic / Back Break", focus: "拆 basic、back break、右轉準備，先讓腳下不亂。", query: "basic step on1", topic: "basic" },
@@ -3572,7 +3600,14 @@
         return;
       }
 
-      lessonPanel.hidden = true;
+      const featured = styleFeaturedLessons[state.style];
+      lessonPanel.hidden = !featured;
+      if (featured) {
+        lessonFrame.src = embedUrl(featured.videoId);
+        lessonTitle.textContent = featured.title;
+        lessonExplain.textContent = featured.explain;
+        lessonPoints.innerHTML = featured.points.map(point => `<li>${point}</li>`).join("");
+      }
       segmentSection.hidden = false;
       mindMap.innerHTML = `
         <article class="map-node main">
