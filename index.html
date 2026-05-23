@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bachata Training | 完整教學平台</title>
+  <title>Dance Training | 完整教學平台</title>
   <style>
     :root {
       --ink: #1f2228;
@@ -1129,7 +1129,7 @@
 <body>
   <div class="shell">
     <nav class="nav" aria-label="主要導覽">
-      <div class="brand"><span class="brand-mark" id="brandMark">B</span> <span id="brandName">Bachata Training</span></div>
+      <div class="brand"><span class="brand-mark" id="brandMark">D</span> <span id="brandName">Dance Training</span></div>
       <div class="nav-links">
         <a href="#danceStyles">舞風</a>
         <a href="#path">課綱</a>
@@ -1152,8 +1152,8 @@
     <header class="hero">
       <div class="hero-inner">
         <div>
-          <h1 id="heroTitle">Bachata Training</h1>
-          <p class="hero-copy" id="heroCopy">一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。</p>
+          <h1 id="heroTitle">Dance Training</h1>
+          <p class="hero-copy" id="heroCopy">一個從零開始到能上社交舞池的舞蹈教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。</p>
         </div>
         <div class="hero-actions">
           <a class="btn dark" href="#library">開始看影片</a>
@@ -1457,8 +1457,8 @@
       <section class="band" id="library">
         <div class="section-inner">
           <div class="section-title">
-            <h2 id="libraryTitle">影片資料庫</h2>
-            <p id="libraryIntro">包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。</p>
+            <h2 id="libraryTitle">Dance 影片資料庫</h2>
+            <p id="libraryIntro">切換舞風後，影片庫會同步換成該舞風的教學影片、搜尋入口與收藏清單。</p>
           </div>
           <div class="category-presets" id="categoryPresets" aria-label="影片分類快捷鍵">
             <button class="category-preset" type="button" data-video-preset="basic"><strong>Basic 基礎</strong><span>節拍、基本步、入門動作</span></button>
@@ -1561,7 +1561,7 @@
 
     <footer>
       <div class="section-inner">
-        <span id="footerBrand">Bachata Training local platform</span>
+        <span id="footerBrand">Dance Training local platform</span>
         <span>影片版權屬原作者，平台僅整理嵌入與連結。</span>
       </div>
     </footer>
@@ -2555,6 +2555,11 @@
       currentLesson: "hammerlock-1"
     };
 
+    if (!danceStyles[state.style]) {
+      state.style = "bachata";
+      localStorage.setItem("dance-style", state.style);
+    }
+
     const grid = document.querySelector("#videoGrid");
     const emptyState = document.querySelector("#emptyState");
     const search = document.querySelector("#search");
@@ -3378,13 +3383,15 @@
       const query = search.value.trim().toLowerCase();
       const selectedLevel = level.value;
       const selectedTopic = topic.value;
-      const filtered = activeStyleVideos().filter(video => {
+      const activeVideos = activeStyleVideos();
+      const filtered = activeVideos.filter(video => {
         const haystack = [video.title, video.creator, video.level, video.style, video.note, video.topics.join(" ")].join(" ").toLowerCase();
+        const matchesStyle = state.style === "bachata" || video.style === state.style;
         const matchesQuery = !query || haystack.includes(query);
         const matchesLevel = selectedLevel === "all" || video.level === selectedLevel;
         const matchesTopic = selectedTopic === "all" || video.topics.includes(selectedTopic);
         const matchesSaved = !state.savedOnly || state.saved.has(videoKey(video));
-        return matchesQuery && matchesLevel && matchesTopic && matchesSaved;
+        return matchesStyle && matchesQuery && matchesLevel && matchesTopic && matchesSaved;
       });
 
       grid.innerHTML = filtered.map(video => {
@@ -3486,7 +3493,7 @@
         document.querySelector("#platformRadar").innerHTML = `<div class="empty">找不到符合條件的平台來源。</div>`;
       }
 
-      const customForStyle = state.customSources.filter(item => !item.style || item.style === state.style || belongsToStyle(item));
+      const customForStyle = state.customSources.filter(item => item.style === state.style || (!item.style && belongsToStyle(item)));
       const combinedInbox = [...customForStyle, ...inboxForStyle];
       document.querySelector("#sourceInbox").innerHTML = combinedInbox.map(item => `
         <article class="source-card">
@@ -3722,8 +3729,8 @@
 
       libraryTitle.textContent = `${current.title} 影片資料庫`;
       libraryIntro.textContent = state.style === "bachata"
-        ? "包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。"
-        : `這裡先放 ${current.title} 的分類搜尋入口。找到適合影片後，可以加入待處理來源，再慢慢切成正式課程。`;
+        ? "Bachata 專屬影片庫：包含已找到的 YouTube 影片、教學網站與搜尋入口。可依程度、主題、風格篩選，也可以收藏之後慢慢練。"
+        : `${current.title} 專屬影片庫：只顯示 ${current.title} 的教學影片與搜尋入口；找到更適合的來源後，可以加入待處理來源再整理成正式課程。`;
       categoryPresets.innerHTML = content.presets.map(([key, title, text]) => `
         <button class="category-preset" type="button" data-video-preset="${key}"><strong>${title}</strong><span>${text}</span></button>
       `).join("");
