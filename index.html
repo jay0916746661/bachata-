@@ -259,7 +259,7 @@
 
     .style-panel {
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 14px;
       align-items: start;
     }
@@ -1160,6 +1160,7 @@
       <div class="brand"><span class="brand-mark" id="brandMark">D</span> <span id="brandName">Dance Training</span></div>
       <div class="nav-links">
         <a href="#danceStyles">舞風</a>
+        <a href="#classVideos">上課影片</a>
         <a href="#path">課綱</a>
         <a href="#moves">招數表</a>
         <a href="#segments">切片庫</a>
@@ -1171,7 +1172,7 @@
     </nav>
     <nav class="mobile-tabbar" aria-label="手機快速導覽">
       <a href="#danceStyles">舞風</a>
-      <a href="#segments">切片</a>
+      <a href="#classVideos">上課</a>
       <a href="#library">影片</a>
       <a href="#practice">練習</a>
       <a href="#sources">來源</a>
@@ -1212,17 +1213,22 @@
               <ul class="mini-list" id="styleLevels"></ul>
               <div class="style-actions" id="styleActions"></div>
             </section>
-            <section class="style-info">
-              <h3>手機上課影片庫</h3>
-              <p>把手機錄的課堂影片先上傳到 YouTube unlisted、Google Drive 或 iCloud 分享，再把連結貼進來。平台會存在你的手機瀏覽器，不會塞進 GitHub repo。</p>
-              <form class="source-form" id="classVideoForm">
-                <input class="search" id="classVideoTitle" type="text" placeholder="例如：Zouk 週三課 body movement">
-                <input class="search" id="classVideoUrl" type="url" placeholder="貼上 YouTube unlisted / Drive / iCloud 連結">
-                <button class="small-btn" type="submit">加入上課影片</button>
-              </form>
-              <div class="class-video-grid" id="classVideoGrid"></div>
-            </section>
           </div>
+        </div>
+      </section>
+
+      <section class="band" id="classVideos">
+        <div class="section-inner">
+          <div class="section-title">
+            <h2 id="classVideosTitle">上課影片集中區</h2>
+            <p id="classVideosIntro">手機錄的課堂影片集中放在這裡。Google Drive / YouTube 影片會直接嵌入播放，切換舞風後也會只顯示該舞風的上課影片。</p>
+          </div>
+          <form class="source-form" id="classVideoForm">
+            <input class="search" id="classVideoTitle" type="text" placeholder="例如：Bachata 週二課 hammerlock">
+            <input class="search" id="classVideoUrl" type="url" placeholder="貼上 YouTube unlisted / Google Drive / iCloud 連結">
+            <button class="small-btn" type="submit">加入上課影片</button>
+          </form>
+          <div class="class-video-grid" id="classVideoGrid"></div>
         </div>
       </section>
 
@@ -2754,6 +2760,8 @@
     const styleDescription = document.querySelector("#styleDescription");
     const styleLevels = document.querySelector("#styleLevels");
     const styleActions = document.querySelector("#styleActions");
+    const classVideosTitle = document.querySelector("#classVideosTitle");
+    const classVideosIntro = document.querySelector("#classVideosIntro");
     const classVideoForm = document.querySelector("#classVideoForm");
     const classVideoTitle = document.querySelector("#classVideoTitle");
     const classVideoUrl = document.querySelector("#classVideoUrl");
@@ -3832,6 +3840,10 @@
       stylesIntro.textContent = page.stylesIntro;
       sourcesTitle.textContent = page.sourcesTitle;
       sourcesIntro.textContent = page.sourcesIntro;
+      classVideosTitle.textContent = `${current.title} 上課影片集中區`;
+      classVideosIntro.textContent = state.style === "bachata"
+        ? "你的 Bachata Google Drive 上課影片已集中在這裡，可以直接站內播放。之後新增的手機影片也會放在同一區。"
+        : `${current.title} 的手機上課影片會集中在這裡。貼上 Google Drive 或 YouTube 連結後，能嵌入的會直接站內播放。`;
       inboxTitle.textContent = page.inboxTitle;
       inboxIntro.textContent = page.inboxIntro;
       sourceSearch.placeholder = page.sourcePlaceholder;
