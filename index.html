@@ -299,6 +299,7 @@
     }
 
     .class-video-embed {
+      position: relative;
       aspect-ratio: 16 / 9;
       background: #20242a;
     }
@@ -318,6 +319,67 @@
 
     .class-video-body h3 {
       font-size: 16px;
+    }
+
+    .watch-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background: rgba(15, 17, 21, .86);
+      backdrop-filter: blur(10px);
+    }
+
+    .watch-overlay[hidden] {
+      display: none !important;
+    }
+
+    .watch-panel {
+      width: min(1180px, 100%);
+      max-height: min(92vh, 860px);
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      background: #111419;
+      box-shadow: 0 24px 72px rgba(0,0,0,.4);
+    }
+
+    .watch-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+
+    .watch-head h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .watch-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .watch-frame {
+      width: 100%;
+      height: min(76vh, 720px);
+      background: #000;
+    }
+
+    .watch-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
     }
 
     .path-grid {
@@ -1151,6 +1213,34 @@
         font-weight: 820;
         background: rgba(255,255,255,.08);
       }
+
+      .watch-overlay {
+        padding: 8px;
+        place-items: stretch;
+      }
+
+      .watch-panel {
+        max-height: calc(100vh - 16px);
+        align-self: center;
+      }
+
+      .watch-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .watch-actions {
+        width: 100%;
+      }
+
+      .watch-actions .small-btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .watch-frame {
+        height: min(72vh, 620px);
+      }
     }
   </style>
 </head>
@@ -1592,6 +1682,19 @@
         </div>
       </section>
     </main>
+
+    <div class="watch-overlay" id="classWatchOverlay" hidden>
+      <section class="watch-panel" role="dialog" aria-modal="true" aria-labelledby="classWatchTitle">
+        <div class="watch-head">
+          <h3 id="classWatchTitle">上課影片</h3>
+          <div class="watch-actions">
+            <a class="small-btn" id="classWatchOriginal" href="#" target="_blank" rel="noreferrer">開原影片</a>
+            <button class="small-btn" type="button" id="classWatchClose">關閉</button>
+          </div>
+        </div>
+        <div class="watch-frame" id="classWatchFrame"></div>
+      </section>
+    </div>
 
     <footer>
       <div class="section-inner">
@@ -2766,6 +2869,11 @@
     const classVideoTitle = document.querySelector("#classVideoTitle");
     const classVideoUrl = document.querySelector("#classVideoUrl");
     const classVideoGrid = document.querySelector("#classVideoGrid");
+    const classWatchOverlay = document.querySelector("#classWatchOverlay");
+    const classWatchTitle = document.querySelector("#classWatchTitle");
+    const classWatchOriginal = document.querySelector("#classWatchOriginal");
+    const classWatchClose = document.querySelector("#classWatchClose");
+    const classWatchFrame = document.querySelector("#classWatchFrame");
     const originalMindMapHtml = mindMap.innerHTML;
     const originalMoveTableBodyHtml = moveTableBody.innerHTML;
 
@@ -3681,6 +3789,31 @@
       return "";
     }
 
+    function allClassVideos() {
+      return [...defaultClassVideos, ...state.classVideos];
+    }
+
+    function openClassWatch(id) {
+      const video = allClassVideos().find(item => String(item.id) === String(id));
+      if (!video) return;
+      const embed = classVideoEmbedUrl(video);
+      if (!embed) {
+        window.open(video.url, "_blank", "noopener");
+        return;
+      }
+      classWatchTitle.textContent = video.title;
+      classWatchOriginal.href = video.url;
+      classWatchFrame.innerHTML = `<iframe src="${embed}" title="${video.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      classWatchOverlay.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeClassWatch() {
+      classWatchOverlay.hidden = true;
+      classWatchFrame.innerHTML = "";
+      document.body.style.overflow = "";
+    }
+
     function suggestedSourceStatus(platform) {
       if (platform === "YouTube") return "待切片";
       if (platform === "Instagram" || platform === "TikTok") return "外連追蹤";
@@ -3950,7 +4083,7 @@
     }
 
     function renderClassVideos() {
-      const videosForStyle = [...defaultClassVideos, ...state.classVideos].filter(video => video.style === state.style);
+      const videosForStyle = allClassVideos().filter(video => video.style === state.style);
       classVideoGrid.innerHTML = videosForStyle.map(video => {
         const embed = classVideoEmbedUrl(video);
         return `
@@ -3964,6 +4097,7 @@
             <h3>${video.title}</h3>
             <p>${video.note || "私人上課影片連結。Google Drive / YouTube 會優先站內播放，之後也可以再切片進課程。"}</p>
             <div class="resource-actions">
+              <button class="small-btn" type="button" data-watch-class-video="${video.id}">放大觀看</button>
               <a class="small-btn" href="${video.url}" target="_blank" rel="noreferrer">開原影片</a>
               ${String(video.id).startsWith("drive-") ? "" : `<button class="small-btn" type="button" data-remove-class-video="${video.id}">移除</button>`}
             </div>
@@ -4226,9 +4360,21 @@
     });
     classVideoForm.addEventListener("submit", addClassVideo);
     classVideoGrid.addEventListener("click", event => {
+      const watchButton = event.target.closest("[data-watch-class-video]");
+      if (watchButton) {
+        openClassWatch(watchButton.dataset.watchClassVideo);
+        return;
+      }
       const button = event.target.closest("[data-remove-class-video]");
       if (!button) return;
       removeClassVideo(button.dataset.removeClassVideo);
+    });
+    classWatchClose.addEventListener("click", closeClassWatch);
+    classWatchOverlay.addEventListener("click", event => {
+      if (event.target === classWatchOverlay) closeClassWatch();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !classWatchOverlay.hidden) closeClassWatch();
     });
 
     document.querySelector("#library").addEventListener("click", event => {
