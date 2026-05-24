@@ -45,21 +45,100 @@
     }
 
     .hero {
+      --hero-image: url("https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=1800&q=82");
+      --hero-position: center 42%;
+      --hero-tint: rgba(158, 47, 69, .22);
       min-height: 92vh;
       display: grid;
       align-items: end;
       padding: 24px;
-      background:
-        linear-gradient(180deg, rgba(12, 13, 17, .18), rgba(12, 13, 17, .72)),
-        url("https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=1800&q=82") center 42% / cover;
+      position: relative;
+      overflow: hidden;
+      background: #111419;
       color: #fff;
     }
 
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      background-image: var(--hero-image);
+      background-position: var(--hero-position);
+      background-size: cover;
+      transform: scale(1.03);
+      transition: background-image .25s ease, background-position .7s ease, transform .75s ease, filter .75s ease;
+      filter: saturate(.98) contrast(1.02);
+    }
+
+    .hero::after {
+      background:
+        radial-gradient(circle at 68% 38%, var(--hero-tint), transparent 34%),
+        linear-gradient(90deg, rgba(12, 13, 17, .46), rgba(12, 13, 17, .1) 46%, rgba(12, 13, 17, .52)),
+        linear-gradient(180deg, rgba(12, 13, 17, .1), rgba(12, 13, 17, .72));
+    }
+
     .hero-inner {
+      position: relative;
+      z-index: 1;
       width: min(1180px, 100%);
       margin: 0 auto;
       display: grid;
       gap: 26px;
+    }
+
+    body.is-style-switching .hero::before {
+      animation: heroImageDrift .62s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    body.is-style-switching .hero-inner {
+      animation: heroPanelSlide .48s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    body.is-style-switching .style-panel,
+    body.is-style-switching .path-grid,
+    body.is-style-switching .move-layout,
+    body.is-style-switching .video-grid {
+      animation: contentPanelSlide .42s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    @keyframes heroImageDrift {
+      from {
+        opacity: .72;
+        transform: scale(1.12) translateX(24px);
+        filter: saturate(.82) blur(2px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1.03) translateX(0);
+        filter: saturate(.98) blur(0);
+      }
+    }
+
+    @keyframes heroPanelSlide {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes contentPanelSlide {
+      from {
+        opacity: .35;
+        transform: translateX(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .nav {
@@ -2311,6 +2390,9 @@
         brand: "Bachata Training",
         heroTitle: "Bachata Training",
         heroCopy: "一個從零開始到能上社交舞池的 Bachata 教學平台：影片、課綱、練習任務與收藏清單都整理在同一個地方。",
+        heroImage: "https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=1800&q=82",
+        heroPosition: "center 42%",
+        heroTint: "rgba(158, 47, 69, .28)",
         stylesIntro: "Bachata、Salsa、Zouk、Blues 都有各自的課綱、影片入口、招數表與心智圖；手機上課影片也可以分舞風收藏。",
         sourcesTitle: "Bachata 來源與延伸",
         sourcesIntro: "這裡放 Bachata 的主要來源。YouTube 適合站內播放和切片；IG、TikTok、網站課程則適合追蹤靈感、短招式和老師風格。",
@@ -2324,6 +2406,9 @@
         brand: "Salsa Training",
         heroTitle: "Salsa Training",
         heroCopy: "Salsa 分頁整理 On1 / On2 timing、cross body lead、turn patterns、shines、musicality 和社交安全，適合用手機快速複習。",
+        heroImage: "https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=1800&q=82",
+        heroPosition: "center 45%",
+        heroTint: "rgba(201, 133, 36, .28)",
         stylesIntro: "目前正在 Salsa 模式：整頁會顯示 Salsa 的課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
         sourcesTitle: "Salsa 來源與延伸",
         sourcesIntro: "這裡優先收 Salsa full class、cross body lead、turn variations、shines、On2 timing、clave 和社交 floorcraft。",
@@ -2337,6 +2422,9 @@
         brand: "Zouk Training",
         heroTitle: "Zouk Training",
         heroCopy: "Zouk 分頁以安全優先：lateral、frame、connection、viradinha、body movement、head movement safety 都分開整理。",
+        heroImage: "https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?auto=format&fit=crop&w=1800&q=82",
+        heroPosition: "center 38%",
+        heroTint: "rgba(24, 115, 107, .3)",
         stylesIntro: "目前正在 Zouk 模式：整頁會顯示 Zouk 的安全課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
         sourcesTitle: "Zouk 來源與延伸",
         sourcesIntro: "這裡優先收 Brazilian Zouk basic、lateral、viradinha、frame、elastic connection、body movement 和 head safety。",
@@ -2350,6 +2438,9 @@
         brand: "Blues Training",
         heroTitle: "Blues Training",
         heroCopy: "Blues 分頁整理 pulse、weight shift、close embrace、slow drag、solo blues、idioms 和 musical conversation。",
+        heroImage: "https://images.unsplash.com/photo-1518834107812-67b0b7c58434?auto=format&fit=crop&w=1800&q=82",
+        heroPosition: "center 36%",
+        heroTint: "rgba(49, 92, 159, .3)",
         stylesIntro: "目前正在 Blues 模式：整頁會顯示 Blues 的課綱、招數表、影片庫、切片規劃、練習計畫與來源池。",
         sourcesTitle: "Blues 來源與延伸",
         sourcesIntro: "這裡優先收 pulse、slow drag、close embrace、solo blues、idioms、call and response 和社交安全來源。",
@@ -2968,6 +3059,7 @@
     const sourceUrl = document.querySelector("#sourceUrl");
     const brandMark = document.querySelector("#brandMark");
     const brandName = document.querySelector("#brandName");
+    const hero = document.querySelector(".hero");
     const heroTitle = document.querySelector("#heroTitle");
     const heroCopy = document.querySelector("#heroCopy");
     const heroStatVideos = document.querySelector("#heroStatVideos");
@@ -4100,6 +4192,10 @@
       const current = danceStyles[state.style] || danceStyles.bachata;
       const page = stylePageContent[state.style] || stylePageContent.bachata;
       const movesCount = state.style === "bachata" ? 16 : (styleMoveContent[state.style]?.moves.length || 0);
+      hero.style.setProperty("--hero-image", `url("${page.heroImage}")`);
+      hero.style.setProperty("--hero-position", page.heroPosition);
+      hero.style.setProperty("--hero-tint", page.heroTint);
+      hero.dataset.style = state.style;
       brandMark.textContent = page.mark;
       brandName.textContent = page.brand;
       heroTitle.textContent = page.heroTitle;
@@ -4174,6 +4270,10 @@
 
     function selectDanceStyle(key) {
       if (!danceStyles[key]) return;
+      document.body.classList.remove("is-style-switching");
+      void document.body.offsetWidth;
+      document.body.classList.add("is-style-switching");
+      window.setTimeout(() => document.body.classList.remove("is-style-switching"), 680);
       state.style = key;
       localStorage.setItem("dance-style", key);
       search.value = "";
