@@ -1318,6 +1318,18 @@
             <input class="search" id="classVideoUrl" type="url" placeholder="貼上 YouTube unlisted / Google Drive / iCloud 連結">
             <button class="small-btn" type="submit">加入上課影片</button>
           </form>
+          <div class="toolbar">
+            <div class="filter-row">
+              <input class="search" id="classVideoSearch" type="search" placeholder="搜尋上課影片：日期、檔名、螢幕錄影...">
+              <select class="select" id="classVideoSort">
+                <option value="newest">日期新到舊</option>
+                <option value="oldest">日期舊到新</option>
+                <option value="title">標題排序</option>
+              </select>
+              <button class="small-btn" id="classVideoUnwatched" type="button">只看未看</button>
+            </div>
+            <span class="segment-count" id="classVideoProgress"></span>
+          </div>
           <div class="class-video-grid" id="classVideoGrid"></div>
         </div>
       </section>
@@ -2688,6 +2700,8 @@
       segments: new Set(JSON.parse(localStorage.getItem("bachata-segments") || "[]")),
       customSources: JSON.parse(localStorage.getItem("bachata-custom-sources") || "[]"),
       classVideos: JSON.parse(localStorage.getItem("dance-class-videos") || "[]"),
+      classWatched: new Set(JSON.parse(localStorage.getItem("dance-class-watched") || "[]")),
+      classUnwatchedOnly: false,
       style: localStorage.getItem("dance-style") || "bachata",
       currentLesson: "hammerlock-1"
     };
@@ -2976,6 +2990,10 @@
     const classVideoForm = document.querySelector("#classVideoForm");
     const classVideoTitle = document.querySelector("#classVideoTitle");
     const classVideoUrl = document.querySelector("#classVideoUrl");
+    const classVideoSearch = document.querySelector("#classVideoSearch");
+    const classVideoSort = document.querySelector("#classVideoSort");
+    const classVideoUnwatched = document.querySelector("#classVideoUnwatched");
+    const classVideoProgress = document.querySelector("#classVideoProgress");
     const classVideoGrid = document.querySelector("#classVideoGrid");
     const classWatchOverlay = document.querySelector("#classWatchOverlay");
     const classWatchTitle = document.querySelector("#classWatchTitle");
@@ -3901,6 +3919,12 @@
       return [...defaultClassVideos, ...state.classVideos];
     }
 
+    function classVideoDateValue(video) {
+      const text = `${video.title} ${video.note || ""}`;
+      const match = text.match(/(20\d{2})[-_](\d{2})[-_](\d{2})/);
+      return match ? Number(`${match[1]}${match[2]}${match[3]}`) : 0;
+    }
+
     function openClassWatch(id) {
       const video = allClassVideos().find(item => String(item.id) === String(id));
       if (!video) return;
@@ -4187,13 +4211,45 @@
     function removeClassVideo(id) {
       state.classVideos = state.classVideos.filter(video => video.id !== id);
       localStorage.setItem("dance-class-videos", JSON.stringify(state.classVideos));
+      state.classWatched.delete(id);
+      localStorage.setItem("dance-class-watched", JSON.stringify([...state.classWatched]));
+      renderClassVideos();
+    }
+
+    function toggleClassWatched(id) {
+      if (state.classWatched.has(id)) {
+        state.classWatched.delete(id);
+      } else {
+        state.classWatched.add(id);
+      }
+      localStorage.setItem("dance-class-watched", JSON.stringify([...state.classWatched]));
       renderClassVideos();
     }
 
     function renderClassVideos() {
+      const query = classVideoSearch.value.trim().toLowerCase();
       const videosForStyle = allClassVideos().filter(video => video.style === state.style);
-      classVideoGrid.innerHTML = videosForStyle.map(video => {
+      const watchedCount = videosForStyle.filter(video => state.classWatched.has(String(video.id))).length;
+      const filtered = videosForStyle
+        .filter(video => {
+          const key = String(video.id);
+          const haystack = [video.title, video.note, video.platform, video.url].filter(Boolean).join(" ").toLowerCase();
+          const matchesQuery = !query || haystack.includes(query);
+          const matchesWatched = !state.classUnwatchedOnly || !state.classWatched.has(key);
+          return matchesQuery && matchesWatched;
+        })
+        .sort((a, b) => {
+          if (classVideoSort.value === "oldest") return classVideoDateValue(a) - classVideoDateValue(b);
+          if (classVideoSort.value === "title") return a.title.localeCompare(b.title, "zh-Hant");
+          return classVideoDateValue(b) - classVideoDateValue(a);
+        });
+      classVideoProgress.textContent = `${watchedCount} / ${videosForStyle.length} 已看 · 目前顯示 ${filtered.length} 支`;
+      classVideoUnwatched.classList.toggle("saved", state.classUnwatchedOnly);
+      classVideoUnwatched.textContent = state.classUnwatchedOnly ? "顯示全部" : "只看未看";
+      classVideoGrid.innerHTML = filtered.map(video => {
         const embed = classVideoEmbedUrl(video);
+        const key = String(video.id);
+        const watched = state.classWatched.has(key);
         return `
         <article class="source-card class-video-card">
           ${embed ? `<div class="class-video-embed"><iframe src="${embed}" title="${video.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` : ""}
@@ -4201,11 +4257,13 @@
             <div class="source-meta">
               <span class="tag">${danceStyles[video.style]?.title || "Dance"}</span>
               <span class="tag">${video.platform}</span>
+              <span class="tag">${watched ? "已看" : "未看"}</span>
             </div>
             <h3>${video.title}</h3>
             <p>${video.note || "私人上課影片連結。Google Drive / YouTube 會優先站內播放，之後也可以再切片進課程。"}</p>
             <div class="resource-actions">
               <button class="small-btn" type="button" data-watch-class-video="${video.id}">放大觀看</button>
+              <button class="small-btn ${watched ? "saved" : ""}" type="button" data-toggle-class-watched="${video.id}">${watched ? "標記未看" : "標記已看"}</button>
               <a class="small-btn" href="${video.url}" target="_blank" rel="noreferrer">開原影片</a>
               ${String(video.id).startsWith("drive-") ? "" : `<button class="small-btn" type="button" data-remove-class-video="${video.id}">移除</button>`}
             </div>
@@ -4215,6 +4273,8 @@
       }).join("");
       if (!videosForStyle.length) {
         classVideoGrid.innerHTML = `<div class="empty">這個舞風還沒有私人上課影片。先把影片上傳成分享連結，再貼進來。</div>`;
+      } else if (!filtered.length) {
+        classVideoGrid.innerHTML = `<div class="empty">找不到符合條件的上課影片。清掉搜尋或顯示全部試試。</div>`;
       }
     }
 
@@ -4473,9 +4533,20 @@
         openClassWatch(watchButton.dataset.watchClassVideo);
         return;
       }
+      const watchedButton = event.target.closest("[data-toggle-class-watched]");
+      if (watchedButton) {
+        toggleClassWatched(watchedButton.dataset.toggleClassWatched);
+        return;
+      }
       const button = event.target.closest("[data-remove-class-video]");
       if (!button) return;
       removeClassVideo(button.dataset.removeClassVideo);
+    });
+    classVideoSearch.addEventListener("input", renderClassVideos);
+    classVideoSort.addEventListener("input", renderClassVideos);
+    classVideoUnwatched.addEventListener("click", () => {
+      state.classUnwatchedOnly = !state.classUnwatchedOnly;
+      renderClassVideos();
     });
     classWatchClose.addEventListener("click", closeClassWatch);
     classWatchOverlay.addEventListener("click", event => {
