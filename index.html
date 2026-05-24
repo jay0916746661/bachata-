@@ -292,6 +292,34 @@
       gap: 10px;
     }
 
+    .class-video-card {
+      overflow: hidden;
+      display: grid;
+      gap: 12px;
+    }
+
+    .class-video-embed {
+      aspect-ratio: 16 / 9;
+      background: #20242a;
+    }
+
+    .class-video-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .class-video-body {
+      display: grid;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .class-video-body h3 {
+      font-size: 16px;
+    }
+
     .path-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -2560,6 +2588,108 @@
       localStorage.setItem("dance-style", state.style);
     }
 
+    const defaultClassVideos = [
+      {
+        id: "drive-20260420-214406",
+        title: "2026-04-20 Bachata 上課影片 1",
+        url: "https://drive.google.com/file/d/1Co5WrUW6UA9KQIzzqGEKSqOCQgDIH5Oh/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1Co5WrUW6UA9KQIzzqGEKSqOCQgDIH5Oh/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260420_214406.mp4"
+      },
+      {
+        id: "drive-20260420-214808",
+        title: "2026-04-20 Bachata 上課影片 2",
+        url: "https://drive.google.com/file/d/1yP0qX74XoGwsOl_gUcSsdWny5G3nx8-M/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1yP0qX74XoGwsOl_gUcSsdWny5G3nx8-M/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260420_214808.mp4"
+      },
+      {
+        id: "drive-20260420-225104",
+        title: "2026-04-20 Bachata 上課影片 3",
+        url: "https://drive.google.com/file/d/11IeHX2XD_s2-wpMwL1Z_rngQY7-8EUiY/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/11IeHX2XD_s2-wpMwL1Z_rngQY7-8EUiY/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260420_225104.mp4"
+      },
+      {
+        id: "drive-20260420-225423",
+        title: "2026-04-20 Bachata 上課影片 4",
+        url: "https://drive.google.com/file/d/193rvni8AALC9MhFJ6ljp_i6I6R03hL-l/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/193rvni8AALC9MhFJ6ljp_i6I6R03hL-l/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260420_225423.mp4"
+      },
+      {
+        id: "drive-20260519-screenrecorder",
+        title: "2026-05-21 Bachata 螢幕錄影",
+        url: "https://drive.google.com/file/d/1u3rkM3NlvOo9nj9Pzq8WOJuUExJ0jLIc/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1u3rkM3NlvOo9nj9Pzq8WOJuUExJ0jLIc/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "螢幕錄影：Screenrecorder-2026-05-21-00-30-27-146.mp4"
+      },
+      {
+        id: "drive-20260519-074731",
+        title: "2026-05-19 Bachata 上課影片 1",
+        url: "https://drive.google.com/file/d/1kEmzIVtLzPXgIE-_tqtYVldTJAkS7WVK/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1kEmzIVtLzPXgIE-_tqtYVldTJAkS7WVK/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260519_074731_429.mp4"
+      },
+      {
+        id: "drive-20260519-214346",
+        title: "2026-05-19 Bachata 上課影片 2",
+        url: "https://drive.google.com/file/d/18_MndeMlW1rFN98EwBYKIgX5QPpoEr3g/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/18_MndeMlW1rFN98EwBYKIgX5QPpoEr3g/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260519_214346.mp4"
+      },
+      {
+        id: "drive-20260519-214450",
+        title: "2026-05-19 Bachata 上課影片 3",
+        url: "https://drive.google.com/file/d/1BiotHpoWQgQEgv7s8QHx0llANVx2YZC5/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1BiotHpoWQgQEgv7s8QHx0llANVx2YZC5/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260519_214450.mp4"
+      },
+      {
+        id: "drive-20260519-214603",
+        title: "2026-05-19 Bachata 上課影片 4",
+        url: "https://drive.google.com/file/d/1Q3UeGo5zzZsgV4jojAS_ljL2JYFaLpin/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1Q3UeGo5zzZsgV4jojAS_ljL2JYFaLpin/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260519_214603.mp4"
+      },
+      {
+        id: "drive-20260522-200818-a",
+        title: "2026-05-22 Bachata 上課影片 A",
+        url: "https://drive.google.com/file/d/1lygROKudDothvNdMQCwwF0pecV23e0mE/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1lygROKudDothvNdMQCwwF0pecV23e0mE/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260522_200818_784.mp4"
+      },
+      {
+        id: "drive-20260522-200818-b",
+        title: "2026-05-22 Bachata 上課影片 B",
+        url: "https://drive.google.com/file/d/1VGJNJVrkpkykjQUhX3IbnmDHoJRJPz67/view?usp=drivesdk",
+        embed: "https://drive.google.com/file/d/1VGJNJVrkpkykjQUhX3IbnmDHoJRJPz67/preview",
+        platform: "Google Drive",
+        style: "bachata",
+        note: "手機錄影：VID_20260522_200818_784.mp4"
+      }
+    ];
+
     const grid = document.querySelector("#videoGrid");
     const emptyState = document.querySelector("#emptyState");
     const search = document.querySelector("#search");
@@ -3529,8 +3659,18 @@
       if (lower.includes("instagram.com")) return "Instagram";
       if (lower.includes("tiktok.com")) return "TikTok";
       if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "YouTube";
+      if (lower.includes("drive.google.com")) return "Google Drive";
       if (lower.includes("reddit.com")) return "Reddit";
       return "Website";
+    }
+
+    function classVideoEmbedUrl(video) {
+      if (video.embed) return video.embed;
+      const driveMatch = video.url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+      if (driveMatch) return `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+      const youtubeMatch = video.url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
+      if (youtubeMatch) return `https://www.youtube-nocookie.com/embed/${youtubeMatch[1]}`;
+      return "";
     }
 
     function suggestedSourceStatus(platform) {
@@ -3798,21 +3938,27 @@
     }
 
     function renderClassVideos() {
-      const videosForStyle = state.classVideos.filter(video => video.style === state.style);
-      classVideoGrid.innerHTML = videosForStyle.map(video => `
-        <article class="source-card">
-          <div class="source-meta">
-            <span class="tag">${danceStyles[video.style]?.title || "Dance"}</span>
-            <span class="tag">${video.platform}</span>
-          </div>
-          <h3>${video.title}</h3>
-          <p>私人上課影片連結。若是 YouTube unlisted，之後可以再切片進課程。</p>
-          <div class="resource-actions">
-            <a class="small-btn" href="${video.url}" target="_blank" rel="noreferrer">開啟影片</a>
-            <button class="small-btn" type="button" data-remove-class-video="${video.id}">移除</button>
+      const videosForStyle = [...defaultClassVideos, ...state.classVideos].filter(video => video.style === state.style);
+      classVideoGrid.innerHTML = videosForStyle.map(video => {
+        const embed = classVideoEmbedUrl(video);
+        return `
+        <article class="source-card class-video-card">
+          ${embed ? `<div class="class-video-embed"><iframe src="${embed}" title="${video.title}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>` : ""}
+          <div class="class-video-body">
+            <div class="source-meta">
+              <span class="tag">${danceStyles[video.style]?.title || "Dance"}</span>
+              <span class="tag">${video.platform}</span>
+            </div>
+            <h3>${video.title}</h3>
+            <p>${video.note || "私人上課影片連結。Google Drive / YouTube 會優先站內播放，之後也可以再切片進課程。"}</p>
+            <div class="resource-actions">
+              <a class="small-btn" href="${video.url}" target="_blank" rel="noreferrer">開原影片</a>
+              ${String(video.id).startsWith("drive-") ? "" : `<button class="small-btn" type="button" data-remove-class-video="${video.id}">移除</button>`}
+            </div>
           </div>
         </article>
-      `).join("");
+      `;
+      }).join("");
       if (!videosForStyle.length) {
         classVideoGrid.innerHTML = `<div class="empty">這個舞風還沒有私人上課影片。先把影片上傳成分享連結，再貼進來。</div>`;
       }
