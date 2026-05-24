@@ -1250,7 +1250,7 @@
       <div class="brand"><span class="brand-mark" id="brandMark">D</span> <span id="brandName">Dance Training</span></div>
       <div class="nav-links">
         <a href="#danceStyles">舞風</a>
-        <a href="#classVideos">上課影片</a>
+        <a href="#classVideos" id="classVideosNavLink">上課影片</a>
         <a href="#path">課綱</a>
         <a href="#moves">招數表</a>
         <a href="#segments">切片庫</a>
@@ -1262,7 +1262,7 @@
     </nav>
     <nav class="mobile-tabbar" aria-label="手機快速導覽">
       <a href="#danceStyles">舞風</a>
-      <a href="#classVideos">上課</a>
+      <a href="#classVideos" id="classVideosMobileLink">上課</a>
       <a href="#library">影片</a>
       <a href="#practice">練習</a>
       <a href="#sources">來源</a>
@@ -2985,6 +2985,9 @@
     const styleDescription = document.querySelector("#styleDescription");
     const styleLevels = document.querySelector("#styleLevels");
     const styleActions = document.querySelector("#styleActions");
+    const classVideosSection = document.querySelector("#classVideos");
+    const classVideosNavLink = document.querySelector("#classVideosNavLink");
+    const classVideosMobileLink = document.querySelector("#classVideosMobileLink");
     const classVideosTitle = document.querySelector("#classVideosTitle");
     const classVideosIntro = document.querySelector("#classVideosIntro");
     const classVideoForm = document.querySelector("#classVideoForm");
@@ -4229,6 +4232,15 @@
     function renderClassVideos() {
       const query = classVideoSearch.value.trim().toLowerCase();
       const videosForStyle = allClassVideos().filter(video => video.style === state.style);
+      const hasClassVideos = videosForStyle.length > 0;
+      classVideosSection.hidden = !hasClassVideos;
+      classVideosNavLink.hidden = !hasClassVideos;
+      classVideosMobileLink.hidden = !hasClassVideos;
+      if (!hasClassVideos) {
+        classVideoGrid.innerHTML = "";
+        classVideoProgress.textContent = "";
+        return;
+      }
       const watchedCount = videosForStyle.filter(video => state.classWatched.has(String(video.id))).length;
       const filtered = videosForStyle
         .filter(video => {
@@ -4271,9 +4283,7 @@
         </article>
       `;
       }).join("");
-      if (!videosForStyle.length) {
-        classVideoGrid.innerHTML = `<div class="empty">這個舞風還沒有私人上課影片。先把影片上傳成分享連結，再貼進來。</div>`;
-      } else if (!filtered.length) {
+      if (!filtered.length) {
         classVideoGrid.innerHTML = `<div class="empty">找不到符合條件的上課影片。清掉搜尋或顯示全部試試。</div>`;
       }
     }
