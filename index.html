@@ -560,6 +560,66 @@
       background: #fff;
     }
 
+    .move-tools {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .move-category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .move-category {
+      min-height: 76px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .move-category strong,
+    .move-category span {
+      display: block;
+    }
+
+    .move-category strong {
+      font-size: 14px;
+    }
+
+    .move-category span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .move-category.active {
+      color: #fff;
+      background: var(--wine);
+      border-color: var(--wine);
+    }
+
+    .move-category.active span {
+      color: rgba(255,255,255,.78);
+    }
+
+    .move-category-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8f5ef;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
     .lesson-panel {
       display: grid;
       gap: 14px;
@@ -1211,7 +1271,8 @@
       .video-grid,
       .radar-grid,
       .pipeline-grid,
-      .sources-grid {
+      .sources-grid,
+      .move-category-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1256,6 +1317,7 @@
       .sources-grid,
       .map-branches,
       .category-presets,
+      .move-category-grid,
       .segment-grid,
       .drill-grid {
         grid-template-columns: 1fr;
@@ -1497,6 +1559,13 @@
                     <li>每個 4 拍用 tap 收乾淨，不搶下一拍。</li>
                     <li>舞池擠或不確定節拍時，立刻回到這招。</li>
                   </ul>
+                </div>
+              </div>
+              <div class="move-tools">
+                <div class="move-category-grid" id="moveCategoryGrid" aria-label="招式分類快捷鍵"></div>
+                <div class="move-category-summary">
+                  <span id="moveCategorySummary">依名稱與用法分類：完整招式表</span>
+                  <span id="moveCategoryCount">20 個招式</span>
                 </div>
               </div>
               <div class="move-table-wrap">
@@ -2728,6 +2797,40 @@
       }
     };
 
+    const moveCategories = [
+      ["all", "全部招式", "完整順序：先地基，再社交組合與加分素材"],
+      ["basic", "Basic 基礎", "節拍、重心、步幅、入門穩定度"],
+      ["turns", "Turns 轉圈", "單人轉、內外轉、轉完回 basic"],
+      ["partnerwork", "Partnerwork 雙人", "手位、換位、連接、社交高頻組合"],
+      ["footwork", "Footwork 腳步", "Dominican、切分、solo 腳下變化"],
+      ["sensual", "Sensual 身體", "isolation、body wave、慢歌延展"],
+      ["musicality", "Musicality 音樂性", "break、停拍、styling、歌曲反應"],
+      ["safety", "Safety 安全", "close、head roll、dip、界線與空間"]
+    ];
+
+    const bachataMoveRows = [
+      { name: "Side Basic / 原地 Basic", priority: "必學 1", pillClass: "", timing: "任何歌曲開頭、找回節拍、舞池很擠、跟新舞伴暖身。", prereq: "1-8 拍、重心左右轉移、步伐小。", avoid: "想炫招但節拍不穩時。", lesson: "side-basic", action: "播放講解", categories: ["basic", "safety"] },
+      { name: "Hip Movement / 身體律動（髖部機制）", priority: "加強", pillClass: "blue", timing: "basic 看起來很僵、轉圈容易飄、想提升「質感」與穩定度時。", prereq: "先能踩準 1-8 拍、重心真的換腳、步幅小。", avoid: "腰不舒服、為了扭而扭、用下背硬甩髖。", lesson: "hip-movement", action: "技巧補強", alt: true, categories: ["basic", "sensual", "safety"] },
+      { name: "Basic Clean-up（步伐乾淨度）", priority: "加強", pillClass: "blue", timing: "你會跳，但影片看起來「亂、散、急」；想讓 basic 更乾淨更好看時。", prereq: "拍點穩、能控制步幅、願意放慢練細節。", avoid: "舞池很擠還踩很大、為了快而快。", lesson: "step-polish", action: "技巧補強", alt: true, categories: ["basic"] },
+      { name: "Forward / Back Basic", priority: "必學 2", pillClass: "", timing: "換方向、拉開距離、從側向 basic 變化出流動感。", prereq: "不後仰、不拉手，用身體方向暗示。", avoid: "後方有人或舞池太擠。", lesson: "forward-back", action: "播放講解", categories: ["basic", "partnerwork", "safety"] },
+      { name: "Right Turn / 左右單人轉", priority: "必學 3", pillClass: "", timing: "歌曲換句、8 拍結尾、需要簡單變化但不破壞連接。", prereq: "軸心、spotting、手不壓頭。", avoid: "對方重心不穩或鞋底太黏。", lesson: "right-turn", action: "播放講解", categories: ["turns", "partnerwork"] },
+      { name: "Outside / Reverse Turn（外轉 / 反向轉）", priority: "高頻", pillClass: "gold", timing: "你已經會 right turn，想要最實用的「下一個轉圈素材」時。", prereq: "軸心穩、腳步小、轉完能回 basic，不靠手臂拉扯。", avoid: "舞池擁擠、舞伴重心不穩、你不確定帶法時。", lesson: "outside-turn", action: "技巧補強", alt: true, categories: ["turns", "partnerwork", "safety"] },
+      { name: "Open Hold / Closed Hold", priority: "必學 4", pillClass: "", timing: "剛邀舞、確認距離、切換 modern 與 sensual 前。", prereq: "手臂有彈性、肩膀放鬆、尊重距離。", avoid: "對方明顯不想 close position。", lesson: "hold-frame", action: "播放講解", categories: ["partnerwork", "safety"] },
+      { name: "Inside / Outside Turn", priority: "高頻", pillClass: "gold", timing: "社交舞池最常見轉圈，適合銜接 hand change、cross body。", prereq: "leader 提早準備手位，follower 完成自己軸心。", avoid: "音樂很慢但你硬轉很快。", lesson: "inside-outside", action: "播放講解", categories: ["turns", "partnerwork"] },
+      { name: "Cross Body Lead", priority: "高頻", pillClass: "gold", timing: "換位、清出路線、接雙手組合或 cuddle/shadow 前。", prereq: "leader 讓出路線，不用手把人拖過去。", avoid: "旁邊空間不足或跟舞伴還沒建立信任。", lesson: "cross-body", action: "播放講解", categories: ["partnerwork", "safety"] },
+      { name: "Hand Change / Hammerlock", priority: "高頻", pillClass: "gold", timing: "讓簡單 turn 變成組合，適合副歌前後做變化。", prereq: "知道左右手路徑，手腕不扭、不卡肩。", avoid: "對方手臂緊繃或肩膀活動度不足。", lesson: "hammerlock", action: "播放講解", categories: ["partnerwork", "turns", "safety"] },
+      { name: "Dominican Footwork", priority: "中階", pillClass: "blue", timing: "節奏清楚、吉他或打擊明顯、solo break 或分開跳時。", prereq: "basic 很穩、腳步小、能聽到 1 和 5。", avoid: "跟舞伴連接不穩時硬塞快腳。", lesson: "dominican-footwork", action: "播放講解", categories: ["footwork", "musicality"] },
+      { name: "Cha-cha / Syncopation", priority: "中階", pillClass: "blue", timing: "音樂有明顯切分、想把 basic 做得更活。", prereq: "能在加速腳步後回到 1 拍。", avoid: "初學者舞伴還在找拍子時。", lesson: "syncopation", action: "播放講解", categories: ["footwork", "musicality"] },
+      { name: "Body Isolation", priority: "中階", pillClass: "blue", timing: "慢歌、close position、準備進 body wave / roll 前。", prereq: "肩、胸、髖可分開控制，核心穩。", avoid: "用腰硬折或讓對方承重。", lesson: "isolation", action: "播放講解", categories: ["sensual", "safety"] },
+      { name: "Body Wave / Body Roll", priority: "進階", pillClass: "wine", timing: "慢速旋律、明顯延展音、雙方 close connection 已清楚。", prereq: "isolation、呼吸、上下身分離。", avoid: "快歌、擁擠舞池、對方不熟 sensual。", lesson: "body-roll", action: "播放講解", categories: ["sensual", "safety"] },
+      { name: "Side Wave（側波）", priority: "謹慎", pillClass: "wine", timing: "慢歌或副歌延展段、想用小幅度身體線條增加層次時。", prereq: "isolation 清楚、close position 舒服、手臂不推不拉。", avoid: "陌生舞伴、舞池擁擠、對方身體控制不足或不想 sensual。", lesson: "side-wave", action: "技巧補強", alt: true, categories: ["sensual", "safety"] },
+      { name: "Head Roll", priority: "謹慎", pillClass: "wine", timing: "只在 workshop 或熟悉舞伴中，且 follower 主動控制頸部。", prereq: "身體波浪、頸部安全、清楚 cue。", avoid: "陌生舞伴、酒後、頸部不舒服、舞池擁擠。", lesson: "head-roll", action: "播放講解", categories: ["sensual", "safety"] },
+      { name: "Dip / Lean", priority: "謹慎", pillClass: "wine", timing: "歌曲結尾、表演感段落、雙方有練過且空間足夠。", prereq: "leader 支撐不是拉扯，follower 自己站穩。", avoid: "社交舞池亂用、對方沒準備、背後有人。", lesson: "dip-lean", action: "播放講解", categories: ["sensual", "safety"] },
+      { name: "Musical Pause / Break", priority: "加分", pillClass: "dark", timing: "歌曲停頓、歌手拉長音、鼓點斷開時。", prereq: "聽歌結構，能停住但不失去 frame。", avoid: "為了停而停，導致下一拍回不來。", lesson: "musical-pause", action: "播放講解", categories: ["musicality", "sensual"] },
+      { name: "Arm / Ladies / Men Styling", priority: "加分", pillClass: "dark", timing: "solo、轉圈後、basic 裡填空，讓線條更完整。", prereq: "不影響 frame、不打到旁人、動作跟音樂。", avoid: "手臂太大、舞池太擠、為裝飾犧牲連接。", lesson: "styling", action: "播放講解", categories: ["musicality", "footwork", "safety"] },
+      { name: "Shadow / Cuddle Position", priority: "中階", pillClass: "blue", timing: "想做流動組合、body movement、或換方向時。", prereq: "手位路徑清楚，距離舒服，exit 方式已熟。", avoid: "不知道怎麼出來時先不要進去。", lesson: "shadow-cuddle", action: "播放講解", categories: ["partnerwork", "sensual", "safety"] }
+    ];
+
     const videoSegments = [
       {
         key: "hammerlock-1",
@@ -2851,6 +2954,7 @@
       classWatched: new Set(JSON.parse(localStorage.getItem("dance-class-watched") || "[]")),
       classUnwatchedOnly: false,
       style: localStorage.getItem("dance-style") || "bachata",
+      moveCategory: "all",
       currentLesson: "hammerlock-1"
     };
 
@@ -3095,6 +3199,9 @@
     const moveLayout = document.querySelector("#moveLayout");
     const mindMap = document.querySelector(".mind-map");
     const moveTableBody = document.querySelector(".move-table tbody");
+    const moveCategoryGrid = document.querySelector("#moveCategoryGrid");
+    const moveCategorySummary = document.querySelector("#moveCategorySummary");
+    const moveCategoryCount = document.querySelector("#moveCategoryCount");
     const lessonPanel = document.querySelector("#lessonPanel");
     const segmentSection = document.querySelector("#segments");
     const segmentTitle = document.querySelector("#segmentTitle");
@@ -4172,8 +4279,79 @@
       renderClassVideos();
     }
 
+    function moveRowsForCurrentStyle() {
+      if (state.style === "bachata") return bachataMoveRows;
+      const moves = styleMoveContent[state.style];
+      if (!moves) return [];
+      return moves.moves.map(([name, priority, pillClass, timing, prereq, avoid, query, preset]) => ({
+        name,
+        priority,
+        pillClass,
+        timing,
+        prereq,
+        avoid,
+        query,
+        topic: preset,
+        categories: preset === "styling" ? ["musicality"] : [preset]
+      }));
+    }
+
+    function filteredMoveRows(rows) {
+      if (state.moveCategory === "all") return rows;
+      return rows.filter(row => row.categories.includes(state.moveCategory));
+    }
+
+    function renderMoveCategories(rows) {
+      const categories = moveCategories.map(([key, title, text]) => {
+        const count = key === "all" ? rows.length : rows.filter(row => row.categories.includes(key)).length;
+        return [key, title, text, count];
+      }).filter(([key,, , count]) => key === "all" || count > 0);
+
+      if (!categories.some(([key]) => key === state.moveCategory)) {
+        state.moveCategory = "all";
+      }
+
+      moveCategoryGrid.innerHTML = categories.map(([key, title, text, count]) => `
+        <button class="move-category ${state.moveCategory === key ? "active" : ""}" type="button" data-move-category="${key}">
+          <strong>${title} · ${count}</strong>
+          <span>${text}</span>
+        </button>
+      `).join("");
+    }
+
+    function renderMoveTable() {
+      const rows = moveRowsForCurrentStyle();
+      renderMoveCategories(rows);
+      const filtered = filteredMoveRows(rows);
+      const category = moveCategories.find(([key]) => key === state.moveCategory) || moveCategories[0];
+      moveCategorySummary.textContent = `依名稱與用法分類：${category[1]}。${category[2]}`;
+      moveCategoryCount.textContent = `${filtered.length} / ${rows.length} 個招式`;
+      moveTableBody.innerHTML = filtered.map(row => {
+        const action = row.lesson
+          ? `<button class="lesson-link ${row.alt ? "alt" : ""}" type="button" data-lesson="${row.lesson}">${row.action || "播放講解"}</button>`
+          : `<button class="lesson-link" type="button" data-move-video="${row.query}" data-move-topic="${row.topic}">看影片</button>`;
+        return `
+          <tr>
+            <td>${row.name}</td>
+            <td><span class="pill ${row.pillClass || ""}">${row.priority}</span></td>
+            <td>${row.timing}</td>
+            <td>${row.prereq}</td>
+            <td>${row.avoid}</td>
+            <td>${action}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
     function renderStyleMoves() {
       const moves = styleMoveContent[state.style];
+      if (state.style === "bachata") {
+        mindMap.innerHTML = originalMindMapHtml;
+        lessonPanel.hidden = false;
+        segmentSection.hidden = false;
+        renderMoveTable();
+        return;
+      }
       if (!moves) {
         mindMap.innerHTML = originalMindMapHtml;
         moveTableBody.innerHTML = originalMoveTableBodyHtml;
@@ -4210,16 +4388,7 @@
           `).join("")}
         </ol>
       `;
-      moveTableBody.innerHTML = moves.moves.map(([name, priority, pillClass, timing, prereq, avoid, query, preset]) => `
-        <tr>
-          <td>${name}</td>
-          <td><span class="pill ${pillClass}">${priority}</span></td>
-          <td>${timing}</td>
-          <td>${prereq}</td>
-          <td>${avoid}</td>
-          <td><button class="lesson-link" type="button" data-move-video="${query}" data-move-topic="${preset}">看影片</button></td>
-        </tr>
-      `).join("");
+      renderMoveTable();
     }
 
     function weekStorageKey() {
@@ -4338,6 +4507,7 @@
       topic.value = "all";
       segmentSearch.value = "";
       segmentCategory.value = "all";
+      state.moveCategory = "all";
       loadWeeksForStyle();
       state.savedOnly = false;
       savedOnly.classList.remove("saved");
@@ -4649,6 +4819,12 @@
     });
 
     document.querySelector("#moves").addEventListener("click", event => {
+      const categoryButton = event.target.closest("[data-move-category]");
+      if (categoryButton) {
+        state.moveCategory = categoryButton.dataset.moveCategory;
+        renderStyleMoves();
+        return;
+      }
       const doneButton = event.target.closest("[data-segment-done]");
       if (doneButton) {
         event.stopPropagation();
