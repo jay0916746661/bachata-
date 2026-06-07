@@ -620,6 +620,53 @@
       font-size: 14px;
     }
 
+    .move-category-detail {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 10px;
+    }
+
+    .move-category-card {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .move-category-card h3,
+    .move-category-card p {
+      margin: 0;
+    }
+
+    .move-category-card h3 {
+      font-size: 17px;
+    }
+
+    .move-category-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .move-category-lane {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .move-category-lane li {
+      padding: 6px 8px;
+      border-radius: 7px;
+      background: #f8f5ef;
+      color: #3c4148;
+      font-size: 13px;
+      font-weight: 760;
+    }
+
     .lesson-panel {
       display: grid;
       gap: 14px;
@@ -1280,6 +1327,7 @@
       .move-layout,
       .style-panel,
       .source-form,
+      .move-category-detail,
       .stats {
         grid-template-columns: 1fr;
       }
@@ -1567,6 +1615,7 @@
                   <span id="moveCategorySummary">依名稱與用法分類：完整招式表</span>
                   <span id="moveCategoryCount">20 個招式</span>
                 </div>
+                <div class="move-category-detail" id="moveCategoryDetail"></div>
               </div>
               <div class="move-table-wrap">
                 <table class="move-table">
@@ -2808,6 +2857,57 @@
       ["safety", "Safety 安全", "close、head roll、dip、界線與空間"]
     ];
 
+    const moveCategoryGuides = {
+      all: {
+        title: "完整路線：從能跳一首歌開始",
+        train: "先把 basic、turn、hold 跑順，再加 partnerwork、footwork、sensual 和 musicality。",
+        social: "上舞池時只拿 2-3 個最穩的素材輪流用；其餘先當練習室素材。",
+        avoid: "不要照表一次塞滿整首歌。分類是地圖，不是每首歌都要全部使用。"
+      },
+      basic: {
+        title: "Basic：所有招式的地板",
+        train: "用慢歌練小步幅、重心換腳、tap 收尾和髖部自然律動。",
+        social: "開舞、找拍、舞池擁擠、舞伴不熟時，都先回到 basic。",
+        avoid: "節拍還不穩就加花招，會讓後面的轉圈和連接一起歪掉。"
+      },
+      turns: {
+        title: "Turns：變化感但不能破壞連接",
+        train: "先練轉前準備、軸心、手位高度、轉完回 basic；速度最後才加。",
+        social: "8 拍結尾、換句、需要簡單變化時很好用，適合接 cross body 或 hand change。",
+        avoid: "不要用手壓頭、拉手腕，或在舞伴重心不穩時硬轉。"
+      },
+      partnerwork: {
+        title: "Partnerwork：高成功率社交素材",
+        train: "先拆 entry / main action / exit，知道進去也要知道怎麼出來。",
+        social: "副歌前後、舞池空間夠、雙方節奏穩時，用 1-2 個乾淨組合就很夠。",
+        avoid: "手位卡住、肩膀被鎖、或出口不清楚時，立刻放掉回 basic。"
+      },
+      footwork: {
+        title: "Footwork：讓腳下回應音樂",
+        train: "先用 0.75x 速度練一個 8 拍，腳步小到原地可以完成。",
+        social: "solo break、吉他或打擊明顯時加入，讓舞變有節奏層次。",
+        avoid: "partnerwork 不穩、舞伴還在找拍時，不要硬塞快腳。"
+      },
+      sensual: {
+        title: "Sensual：慢歌線條與身體控制",
+        train: "先 solo 練 isolation、呼吸和核心，再用小幅度進雙人連接。",
+        social: "慢歌、雙方 close connection 舒服、空間安全時才加 body wave 或 roll。",
+        avoid: "陌生舞伴、擁擠舞池、對方不想 sensual 或頸背不舒服時不要做。"
+      },
+      musicality: {
+        title: "Musicality：用少量動作跳出音樂",
+        train: "先聽 intro、break、延長音和切分，再決定停、慢動作或加腳步。",
+        social: "歌曲停拍、歌手拉長音、或分開跳時，用停頓和 styling 比堆招更有效。",
+        avoid: "為了停而停，導致下一拍回不來；或 styling 太大打到旁人。"
+      },
+      safety: {
+        title: "Safety：舞池裡最值得優先的分類",
+        train: "每個動作都先問：空間夠嗎、手位舒服嗎、對方知道嗎、有出口嗎。",
+        social: "新舞伴、慢歌、close position、head roll、dip 前都先用安全分類檢查。",
+        avoid: "不要突然 dip、拉頭、扭手腕，或把練習室難招直接丟進社交舞池。"
+      }
+    };
+
     const bachataMoveRows = [
       { name: "Side Basic / 原地 Basic", priority: "必學 1", pillClass: "", timing: "任何歌曲開頭、找回節拍、舞池很擠、跟新舞伴暖身。", prereq: "1-8 拍、重心左右轉移、步伐小。", avoid: "想炫招但節拍不穩時。", lesson: "side-basic", action: "播放講解", categories: ["basic", "safety"] },
       { name: "Hip Movement / 身體律動（髖部機制）", priority: "加強", pillClass: "blue", timing: "basic 看起來很僵、轉圈容易飄、想提升「質感」與穩定度時。", prereq: "先能踩準 1-8 拍、重心真的換腳、步幅小。", avoid: "腰不舒服、為了扭而扭、用下背硬甩髖。", lesson: "hip-movement", action: "技巧補強", alt: true, categories: ["basic", "sensual", "safety"] },
@@ -3202,6 +3302,7 @@
     const moveCategoryGrid = document.querySelector("#moveCategoryGrid");
     const moveCategorySummary = document.querySelector("#moveCategorySummary");
     const moveCategoryCount = document.querySelector("#moveCategoryCount");
+    const moveCategoryDetail = document.querySelector("#moveCategoryDetail");
     const lessonPanel = document.querySelector("#lessonPanel");
     const segmentSection = document.querySelector("#segments");
     const segmentTitle = document.querySelector("#segmentTitle");
@@ -4324,8 +4425,25 @@
       renderMoveCategories(rows);
       const filtered = filteredMoveRows(rows);
       const category = moveCategories.find(([key]) => key === state.moveCategory) || moveCategories[0];
+      const guide = moveCategoryGuides[state.moveCategory] || moveCategoryGuides.all;
+      const lane = filtered.slice(0, 5);
       moveCategorySummary.textContent = `依名稱與用法分類：${category[1]}。${category[2]}`;
       moveCategoryCount.textContent = `${filtered.length} / ${rows.length} 個招式`;
+      moveCategoryDetail.innerHTML = `
+        <article class="move-category-card">
+          <h3>${guide.title}</h3>
+          <p><strong>練習：</strong>${guide.train}</p>
+          <p><strong>舞池用法：</strong>${guide.social}</p>
+          <p><strong>避雷：</strong>${guide.avoid}</p>
+        </article>
+        <article class="move-category-card">
+          <h3>這類先練</h3>
+          <ul class="move-category-lane">
+            ${lane.map(row => `<li>${row.name}</li>`).join("")}
+          </ul>
+          <p>${state.moveCategory === "all" ? "照表由上往下即可；每次練習只挑一段，不急著全吃。" : "先把這幾個做到穩定，再往下加同分類的變化。"}</p>
+        </article>
+      `;
       moveTableBody.innerHTML = filtered.map(row => {
         const action = row.lesson
           ? `<button class="lesson-link ${row.alt ? "alt" : ""}" type="button" data-lesson="${row.lesson}">${row.action || "播放講解"}</button>`
